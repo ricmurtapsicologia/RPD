@@ -5,269 +5,282 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro de Pensamentos Disfuncionais (RPD) - Ferramenta Online</title>
   <style>
-        body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url('https://i.pinimg.com/564x/6e/83/11/6e8311a4f71155475d25e3fb42fd2447.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: #333;
-    margin: 0;
-    padding: 0;
-  }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('https://i.pinimg.com/564x/6e/83/11/6e8311a4f71155475d25e3fb42fd2447.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
 
-  header {
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 40px;
-    text-align: center;
-    font-size: 28px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 40px;
+      text-align: center;
+      font-size: 28px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
 
-  header h1 {
-    margin: 0;
-    font-weight: 700;
-  }
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+    }
 
-  main {
-    width: 90%;
-    max-width: 900px;
-    background-color: rgba(255, 255, 255, 0.9);
-    margin: 30px auto;
-    padding: 40px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    border-radius: 18px;
-    backdrop-filter: blur(10px);
-  }
-
-  label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-
-  input[type="text"],
-  select,
-  input[type="date"] {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 2px solid #ccc;
-    border-radius: 18px;
-    font-size: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    outline: none;
-    box-sizing: border-box;
-  }
-
-  input[type="text"]:focus,
-  select:focus,
-  input[type="date"]:focus {
-    border-color: #5b9bd5;
-    box-shadow: 0 0 8px rgba(91, 155, 213, 0.5);
-  }
-
-  .slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 25px;
-    background: #ddd;
-    outline: none;
-    border-radius: 18px;
-    overflow: hidden;
-  }
-
-  .slider::-webkit-slider-runnable-track {
-    background: linear-gradient(to top, #ff4500 0%, #ffcc00 100%);
-    height: 100%;
-  }
-
-  .slider::-moz-range-track {
-    background: linear-gradient(to top, #ff4500 0%, #ffcc00 100%);
-    height: 100%;
-  }
-
-  button {
-    background-color: #25D366;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 18px;
-    font-size: 18px;
-    cursor: pointer;
-    width: 100%;
-    margin: 20px 0;
-    transition: background-color 0.3s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  button:hover {
-    background-color: #1DA851;
-  }
-
-  .cta-button {
-    background: linear-gradient(135deg, #ff8c00, #ffa500);
-    padding: 15px;
-    border-radius: 18px;
-    font-size: 18px;
-    cursor: pointer;
-    border: none;
-    color: white;
-    margin-top: 20px;
-    width: 100%;
-    text-align: center;
-  }
-
-  .cta-button:hover {
-    background: #e67e00;
-  }
-
-  .expansible-section {
-    margin-top: 30px;
-  }
-
-  .expansible-button {
-    background-color: #007BFF;
-    color: white;
-    padding: 15px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    font-size: 18px;
-    border-radius: 10px;
-  }
-
-  .expansible-button:hover {
-    background-color: #0056b3;
-  }
-
-  .expansible-content {
-    display: none;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 18px;
-    margin-top: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    text-align: justify;
-  }
-
-  footer {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 30px;
-    text-align: center;
-    border-radius: 18px 18px 0 0;
-    margin-top: 40px;
-  }
-
-  footer p {
-    margin: 0;
-  }
-
-  footer a {
-    color: #ffa500;
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  footer a:hover {
-    text-decoration: underline;
-  }
-
-  @media (max-width: 768px) {
     main {
-        padding: 20px;
+      width: 90%;
+      max-width: 900px;
+      background-color: rgba(255, 255, 255, 0.9);
+      margin: 30px auto;
+      padding: 40px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    select,
+    input[type="date"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 2px solid #ccc;
+      border-radius: 18px;
+      font-size: 16px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    select:focus,
+    input[type="date"]:focus {
+      border-color: #5b9bd5;
+      box-shadow: 0 0 8px rgba(91, 155, 213, 0.5);
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 25px;
+      background: #ddd;
+      outline: none;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .slider::-webkit-slider-runnable-track {
+      background: linear-gradient(to right, green 0%, yellow 50%, red 100%);
+      height: 100%;
+    }
+
+    .slider::-moz-range-track {
+      background: linear-gradient(to right, green 0%, yellow 50%, red 100%);
+      height: 100%;
     }
 
     button {
-        font-size: 16px;
+      background-color: #25D366;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 18px;
+      font-size: 18px;
+      cursor: pointer;
+      width: 100%;
+      margin: 20px 0;
+      transition: background-color 0.3s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button:hover {
+      background-color: #1DA851;
     }
 
     .cta-button {
-        font-size: 16px;
+      background: linear-gradient(135deg, #ff8c00, #ffa500);
+      padding: 15px;
+      border-radius: 18px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      color: white;
+      margin-top: 20px;
+      width: 100%;
+      text-align: center;
     }
-  }
 
-  .tooltip {
-    display: inline-block;
-    position: relative;
-    cursor: pointer;
-    color: #0056b3;
-    border-bottom: 1px dotted #0056b3;
-  }
+    .cta-button:hover {
+      background: #e67e00;
+    }
 
-  .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 200px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 5px;
-    padding: 5px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -100px;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
+    .expansible-section {
+      margin-top: 30px;
+    }
 
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-  }
+    .expansible-button {
+      background-color: #007BFF;
+      color: white;
+      padding: 15px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      font-size: 18px;
+      border-radius: 10px;
+    }
 
-  .popup {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    border-radius: 18px;
-    z-index: 1000;
-    text-align: center;
-    max-width: 300px;
-  }
+    .expansible-button:hover {
+      background-color: #0056b3;
+    }
 
-  .popup h3 {
-    margin: 0;
-  }
+    .expansible-content {
+      display: none;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 18px;
+      margin-top: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      text-align: justify;
+    }
 
-  .popup p {
-    margin-top: 10px;
-  }
+    footer {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 30px;
+      text-align: center;
+      border-radius: 18px 18px 0 0;
+      margin-top: 40px;
+    }
 
-  .popup-close {
-    position: absolute;
-    top: 10px;
-    right: 18px;
-    cursor: pointer;
-  }
+    footer p {
+      margin: 0;
+    }
 
-  .motivation {
-    background: #007BFF;
-    color: white;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 18px;
-    margin-top: 20px;
-  }
+    footer a {
+      color: #ffa500;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-  .whatsapp-button img {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
-  }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      border-radius: 18px;
+      z-index: 1000;
+      text-align: center;
+      max-width: 300px;
+    }
+
+    .popup h3 {
+      margin: 0;
+    }
+
+    .popup p {
+      margin-top: 10px;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 18px;
+      cursor: pointer;
+    }
+
+    .motivation {
+      background: #007BFF;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .whatsapp-button img {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+    }
+
+    @media only screen and (max-width: 600px) {
+      main {
+        padding: 20px;
+        margin: 20px;
+      }
+
+      button {
+        font-size: 14px;
+      }
+
+      header {
+        font-size: 22px;
+      }
+
+      .cta-button {
+        font-size: 14px;
+      }
+    }
+
+    @media only screen and (min-width: 601px) and (max-width: 1024px) {
+      main {
+        padding: 30px;
+        margin: 25px;
+      }
+
+      button {
+        font-size: 16px;
+      }
+
+      header {
+        font-size: 26px;
+      }
+
+      .cta-button {
+        font-size: 16px;
+      }
+    }
+
+    @media only screen and (min-width: 1025px) {
+      main {
+        padding: 40px;
+        margin: 30px;
+      }
+
+      button {
+        font-size: 18px;
+      }
+
+      header {
+        font-size: 28px;
+      }
+
+      .cta-button {
+        font-size: 18px;
+      }
+    }
 
   </style>
 </head>
@@ -447,4 +460,3 @@
   </script>
 </body>
 </html>
-
