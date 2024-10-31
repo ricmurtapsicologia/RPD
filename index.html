@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-   <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta property="og:title" content="Registro de Pensamentos Disfuncionais (RPD)" />
-      <meta property="og:description" content="Uma ferramenta online para registro de pensamentos disfuncionais." />
-      <meta property="og:image" content="https://i.pinimg.com/564x/6e/83/11/6e8311a4f71155475d25e3fb42fd2447.jpg" />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://ricmurtapsicologia.github.io/RPD/" />
-      <link rel="manifest" href="manifest.json">
-      <title>Registro de Pensamentos Disfuncionais (RPD) - Ferramenta Online</title>
-      <style>
-         body {
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta property="og:title" content="Registro de Pensamentos Disfuncionais (RPD)" />
+   <meta property="og:description" content="Uma ferramenta online para registro de pensamentos disfuncionais." />
+   <meta property="og:image" content="https://i.pinimg.com/564x/6e/83/11/6e8311a4f71155475d25e3fb42fd2447.jpg" />
+   <meta property="og:type" content="website" />
+   <meta property="og:url" content="https://ricmurtapsicologia.github.io/RPD/" />
+   <link rel="manifest" href="manifest.json">
+   <title>Registro de Pensamentos Disfuncionais (RPD) - Ferramenta Online</title>
+   <style>
+      body {
          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
          background-image: url('https://i.pinimg.com/564x/6e/83/11/6e8311a4f71155475d25e3fb42fd2447.jpg');
          background-size: cover;
@@ -20,25 +20,23 @@
          margin: 0;
          padding: 0;
          overflow-x: hidden;
-         /* Travando a rolagem horizontal */
-         }
-         header {
+      }
+      header {
          background: rgba(0, 0, 0, 0.6);
          color: white;
          padding: 40px;
          text-align: center;
          font-size: 28px;
          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-         }
-         header h1 {
+      }
+      header h1 {
          margin: 0;
          font-weight: 700;
          background: rgba(255, 255, 255, 0.3);
-         /* Tornar o texto do banner mais visível */
          padding: 10px;
          border-radius: 10px;
-         }
-         main {
+      }
+      main {
          width: 90%;
          max-width: 900px;
          background-color: rgba(255, 255, 255, 0.9);
@@ -47,15 +45,15 @@
          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
          border-radius: 18px;
          backdrop-filter: blur(10px);
-         }
-         label {
+      }
+      label {
          display: block;
          margin-bottom: 10px;
          font-weight: bold;
-         }
-         input[type="text"],
-         select,
-         input[type="date"] {
+      }
+      input[type="text"],
+      select,
+      input[type="date"] {
          width: 100%;
          padding: 12px;
          margin-bottom: 20px;
@@ -65,14 +63,14 @@
          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
          outline: none;
          box-sizing: border-box;
-         }
-         input[type="text"]:focus,
-         select:focus,
-         input[type="date"]:focus {
+      }
+      input[type="text"]:focus,
+      select:focus,
+      input[type="date"]:focus {
          border-color: #5b9bd5;
          box-shadow: 0 0 8px rgba(91, 155, 213, 0.5);
-         }
-         .slider {
+      }
+      .slider {
          -webkit-appearance: none;
          appearance: none;
          width: 100%;
@@ -81,16 +79,16 @@
          outline: none;
          border-radius: 18px;
          overflow: hidden;
-         }
-         .slider::-webkit-slider-runnable-track {
+      }
+      .slider::-webkit-slider-runnable-track {
          background: linear-gradient(to right, green 0%, yellow 50%, red 100%);
          height: 100%;
-         }
-         .slider::-moz-range-track {
+      }
+      .slider::-moz-range-track {
          background: linear-gradient(to right, green 0%, yellow 50%, red 100%);
          height: 100%;
-         }
-         button {
+      }
+      button {
          background-color: #25D366;
          color: white;
          padding: 12px;
@@ -105,172 +103,17 @@
          justify-content: center;
          align-items: center;
          text-align: center;
-         }
-         button:hover {
+      }
+      button:hover {
          background-color: #1DA851;
-         }
-         .cta-button {
-         background: linear-gradient(135deg, #ff8c00, #ffa500);
-         padding: 15px;
-         border-radius: 18px;
-         font-size: 18px;
-         cursor: pointer;
-         border: none;
-         color: white;
-         margin-top: 20px;
-         width: calc(100% - 40px);
-         /* Garante que fique centralizado */
-         text-align: center;
-         margin-left: auto;
-         margin-right: auto;
-         display: block;
-         /* Centralizando */
-         }
-         .cta-button:hover {
-         background: #e67e00;
-         }
-         .expansible-section {
-         margin-top: 30px;
-         }
-         .expansible-button {
-         background-color: #007BFF;
-         color: white;
-         padding: 15px;
-         border: none;
-         cursor: pointer;
-         width: 100%;
-         text-align: center;
-         font-size: 18px;
-         border-radius: 10px;
-         }
-         .expansible-button:hover {
-         background-color: #0056b3;
-         }
-         .expansible-content {
-         display: none;
-         padding: 20px;
-         background-color: rgba(255, 255, 255, 0.95);
-         border-radius: 18px;
-         margin-top: 10px;
-         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-         text-align: center;
-         /* Centralizando o conteúdo */
-         }
-         footer {
-         background-color: rgba(0, 0, 0, 0.7);
-         color: white;
-         padding: 30px;
-         text-align: center;
-         border-radius: 18px 18px 0 0;
-         margin-top: 40px;
-         }
-         footer p {
-         margin: 0;
-         }
-         footer a {
-         color: #ffa500;
-         text-decoration: none;
-         font-weight: bold;
-         }
-         footer a:hover {
-         text-decoration: underline;
-         }
-         .popup {
-         display: none;
-         position: fixed;
-         bottom: 20px;
-         right: 20px;
-         background-color: white;
-         padding: 20px;
-         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-         border-radius: 18px;
-         z-index: 1000;
-         text-align: center;
-         max-width: 300px;
-         }
-         .popup h3 {
-         margin: 0;
-         }
-         .popup p {
-         margin-top: 10px;
-         }
-         .popup-close {
-         position: absolute;
-         top: 10px;
-         right: 18px;
-         cursor: pointer;
-         }
-         .motivation {
-         background: #007BFF;
-         color: white;
-         padding: 15px;
-         border-radius: 8px;
-         text-align: center;
-         font-size: 18px;
-         margin-top: 20px;
-         }
-         .whatsapp-button img {
-         width: 24px;
-         height: 24px;
-         margin-right: 8px;
-         }
-         @media only screen and (max-width: 600px) {
-         main {
-         padding: 15px;
-         margin: 10px;
-         }
-         button,
-         .cta-button,
-         .expansible-button {
-         font-size: 14px;
-         text-align: center;
-         /* Centralizar botões */
-         }
-         header {
-         font-size: 22px;
-         }
-         .cta-button {
-         text-align: center;
-         }
-         }
-         @media only screen and (min-width: 601px) and (max-width: 1024px) {
-         main {
-         padding: 25px;
-         margin: 15px;
-         }
-         button,
-         .cta-button,
-         .expansible-button {
-         font-size: 16px;
-         }
-         header {
-         font-size: 26px;
-         }
-         .cta-button {
-         text-align: center;
-         }
-         }
-         @media only screen and (min-width: 1025px) {
-         main {
-         padding: 40px;
-         margin: 30px;
-         }
-         button,
-         .cta-button,
-         .expansible-button {
-         font-size: 18px;
-         }
-         header {
-         font-size: 28px;
-         }
-         }
-      </style>
-   </head>
-   <body>
-      <header>
-         <h1>Registro de Pensamentos Disfuncionais (RPD)</h1>
-      </header>
-      <main>
+      }
+   </style>
+</head>
+<body>
+   <header>
+      <h1>Registro de Pensamentos Disfuncionais (RPD)</h1>
+   </header>
+   <main>
       <div class="expansible-section">
          <button class="expansible-button" onclick="toggleContent('rpd-expansion')">O que é o RPD? <span class="cta-tooltip">(Clique aqui para saber mais)</span></button>
          <div id="rpd-expansion" class="expansible-content">
@@ -285,104 +128,89 @@
          </div>
       </div>
       <form id="rpd-form" name="rpd-form">
-      <label for="nome">Nome Completo:</label> <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required=""> <label for="data">Data de Preenchimento:</label> <input type="date" id="data" name="data" required=""> <label for="situacao">Situação:</label> <input type="text" id="situacao" name="situacao" placeholder="Descreva a situação..." required=""> <label for="emocoes">Emoções:</label> 
-      <select id="emocoes" name="emocoes" required="" onchange="checkOtherEmotion()">
-         <option value="">
-            Selecione uma emoção
-         </option>
-         <option value="Ansiedade">
-            😟 Ansiedade
-         </option>
-         <option value="Tristeza">
-            😢 Tristeza
-         </option>
-         <option value="Raiva">
-            😡 Raiva
-         </option>
-         <option value="Culpa">
-            😔 Culpa
-         </option>
-         <option value="Medo">
-            😨 Medo
-         </option>
-         <option value="Vergonha">
-            😳 Vergonha
-         </option>
-         <option value="Euforia">
-            😃 Euforia
-         </option>
-         <option value="Frustração">
-            😞 Frustração
-         </option>
-         <option value="Insegurança">
-            😓 Insegurança
-         </option>
-         <option value="Desânimo">
-            😩 Desânimo
-         </option>
-         <option value="Outra">
-            Outra
-         </option>
-      </select>
-      <div id="other-emotion-field" style="display:none;">
-         <label for="outra-emocao">Descreva a outra emoção:</label> <input type="text" id="outra-emocao" name="outra-emocao" placeholder="Escreva sua emoção">
-      </div>
-      <label for="pensamento">Pensamento Automático:</label> <input type="text" id="pensamento" name="pensamento" placeholder="Qual foi o pensamento negativo?" required=""> <label for="distorcao">Distorção Cognitiva:</label> 
-      <select id="distorcao" name="distorcao" required="">
-         <option value="">
-            Selecione a distorção
-         </option>
-         <option value="Catastrofização">
-            Catastrofização (imaginar o pior cenário possível)
-         </option>
-         <option value="Supergeneralização">
-            Supergeneralização (tirar conclusões amplas a partir de um único evento)
-         </option>
-         <option value="Leitura Mental">
-            Leitura Mental (acreditar que sabe o que os outros estão pensando)
-         </option>
-         <option value="Personalização">
-            Personalização (assumir responsabilidade excessiva por eventos)
-         </option>
-         <option value="Visão em tudo ou nada">
-            Visão em tudo ou nada (pensar de forma extremista)
-         </option>
-         <option value="Desqualificação do positivo">
-            Desqualificação do positivo (minimizar aspectos positivos)
-         </option>
-         <option value="Raciocínio Emocional">
-            Raciocínio Emocional (acreditar que as emoções refletem a realidade)
-         </option>
-         <option value="Rotulação">
-            Rotulação (rotular a si mesmo ou aos outros com base em uma única situação)
-         </option>
-         <option value="Filtro Mental">
-            Filtro Mental (focar nos aspectos negativos e ignorar os positivos)
-         </option>
-      </select>
-      <label for="resposta">Resposta Racional:</label> 
-      <input type="text" id="resposta" name="resposta" placeholder="Qual seria um pensamento mais racional?" required=""> 
-      <label for="emocaoAntes">Intensidade da Emoção Antes:</label> 
-      <input type="range" id="emocaoAntes" name="emocaoAntes" min="0" max="100" value="50" class="slider"> 
-      <span id="slider-value-antes" class="slider-value">50</span> 
-      <label for="emocaoDepois">Intensidade da Emoção Depois:</label> 
-      <input type="range" id="emocaoDepois" name="emocaoDepois" min="0" max="100" value="50" class="slider"> 
-      <span id="slider-value-depois" class="slider-value">50</span> 
-      <!-- Novas Perguntas -->
-      <label for="q1">Como você se sente com essa situação agora?</label>
-      <input type="text" id="q1" name="q1" placeholder="Responda aqui..." required="">
-      <label for="q2">O que faz você acreditar que as coisas são assim?</label>
-      <input type="text" id="q2" name="q2" placeholder="Responda aqui..." required="">
-      <label for="q3">Existe uma outra forma de enxergar isso?</label>
-      <input type="text" id="q3" name="q3" placeholder="Responda aqui..." required="">
-      <label for="q4">Esse pensamento está ajudando você ou te fazendo mal?</label>
-      <input type="text" id="q4" name="q4" placeholder="Responda aqui..." required="">
-      <label for="q5">Como você poderia pensar de forma mais útil sobre isso?</label>
-      <input type="text" id="q5" name="q5" placeholder="Responda aqui..." required="">
-      <button type="button" class="whatsapp-button" onclick="sendWhatsAppMessage()">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"> Enviar via WhatsApp
-      </button>
+         <label for="nome">Nome Completo:</label>
+         <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+
+         <label for="data">Data de Preenchimento:</label>
+         <input type="date" id="data" name="data" required>
+
+         <label for="situacao">Situação:</label>
+         <input type="text" id="situacao" name="situacao" placeholder="Descreva a situação que desencadeou o pensamento." required>
+
+         <label for="emocoes">Emoções:</label>
+         <select id="emocoes" name="emocoes" required>
+            <option value="">Selecione uma emoção</option>
+            <option value="Ansiedade">😟 Ansiedade</option>
+            <option value="Tristeza">😢 Tristeza</option>
+            <option value="Raiva">😡 Raiva</option>
+            <option value="Culpa">😔 Culpa</option>
+            <option value="Medo">😨 Medo</option>
+            <option value="Vergonha">😳 Vergonha</option>
+            <option value="Euforia">😃 Euforia</option>
+            <option value="Frustração">😞 Frustração</option>
+            <option value="Insegurança">😓 Insegurança</option>
+            <option value="Desânimo">😩 Desânimo</option>
+            <option value="Outra">Outra</option>
+         </select>
+
+         <label for="emocaoAntes">Intensidade da Emoção Antes:</label>
+         <input type="range" id="emocaoAntes" name="emocaoAntes" min="0" max="100" value="50" class="slider" oninput="updateSliderValue('slider-value-antes', this.value)">
+         <span id="slider-value-antes" class="slider-value">50</span>
+
+         <label for="pensamento">Pensamento Automático:</label>
+         <input type="text" id="pensamento" name="pensamento" placeholder="Descreva o pensamento que surgiu automaticamente." required>
+
+         <label for="distorcao">Distorção Cognitiva:</label>
+         <select id="distorcao" name="distorcao" required>
+            <option value="">Selecione a distorção</option>
+            <option value="Catastrofização">Catastrofização (imaginar o pior cenário possível)</option>
+            <option value="Supergeneralização">Supergeneralização (tirar conclusões amplas a partir de um único evento)</option>
+            <option value="Leitura Mental">Leitura Mental (acreditar que sabe o que os outros estão pensando)</option>
+            <option value="Personalização">Personalização (assumir responsabilidade excessiva por eventos)</option>
+            <option value="Visão em tudo ou nada">Visão em tudo ou nada (pensar de forma extremista)</option>
+            <option value="Desqualificação do positivo">Desqualificação do positivo (minimizar aspectos positivos)</option>
+            <option value="Raciocínio Emocional">Raciocínio Emocional (acreditar que as emoções refletem a realidade)</option>
+            <option value="Rotulação">Rotulação (rotular a si mesmo ou aos outros com base em uma única situação)</option>
+            <option value="Filtro Mental">Filtro Mental (focar nos aspectos negativos e ignorar os positivos)</option>
+         </select>
+
+         <label for="q1">O que faz você acreditar que as coisas são assim?</label>
+         <input type="text" id="q1" name="q1" placeholder="Explique a razão pela qual esse pensamento faz sentido para você." required>
+
+         <label for="resposta">Resposta Racional:</label>
+         <input type="text" id="resposta" name="resposta" placeholder="Descreva uma resposta mais equilibrada para o pensamento." required>
+
+         <label for="q3">Existe uma outra forma de enxergar isso?</label>
+         <input type="text" id="q3" name="q3" placeholder="Pense em alternativas para interpretar a situação." required>
+
+         <label for="q4">Esse pensamento está ajudando você ou te fazendo mal?</label>
+         <input type="text" id="q4" name="q4" placeholder="Reflita se o pensamento é útil ou prejudicial." required>
+
+         <label for="q5">Como você poderia pensar de forma mais útil sobre isso?</label>
+         <input type="text" id="q5" name="q5" placeholder="Escreva uma alternativa mais positiva ou construtiva." required>
+
+         <label for="q2">Como você se sente com essa situação agora?</label>
+         <input type="text" id="q2" name="q2" placeholder="Descreva seu estado emocional atual." required>
+
+         <label for="emocaoDepois">Intensidade da Emoção Depois:</label>
+         <input type="range" id="emocaoDepois" name="emocaoDepois" min="0" max="100" value="50" class="slider" oninput="updateSliderValue('slider-value-depois', this.value)">
+         <span id="slider-value-depois" class="slider-value">50</span>
+
+         <button type="button" class="whatsapp-button" onclick="sendWhatsAppMessage()">
+            Enviar via WhatsApp
+         </button>
+      </form>
+
       <script>
+         function toggleContent(id) {
+            var element = document.getElementById(id);
+            if (element.style.display === "none" || element.style.display === "") {
+               element.style.display = "block";
+            } else {
+               element.style.display = "none";
+            }
+         }
+
          function sendWhatsAppMessage() {
              const nome = document.getElementById("nome").value;
              const data = document.getElementById("data").value;
@@ -394,31 +222,22 @@
              const emocaoAntes = document.getElementById("emocaoAntes").value;
              const emocaoDepois = document.getElementById("emocaoDepois").value;
          
-             // Respostas das novas perguntas
              const q1 = document.getElementById("q1").value;
              const q2 = document.getElementById("q2").value;
              const q3 = document.getElementById("q3").value;
              const q4 = document.getElementById("q4").value;
              const q5 = document.getElementById("q5").value;
          
-             let message = `Nome: ${nome}%0AData: ${data}%0ASituação: ${situacao}%0AEmoção: ${emocoes}%0APensamento: ${pensamento}%0ADistorção: ${distorcao}%0AResposta Racional: ${resposta}%0AIntensidade da Emoção Antes: ${emocaoAntes}/100%0AIntensidade da Emoção Depois: ${emocaoDepois}/100%0A%0A**Perguntas de Reflexão:**%0A1. Como você se sente com essa situação agora? ${q1}%0A2. O que faz você acreditar que as coisas são assim? ${q2}%0A3. Existe uma outra forma de enxergar isso? ${q3}%0A4. Esse pensamento está ajudando você ou te fazendo mal? ${q4}%0A5. Como você poderia pensar de forma mais útil sobre isso? ${q5}`;
+             let message = `Nome: ${nome}%0AData: ${data}%0ASituação: ${situacao}%0AEmoção: ${emocoes}%0APensamento: ${pensamento}%0ADistorção: ${distorcao}%0AResposta Racional: ${resposta}%0AIntensidade da Emoção Antes: ${emocaoAntes}/100%0AIntensidade da Emoção Depois: ${emocaoDepois}/100%0A%0A**Perguntas de Reflexão:**%0A1. O que faz você acreditar que as coisas são assim? ${q1}%0A2. Existe uma outra forma de enxergar isso? ${q3}%0A3. Esse pensamento está ajudando você ou te fazendo mal? ${q4}%0A4. Como você poderia pensar de forma mais útil sobre isso? ${q5}%0A5. Como você se sente com essa situação agora? ${q2}`;
          
              const whatsappUrl = `https://api.whatsapp.com/send?phone=+5535984640729&text=${message}`;
              window.open(whatsappUrl, '_blank');
-         
-             // Mostrar popup de confirmação
-             document.getElementById("popup").style.display = "block";
          }
-         
-         // Mostrar e esconder conteúdo expansível
-         function toggleContent(id) {
-            var element = document.getElementById(id);
-            if (element.style.display === "none" || element.style.display === "") {
-               element.style.display = "block";
-            } else {
-               element.style.display = "none";
-            }
+
+         function updateSliderValue(elementId, value) {
+            document.getElementById(elementId).textContent = value;
          }
       </script>
-   </body>
+   </main>
+</body>
 </html>
