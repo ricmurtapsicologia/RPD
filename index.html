@@ -22,6 +22,7 @@
 		   padding: 0;
 		   overflow-x: hidden;
 		}
+		
 		header {
 		   background: rgba(0, 0, 0, 0.6);
 		   color: white;
@@ -30,6 +31,7 @@
 		   font-size: 28px;
 		   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 		}
+		
 		header h1 {
 		   margin: 0;
 		   font-weight: 700;
@@ -37,6 +39,7 @@
 		   padding: 10px;
 		   border-radius: 10px;
 		}
+		
 		main {
 		   width: 90%;
 		   max-width: 900px;
@@ -47,11 +50,13 @@
 		   border-radius: 18px;
 		   backdrop-filter: blur(10px);
 		}
+		
 		label {
 		   display: block;
 		   margin-bottom: 10px;
 		   font-weight: bold;
 		}
+		
 		input[type="text"],
 		select,
 		input[type="date"] {
@@ -65,12 +70,14 @@
 		   outline: none;
 		   box-sizing: border-box;
 		}
+		
 		input[type="text"]:focus,
 		select:focus,
 		input[type="date"]:focus {
 		   border-color: #5b9bd5;
 		   box-shadow: 0 0 8px rgba(91, 155, 213, 0.5);
 		}
+		
 		.slider {
 		   -webkit-appearance: none;
 		   appearance: none;
@@ -81,16 +88,20 @@
 		   border-radius: 18px;
 		   overflow: hidden;
 		}
+		
 		.slider::-webkit-slider-runnable-track {
 		   background: linear-gradient(to right, green 0%, yellow 50%, red 100%);
 		   height: 100%;
 		}
+		
 		.slider::-moz-range-track {
 		   background: linear-gradient(to right, green 0%, yellow 50%, red 100%);
 		   height: 100%;
 		}
+		
+		/* Botões gerais */
 		button {
-		   background-color: #25D366;
+		   background-color: #556B2F; /* Verde musgo */
 		   color: white;
 		   padding: 12px;
 		   border: none;
@@ -105,9 +116,78 @@
 		   align-items: center;
 		   text-align: center;
 		}
+		
 		button:hover {
-		   background-color: #1DA851;
+		   background-color: #4A5D23; /* Verde musgo mais escuro */
 		}
+		
+		/* Ícone do autofalante */
+		.audio-button {
+		   background: none; /* Remove a caixa verde */
+		   border: none;
+		   cursor: pointer;
+		   padding: 5px;
+		   margin: 0 auto;
+		   display: flex;
+		   justify-content: center;
+		   align-items: center;
+		}
+		
+		.audio-button svg {
+		   fill: #FFD700; /* Amarelo ouro */
+		   width: 32px;
+		   height: 32px;
+		   transition: transform 0.2s;
+		}
+		
+		.audio-button:hover svg {
+		   transform: scale(1.1); /* Efeito ao passar o mouse */
+		}
+		
+		/* Responsividade */
+		@media (max-width: 768px) {
+		   main {
+		      width: 95%;
+		      padding: 20px;
+		   }
+		
+		   button {
+		      font-size: 16px;
+		      padding: 10px;
+		   }
+		
+		   .audio-button svg {
+		      width: 28px;
+		      height: 28px;
+		   }
+		}
+		
+		@media (max-width: 480px) {
+		   header {
+		      padding: 20px;
+		      font-size: 20px;
+		   }
+		
+		   header h1 {
+		      font-size: 18px;
+		      padding: 8px;
+		   }
+		
+		   main {
+		      padding: 15px;
+		   }
+		
+		   button {
+		      font-size: 14px;
+		      padding: 8px;
+		   }
+		
+		   .audio-button svg {
+		      width: 24px;
+		      height: 24px;
+		   }
+		}
+		
 	</style>
 </head>
 
