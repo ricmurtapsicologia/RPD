@@ -1,243 +1,254 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <meta property="og:title" content="Registro de Pensamentos Disfuncionais (RPD)" />
-   <meta property="og:description" content="Uma ferramenta online para registro de pensamentos disfuncionais." />
-   <meta property="og:image" content="https://i.pinimg.com/564x/6e/83/11/6e8311a4f71155475d25e3fb42fd2447.jpg" />
-   <meta property="og:type" content="website" />
-   <meta property="og:url" content="https://ricmurtapsicologia.github.io/RPD/" />
-   <link rel="manifest" href="manifest.json">
-   <title>Registro de Pensamentos Disfuncionais (RPD) - Ferramenta Online</title>
-   <style>
-      body {
-         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-         background-image: url('https://i.pinimg.com/564x/6e/83/11/6e8311a4f71155475d25e3fb42fd2447.jpg');
-         background-size: cover;
-         background-position: center;
-         background-attachment: fixed;
-         color: #333;
-         margin: 0;
-         padding: 0;
-         overflow-x: hidden;
-      }
-      header {
-         background: rgba(0, 0, 0, 0.6);
-         color: white;
-         padding: 40px;
-         text-align: center;
-         font-size: 28px;
-         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      }
-      header h1 {
-         margin: 0;
-         font-weight: 700;
-         background: rgba(255, 255, 255, 0.3);
-         padding: 10px;
-         border-radius: 10px;
-      }
-      main {
-         width: 90%;
-         max-width: 900px;
-         background-color: rgba(255, 255, 255, 0.9);
-         margin: 30px auto;
-         padding: 40px;
-         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-         border-radius: 18px;
-         backdrop-filter: blur(10px);
-      }
-      label {
-         display: block;
-         margin-bottom: 10px;
-         font-weight: bold;
-      }
-      input[type="text"],
-      select,
-      input[type="date"] {
-         width: 100%;
-         padding: 12px;
-         margin-bottom: 20px;
-         border: 2px solid #ccc;
-         border-radius: 18px;
-         font-size: 16px;
-         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-         outline: none;
-         box-sizing: border-box;
-      }
-      input[type="text"]:focus,
-      select:focus,
-      input[type="date"]:focus {
-         border-color: #5b9bd5;
-         box-shadow: 0 0 8px rgba(91, 155, 213, 0.5);
-      }
-      .slider {
-         -webkit-appearance: none;
-         appearance: none;
-         width: 100%;
-         height: 25px;
-         background: #ddd;
-         outline: none;
-         border-radius: 18px;
-         overflow: hidden;
-      }
-      .slider::-webkit-slider-runnable-track {
-         background: linear-gradient(to right, green 0%, yellow 50%, red 100%);
-         height: 100%;
-      }
-      .slider::-moz-range-track {
-         background: linear-gradient(to right, green 0%, yellow 50%, red 100%);
-         height: 100%;
-      }
-      button {
-         background-color: #25D366;
-         color: white;
-         padding: 12px;
-         border: none;
-         border-radius: 18px;
-         font-size: 18px;
-         cursor: pointer;
-         width: 100%;
-         margin: 20px 0;
-         transition: background-color 0.3s;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         text-align: center;
-      }
-      button:hover {
-         background-color: #1DA851;
-      }
-   </style>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta property="og:title" content="Registro de Pensamentos Disfuncionais (RPD)" />
+	<meta property="og:description" content="Uma ferramenta online para registro de pensamentos disfuncionais." />
+	<meta property="og:image" content="https://i.pinimg.com/564x/6e/83/11/6e8311a4f71155475d25e3fb42fd2447.jpg" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://ricmurtapsicologia.github.io/RPD/" />
+	<link rel="manifest" href="manifest.json">
+	<title>Registro de Pensamentos Disfuncionais (RPD) - Ferramenta Online</title>
+	<style>
+		body {
+		   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		   background-image: url('https://i.pinimg.com/564x/6e/83/11/6e8311a4f71155475d25e3fb42fd2447.jpg');
+		   background-size: cover;
+		   background-position: center;
+		   background-attachment: fixed;
+		   color: #333;
+		   margin: 0;
+		   padding: 0;
+		   overflow-x: hidden;
+		}
+		header {
+		   background: rgba(0, 0, 0, 0.6);
+		   color: white;
+		   padding: 40px;
+		   text-align: center;
+		   font-size: 28px;
+		   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+		}
+		header h1 {
+		   margin: 0;
+		   font-weight: 700;
+		   background: rgba(255, 255, 255, 0.3);
+		   padding: 10px;
+		   border-radius: 10px;
+		}
+		main {
+		   width: 90%;
+		   max-width: 900px;
+		   background-color: rgba(255, 255, 255, 0.9);
+		   margin: 30px auto;
+		   padding: 40px;
+		   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+		   border-radius: 18px;
+		   backdrop-filter: blur(10px);
+		}
+		label {
+		   display: block;
+		   margin-bottom: 10px;
+		   font-weight: bold;
+		}
+		input[type="text"],
+		select,
+		input[type="date"] {
+		   width: 100%;
+		   padding: 12px;
+		   margin-bottom: 20px;
+		   border: 2px solid #ccc;
+		   border-radius: 18px;
+		   font-size: 16px;
+		   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		   outline: none;
+		   box-sizing: border-box;
+		}
+		input[type="text"]:focus,
+		select:focus,
+		input[type="date"]:focus {
+		   border-color: #5b9bd5;
+		   box-shadow: 0 0 8px rgba(91, 155, 213, 0.5);
+		}
+		.slider {
+		   -webkit-appearance: none;
+		   appearance: none;
+		   width: 100%;
+		   height: 25px;
+		   background: #ddd;
+		   outline: none;
+		   border-radius: 18px;
+		   overflow: hidden;
+		}
+		.slider::-webkit-slider-runnable-track {
+		   background: linear-gradient(to right, green 0%, yellow 50%, red 100%);
+		   height: 100%;
+		}
+		.slider::-moz-range-track {
+		   background: linear-gradient(to right, green 0%, yellow 50%, red 100%);
+		   height: 100%;
+		}
+		button {
+		   background-color: #25D366;
+		   color: white;
+		   padding: 12px;
+		   border: none;
+		   border-radius: 18px;
+		   font-size: 18px;
+		   cursor: pointer;
+		   width: 100%;
+		   margin: 20px 0;
+		   transition: background-color 0.3s;
+		   display: flex;
+		   justify-content: center;
+		   align-items: center;
+		   text-align: center;
+		}
+		button:hover {
+		   background-color: #1DA851;
+		}
+	</style>
 </head>
+
 <body>
-   <header>
-      <h1>Registro de Pensamentos Disfuncionais (RPD)</h1>
-   </header>
-   <main>
-      <div class="expansible-section">
-         <button class="expansible-button" onclick="toggleContent('rpd-expansion')">O que é o RPD? <span class="cta-tooltip">(Clique aqui para saber mais)</span></button>
-         <div id="rpd-expansion" class="expansible-content">
-            <p>O Registro de Pensamentos Disfuncionais (RPD) é uma técnica da Terapia Cognitivo-Comportamental (TCC) que ajuda a identificar e reestruturar pensamentos automáticos negativos. Preencher o RPD pode ajudar a tornar mais claro como os pensamentos influenciam as emoções e o comportamento. Isso ajuda a promover uma visão mais equilibrada da situação e a reduzir o impacto dos pensamentos negativos.</p>
-         </div>
-      </div>
-      <a href="https://www.youtube.com/watch?v=qp8VUlVqooI" target="_blank" class="cta-button">Assista ao vídeo: Como fazer o RPD</a>
-      <div class="expansible-section">
-         <button class="expansible-button" onclick="toggleContent('distorcoes-expansion')">O que são distorções cognitivas? <span class="cta-tooltip">(Clique para entender)</span></button>
-         <div id="distorcoes-expansion" class="expansible-content">
-            <p>As distorções cognitivas são padrões de pensamento que podem distorcer a realidade, levando a interpretações negativas, exageradas ou irreais das situações. Algumas das mais comuns incluem a Catastrofização, onde você imagina o pior cenário possível, ou a Supergeneralização, onde você tira conclusões amplas a partir de um único evento. Identificar e corrigir essas distorções pode ajudar a reduzir a ansiedade e melhorar o bem-estar emocional.</p>
-         </div>
-      </div>
-      <form id="rpd-form" name="rpd-form">
-         <label for="nome">Nome Completo:</label>
-         <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
-
-         <label for="data">Data de Preenchimento:</label>
-         <input type="date" id="data" name="data" required>
-
-         <label for="situacao">Situação:</label>
-         <input type="text" id="situacao" name="situacao" placeholder="Descreva a situação que desencadeou o pensamento." required>
-
-         <label for="emocoes">Emoções:</label>
-         <select id="emocoes" name="emocoes" required>
-            <option value="">Selecione uma emoção</option>
-            <option value="Ansiedade">😟 Ansiedade</option>
-            <option value="Tristeza">😢 Tristeza</option>
-            <option value="Raiva">😡 Raiva</option>
-            <option value="Culpa">😔 Culpa</option>
-            <option value="Medo">😨 Medo</option>
-            <option value="Vergonha">😳 Vergonha</option>
-            <option value="Euforia">😃 Euforia</option>
-            <option value="Frustração">😞 Frustração</option>
-            <option value="Insegurança">😓 Insegurança</option>
-            <option value="Desânimo">😩 Desânimo</option>
-            <option value="Outra">Outra</option>
-         </select>
-
-         <label for="emocaoAntes">Intensidade da Emoção Antes:</label>
-         <input type="range" id="emocaoAntes" name="emocaoAntes" min="0" max="100" value="50" class="slider" oninput="updateSliderValue('slider-value-antes', this.value)">
-         <span id="slider-value-antes" class="slider-value">50</span>
-
-         <label for="pensamento">Pensamento Automático:</label>
-         <input type="text" id="pensamento" name="pensamento" placeholder="Descreva o pensamento que surgiu automaticamente." required>
-
-         <label for="distorcao">Distorção Cognitiva:</label>
-         <select id="distorcao" name="distorcao" required>
-            <option value="">Selecione a distorção</option>
-            <option value="Catastrofização">Catastrofização (imaginar o pior cenário possível)</option>
-            <option value="Supergeneralização">Supergeneralização (tirar conclusões amplas a partir de um único evento)</option>
-            <option value="Leitura Mental">Leitura Mental (acreditar que sabe o que os outros estão pensando)</option>
-            <option value="Personalização">Personalização (assumir responsabilidade excessiva por eventos)</option>
-            <option value="Visão em tudo ou nada">Visão em tudo ou nada (pensar de forma extremista)</option>
-            <option value="Desqualificação do positivo">Desqualificação do positivo (minimizar aspectos positivos)</option>
-            <option value="Raciocínio Emocional">Raciocínio Emocional (acreditar que as emoções refletem a realidade)</option>
-            <option value="Rotulação">Rotulação (rotular a si mesmo ou aos outros com base em uma única situação)</option>
-            <option value="Filtro Mental">Filtro Mental (focar nos aspectos negativos e ignorar os positivos)</option>
-         </select>
-
-         <label for="q1">O que faz você acreditar que as coisas são assim?</label>
-         <input type="text" id="q1" name="q1" placeholder="Explique a razão pela qual esse pensamento faz sentido para você." required>
-
-         <label for="resposta">Resposta Racional:</label>
-         <input type="text" id="resposta" name="resposta" placeholder="Descreva uma resposta mais equilibrada para o pensamento." required>
-
-         <label for="q3">Existe uma outra forma de enxergar isso?</label>
-         <input type="text" id="q3" name="q3" placeholder="Pense em alternativas para interpretar a situação." required>
-
-         <label for="q4">Esse pensamento está ajudando você ou te fazendo mal?</label>
-         <input type="text" id="q4" name="q4" placeholder="Reflita se o pensamento é útil ou prejudicial." required>
-
-         <label for="q5">Como você poderia pensar de forma mais útil sobre isso?</label>
-         <input type="text" id="q5" name="q5" placeholder="Escreva uma alternativa mais positiva ou construtiva." required>
-
-         <label for="q2">Como você se sente com essa situação agora?</label>
-         <input type="text" id="q2" name="q2" placeholder="Descreva seu estado emocional atual." required>
-
-         <label for="emocaoDepois">Intensidade da Emoção Depois:</label>
-         <input type="range" id="emocaoDepois" name="emocaoDepois" min="0" max="100" value="50" class="slider" oninput="updateSliderValue('slider-value-depois', this.value)">
-         <span id="slider-value-depois" class="slider-value">50</span>
-
-         <button type="button" class="whatsapp-button" onclick="sendWhatsAppMessage()">
-            Enviar via WhatsApp
-         </button>
-      </form>
-
-      <script>
-         function toggleContent(id) {
-            var element = document.getElementById(id);
-            if (element.style.display === "none" || element.style.display === "") {
-               element.style.display = "block";
-            } else {
-               element.style.display = "none";
-            }
-         }
-
-         function sendWhatsAppMessage() {
-             const nome = document.getElementById("nome").value;
-             const data = document.getElementById("data").value;
-             const situacao = document.getElementById("situacao").value;
-             const emocoes = document.getElementById("emocoes").value;
-             const pensamento = document.getElementById("pensamento").value;
-             const distorcao = document.getElementById("distorcao").value;
-             const resposta = document.getElementById("resposta").value;
-             const emocaoAntes = document.getElementById("emocaoAntes").value;
-             const emocaoDepois = document.getElementById("emocaoDepois").value;
-         
-             const q1 = document.getElementById("q1").value;
-             const q2 = document.getElementById("q2").value;
-             const q3 = document.getElementById("q3").value;
-             const q4 = document.getElementById("q4").value;
-             const q5 = document.getElementById("q5").value;
-         
-             let message = `Nome: ${nome}%0AData: ${data}%0ASituação: ${situacao}%0AEmoção: ${emocoes}%0APensamento: ${pensamento}%0ADistorção: ${distorcao}%0AResposta Racional: ${resposta}%0AIntensidade da Emoção Antes: ${emocaoAntes}/100%0AIntensidade da Emoção Depois: ${emocaoDepois}/100%0A%0A**Perguntas de Reflexão:**%0A1. O que faz você acreditar que as coisas são assim? ${q1}%0A2. Existe uma outra forma de enxergar isso? ${q3}%0A3. Esse pensamento está ajudando você ou te fazendo mal? ${q4}%0A4. Como você poderia pensar de forma mais útil sobre isso? ${q5}%0A5. Como você se sente com essa situação agora? ${q2}`;
-         
-             const whatsappUrl = `https://api.whatsapp.com/send?phone=+5535984640729&text=${message}`;
-             window.open(whatsappUrl, '_blank');
-         }
-
-         function updateSliderValue(elementId, value) {
-            document.getElementById(elementId).textContent = value;
-         }
-      </script>
-   </main>
+	<header>
+		<h1>Registro de Pensamentos Disfuncionais (RPD)</h1>
+	</header>
+	<main>
+		<!-- Seção "O que é o RPD?" -->
+		<div class="expansible-section">
+			<button class="expansible-button" onclick="toggleContent('rpd-expansion')"> O que é o RPD? (Clique aqui para saber mais) <button onclick="playAudio('audioRPD')" class="audio-button" style="margin-left: 10px;">
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+						<path d="M11.536 14.01a.5.5 0 0 0 .707.038A8.004 8.004 0 0 0 16 8a8.003 8.003 0 0 0-3.757-6.912.5.5 0 0 0-.63.776A7.002 7.002 0 0 1 15 8a7.003 7.003 0 0 1-3.086 5.796.5.5 0 0 0-.038.707zm-2.393-2.4a.5.5 0 0 0 .685.063A4.992 4.992 0 0 0 14 8a4.992 4.992 0 0 0-2.172-4.18.5.5 0 1 0-.544.838A3.993 3.993 0 0 1 13 8a3.993 3.993 0 0 1-1.716 3.342.5.5 0 0 0-.063.685zm-2.228-2.15a.5.5 0 0 0 .625.78A1.995 1.995 0 0 0 10 8c0-.74-.405-1.387-1.038-1.73a.5.5 0 1 0-.495.868c.362.206.533.495.533.862 0 .368-.17.656-.533.862z" />
+						<path d="M8 5.993c-.147 0-.293.054-.414.162L5.825 7.44H4.5A1.5 1.5 0 0 0 3 8.993v1c0 .828.672 1.5 1.5 1.5h1.325l1.761 1.285c.12.107.266.161.414.161.337 0 .586-.252.586-.583V6.576c0-.331-.25-.583-.586-.583z" />
+					</svg>
+				</button>
+				<div id="rpd-expansion" class="expansible-content" style="display: none;">
+					<p> O Registro de Pensamentos Disfuncionais (RPD) é uma técnica da Terapia Cognitivo-Comportamental (TCC) que ajuda a identificar e reestruturar pensamentos automáticos negativos. Preencher o RPD pode ajudar a tornar mais claro como os pensamentos influenciam as emoções e o comportamento. Isso ajuda a promover uma visão mais equilibrada da situação e a reduzir o impacto dos pensamentos negativos. </p>
+					<p> Assista ao vídeo: <a href="https://www.youtube.com/watch?v=qp8VUlVqooI" target="_blank">Como fazer o RPD</a>
+					</p>
+				</div>
+				<audio id="audioRPD" src="RPD1.mp3"></audio>
+		</div>
+		<!-- Seção "O que são distorções cognitivas?" -->
+		<div class="expansible-section">
+			<button class="expansible-button" onclick="toggleContent('distorcoes-expansion')"> O que são distorções cognitivas? (Clique para entender) </button>
+			<div id="distorcoes-expansion" class="expansible-content" style="display: none;">
+				<p> As distorções cognitivas são padrões de pensamento que podem distorcer a realidade, levando a interpretações negativas, exageradas ou irreais das situações. Algumas das mais comuns incluem a Catastrofização, onde você imagina o pior cenário possível, ou a Supergeneralização, onde você tira conclusões amplas a partir de um único evento. Identificar e corrigir essas distorções pode ajudar a reduzir a ansiedade e melhorar o bem-estar emocional. </p>
+			</div>
+		</div>
+		<form id="rpd-form" name="rpd-form">
+			<label for="nome">Nome Completo:</label>
+			<input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+			<label for="data">Data de Preenchimento:</label>
+			<input type="date" id="data" name="data" required>
+			<label for="situacao">Situação:</label>
+			<input type="text" id="situacao" name="situacao" placeholder="Descreva a situação que desencadeou o pensamento." required>
+			<label for="emocoes">Emoções:</label>
+			<select id="emocoes" name="emocoes" required>
+				<option value="">Selecione uma emoção</option>
+				<option value="Ansiedade">😟 Ansiedade</option>
+				<option value="Tristeza">😢 Tristeza</option>
+				<option value="Raiva">😡 Raiva</option>
+				<option value="Culpa">😔 Culpa</option>
+				<option value="Medo">😨 Medo</option>
+				<option value="Vergonha">😳 Vergonha</option>
+				<option value="Euforia">😃 Euforia</option>
+				<option value="Frustração">😞 Frustração</option>
+				<option value="Insegurança">😓 Insegurança</option>
+				<option value="Desânimo">😩 Desânimo</option>
+				<option value="Outra">Outra</option>
+			</select>
+			<label for="emocaoAntes">Intensidade da Emoção Antes:</label>
+			<input type="range" id="emocaoAntes" name="emocaoAntes" min="0" max="100" value="50" class="slider" oninput="updateSliderValue('slider-value-antes', this.value)">
+			<span id="slider-value-antes" class="slider-value">50</span>
+			<label for="pensamento">Pensamento Automático:</label>
+			<input type="text" id="pensamento" name="pensamento" placeholder="Descreva o pensamento que surgiu automaticamente." required>
+			<label for="distorcao">Distorção Cognitiva:</label>
+			<select id="distorcao" name="distorcao" required>
+				<option value="">Selecione a distorção</option>
+				<option value="Catastrofização">Catastrofização (imaginar o pior cenário possível)</option>
+				<option value="Supergeneralização">Supergeneralização (tirar conclusões amplas a partir de um único evento)</option>
+				<option value="Leitura Mental">Leitura Mental (acreditar que sabe o que os outros estão pensando)</option>
+				<option value="Personalização">Personalização (assumir responsabilidade excessiva por eventos)</option>
+				<option value="Visão em tudo ou nada">Visão em tudo ou nada (pensar de forma extremista)</option>
+				<option value="Desqualificação do positivo">Desqualificação do positivo (minimizar aspectos positivos)</option>
+				<option value="Raciocínio Emocional">Raciocínio Emocional (acreditar que as emoções refletem a realidade)</option>
+				<option value="Rotulação">Rotulação (rotular a si mesmo ou aos outros com base em uma única situação)</option>
+				<option value="Filtro Mental">Filtro Mental (focar nos aspectos negativos e ignorar os positivos)</option>
+			</select>
+			<label for="q1">O que faz você acreditar que as coisas são assim?</label>
+			<input type="text" id="q1" name="q1" placeholder="Explique a razão pela qual esse pensamento faz sentido para você." required>
+			<label for="resposta">Resposta Racional:</label>
+			<input type="text" id="resposta" name="resposta" placeholder="Descreva uma resposta mais equilibrada para o pensamento." required>
+			<label for="q3">Existe uma outra forma de enxergar isso?</label>
+			<input type="text" id="q3" name="q3" placeholder="Pense em alternativas para interpretar a situação." required>
+			<label for="q4">Esse pensamento está ajudando você ou te fazendo mal?</label>
+			<input type="text" id="q4" name="q4" placeholder="Reflita se o pensamento é útil ou prejudicial." required>
+			<label for="q5">Como você poderia pensar de forma mais útil sobre isso?</label>
+			<input type="text" id="q5" name="q5" placeholder="Escreva uma alternativa mais positiva ou construtiva." required>
+			<label for="q2">Como você se sente com essa situação agora?</label>
+			<input type="text" id="q2" name="q2" placeholder="Descreva seu estado emocional atual." required>
+			<label for="emocaoDepois">Intensidade da Emoção Depois:</label>
+			<input type="range" id="emocaoDepois" name="emocaoDepois" min="0" max="100" value="50" class="slider" oninput="updateSliderValue('slider-value-depois', this.value)">
+			<span id="slider-value-depois" class="slider-value">50</span>
+			<button type="button" class="whatsapp-button" onclick="sendWhatsAppMessage()"> Enviar via WhatsApp </button>
+		</form>
+		<script>
+			function toggleContent(id) {
+			   var element = document.getElementById(id);
+			   if (element.style.display === "none" || element.style.display === "") {
+			      element.style.display = "block";
+			   } else {
+			      element.style.display = "none";
+			   }
+			}
+			
+			function sendWhatsAppMessage() {
+			    const nome = document.getElementById("nome").value;
+			    const data = document.getElementById("data").value;
+			    const situacao = document.getElementById("situacao").value;
+			    const emocoes = document.getElementById("emocoes").value;
+			    const pensamento = document.getElementById("pensamento").value;
+			    const distorcao = document.getElementById("distorcao").value;
+			    const resposta = document.getElementById("resposta").value;
+			    const emocaoAntes = document.getElementById("emocaoAntes").value;
+			    const emocaoDepois = document.getElementById("emocaoDepois").value;
+			
+			    const q1 = document.getElementById("q1").value;
+			    const q2 = document.getElementById("q2").value;
+			    const q3 = document.getElementById("q3").value;
+			    const q4 = document.getElementById("q4").value;
+			    const q5 = document.getElementById("q5").value;
+			
+			    let message = `Nome: ${nome}%0AData: ${data}%0ASituação: ${situacao}%0AEmoção: ${emocoes}%0APensamento: ${pensamento}%0ADistorção: ${distorcao}%0AResposta Racional: ${resposta}%0AIntensidade da Emoção Antes: ${emocaoAntes}/100%0AIntensidade da Emoção Depois: ${emocaoDepois}/100%0A%0A**Perguntas de Reflexão:**%0A1. O que faz você acreditar que as coisas são assim? ${q1}%0A2. Existe uma outra forma de enxergar isso? ${q3}%0A3. Esse pensamento está ajudando você ou te fazendo mal? ${q4}%0A4. Como você poderia pensar de forma mais útil sobre isso? ${q5}%0A5. Como você se sente com essa situação agora? ${q2}`;
+			
+			    const whatsappUrl = `https://api.whatsapp.com/send?phone=+5535984640729&text=${message}`;
+			    window.open(whatsappUrl, '_blank');
+			}
+			
+			function updateSliderValue(elementId, value) {
+			   document.getElementById(elementId).textContent = value;
+			}
+			// Alterna a exibição do conteúdo expansível
+			function toggleContent(id) {
+			   const element = document.getElementById(id);
+			   if (element.style.display === "none" || element.style.display === "") {
+			      element.style.display = "block";
+			   } else {
+			      element.style.display = "none";
+			   }
+			}
+			
+			// Reproduz áudio
+			function playAudio(audioId) {
+			   const audioElement = document.getElementById(audioId);
+			   audioElement.play();
+			}
+			
+		</script>
+	</main>
 </body>
+
 </html>
