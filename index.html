@@ -41,14 +41,16 @@
 		}
 		
 		main {
-			width: 90%;
-			max-width: 900px;
-			background-color: rgba(255, 255, 255, 0.9);
-			margin: 30px auto;
-			padding: 40px;
-			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-			border-radius: 18px;
-			backdrop-filter: blur(10px);
+			 width: 90%;
+		    max-width: 900px;
+		    background-color: rgba(255, 255, 255, 0.9);
+		    margin: 300px auto 30px; /* Aumenta ainda mais o espaço acima do conteúdo */
+		    padding: 40px;
+		    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+		    border-radius: 18px;
+		    backdrop-filter: blur(10px);
+		    position: relative;
+		    z-index: 2;
 		}
 		
 		label {
@@ -250,7 +252,7 @@
 				<option value="Outra">Outra</option>
 			</select>
 			<label for="emocaoAntes">Intensidade da Emoção Antes:</label>
-			<input type="range" id="emocaoAntes" name="emocaoAntes" min="0" max="100" value="50" class="slider" oninput="updateSliderValue('slider-value-antes', this.value)">
+			<input type="range" id="emocaoAntes" name="emocaoAntes" min="0" max="100" value="50" class="slider" oninput="document.getElementById('slider-value-antes').textContent = this.value">
 			<span id="slider-value-antes" class="slider-value">50</span>
 			<label for="pensamento">Pensamento Automático:</label>
 			<input type="text" id="pensamento" name="pensamento" placeholder="Descreva o pensamento que surgiu automaticamente." required>
@@ -280,7 +282,7 @@
 			<label for="q2">Como você se sente com essa situação agora?</label>
 			<input type="text" id="q2" name="q2" placeholder="Descreva seu estado emocional atual." required>
 			<label for="emocaoDepois">Intensidade da Emoção Depois:</label>
-			<input type="range" id="emocaoDepois" name="emocaoDepois" min="0" max="100" value="50" class="slider" oninput="updateSliderValue('slider-value-depois', this.value)">
+			<input type="range" id="emocaoDepois" name="emocaoDepois" min="0" max="100" value="50" class="slider" oninput="document.getElementById('slider-value-depois').textContent = this.value">
 			<span id="slider-value-depois" class="slider-value">50</span>
 			<button type="button" class="whatsapp-button" onclick="sendWhatsAppMessage()"> Enviar via WhatsApp </button>
 		</form>
@@ -332,8 +334,11 @@
 			
 			// Reproduz áudio
 			function playAudio(audioId) {
-			   const audioElement = document.getElementById(audioId);
-			   audioElement.play();
+			    const audioElement = document.getElementById(audioId);
+			    if (audioElement.paused) {
+			        audioElement.play();
+			    } else {
+			        audioElement.pause();
 			}
 			
 		</script>
