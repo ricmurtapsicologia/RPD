@@ -1,238 +1,326 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Metadados Básicos e SEO -->
+	<meta charset="UTF-8" />
+	<meta name="description" content="Ferramenta online para registro de pensamentos disfuncionais (RPD). Uma técnica da Terapia Cognitivo-Comportamental para identificar e reestruturar pensamentos automáticos negativos." />
+	<meta name="keywords" content="RPD, pensamentos disfuncionais, TCC, registro de pensamentos, terapia cognitivo comportamental" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- Open Graph -->
 	<meta property="og:title" content="Registro de Pensamentos Disfuncionais (RPD)" />
 	<meta property="og:description" content="Uma ferramenta online para registro de pensamentos disfuncionais." />
 	<meta property="og:image" content="https://i.pinimg.com/736x/80/01/42/8001428bb2c23959bb0c8a8a27e01fa2.jpg" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://ricmurtapsicologia.github.io/RPD/" />
 	<title>Registro de Pensamentos Disfuncionais (RPD) - Ferramenta Online</title>
-	<style>
-		body {
-						    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-						    background-image: url('https://i.pinimg.com/736x/80/01/42/8001428bb2c23959bb0c8a8a27e01fa2.jpg');
-						    background-size: cover;
-						    background-position: center;
-						    background-attachment: fixed;
-						    color: #333;
-						    margin: 0;
-						    padding: 0;
-						    overflow-x: hidden;
-						}
-						
-						header {
-						    background: rgba(0, 0, 0, 0.6);
-						    color: white;
-						    padding: 40px;
-						    text-align: center;
-						    font-size: 28px;
-						    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-						}
-						
-						header h1 {
-						    margin: 0;
-						    font-weight: 700;
-						    background: rgba(255, 255, 255, 0.3);
-						    padding: 10px;
-						    border-radius: 10px;
-						}
-						
-						main {
-						    width: 90%;
-						    max-width: 900px;
-						    background-color: rgba(255, 255, 255, 0.9);
-						    margin: 300px auto 30px;
-						    padding: 40px;
-						    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-						    border-radius: 18px;
-						    backdrop-filter: blur(10px);
-						    position: relative;
-						    z-index: 2;
-						}
-						
-						label {
-						    display: block;
-						    margin-bottom: 10px;
-						    font-weight: bold;
-						}
-						
-						input[type="text"],
-						select,
-						input[type="date"] {
-						    width: 100%;
-						    padding: 12px;
-						    margin-bottom: 20px;
-						    border: 2px solid #ccc;
-						    border-radius: 18px;
-						    font-size: 16px;
-						    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-						    outline: none;
-						    box-sizing: border-box;
-						}
-						
-						input[type="text"]:focus,
-						select:focus,
-						input[type="date"]:focus {
-						    border-color: #5b9bd5;
-						    box-shadow: 0 0 8px rgba(91, 155, 213, 0.5);
-						}
-						
-						.slider {
-						    -webkit-appearance: none;
-						    appearance: none;
-						    width: 100%;
-						    height: 25px;
-						    background: #ddd;
-						    outline: none;
-						    border-radius: 18px;
-						    overflow: hidden;
-						}
-						
-						.slider::-webkit-slider-runnable-track {
-						    background: linear-gradient(to right, green 0%, yellow 50%, red 100%);
-						    height: 100%;
-						}
-						
-						.slider::-moz-range-track {
-						    background: linear-gradient(to right, green 0%, yellow 50%, red 100%);
-						    height: 100%;
-						}
-						
-						button {
-						    background-color: #006400;
-						    color: white;
-						    padding: 12px;
-						    border: none;
-						    border-radius: 18px;
-						    font-size: 18px;
-						    cursor: pointer;
-						    width: 100%;
-						    margin: 20px 0;
-						    transition: background-color 0.3s;
-						    display: flex;
-						    justify-content: center;
-						    align-items: center;
-						    text-align: center;
-						}
-						
-						button:hover {
-						    background-color: #004d00;
-						}
-						
-						.audio-button {
-						    background: none !important;
-						    border: none !important;
-						    cursor: pointer;
-						    padding: 0;
-						    display: flex;
-						    justify-content: center;
-						    align-items: center;
-						    outline: none !important;
-						}
-						
-						.audio-button svg {
-						    fill: #FFD700;
-						    width: 41.6px;
-						    height: 41.6px;
-						    animation: blink 1.5s infinite;
-						    transition: transform 0.2s;
-						}
-						
-						.audio-button:hover svg {
-						    transform: scale(1.1);
-						}
-						
-						.audio-button:focus {
-						    outline: none !important;
-						    box-shadow: none !important;
-						    border: none !important;
-						    background-color: transparent !important;
-						}
-						
-						@keyframes blink {
-						    0%, 100% {
-						        opacity: 1;
-						    }
-						    50% {
-						        opacity: 0.5;
-						    }
-						}
-						
-						@media (max-width: 768px) {
-						    main {
-						        width: 95%;
-						        padding: 20px;
-						    }
-						
-						    button {
-						        font-size: 16px;
-						        padding: 10px;
-						    }
-						
-						    .audio-button svg {
-						        width: 32px;
-						        height: 32px;
-						    }
-						}
-						
-						@media (max-width: 480px) {
-						    header {
-						        padding: 20px;
-						        font-size: 20px;
-						    }
-						
-						    header h1 {
-						        font-size: 18px;
-						        padding: 8px;
-						    }
-						
-						    main {
-						        padding: 15px;
-						    }
-						
-						    button {
-						        font-size: 14px;
-						        padding: 8px;
-						    }
-						
-						    .audio-button svg {
-						        width: 28px;
-						        height: 28px;
-						    }
-						}
-	</style>
-</head>
+	<!DOCTYPE html>
+	<html lang="pt-BR">
+
+	<head>
+		<!-- Metadados Básicos e SEO -->
+		<meta charset="UTF-8" />
+		<meta name="description" content="Ferramenta online para registro de pensamentos disfuncionais (RPD). Uma técnica da Terapia Cognitivo-Comportamental para identificar e reestruturar pensamentos automáticos negativos." />
+		<meta name="keywords" content="RPD, pensamentos disfuncionais, TCC, registro de pensamentos, terapia cognitivo comportamental" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- Open Graph -->
+		<meta property="og:title" content="Registro de Pensamentos Disfuncionais (RPD)" />
+		<meta property="og:description" content="Uma ferramenta online para registro de pensamentos disfuncionais." />
+		<meta property="og:image" content="https://i.pinimg.com/736x/80/01/42/8001428bb2c23959bb0c8a8a27e01fa2.jpg" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://ricmurtapsicologia.github.io/RPD/" />
+		<title>Registro de Pensamentos Disfuncionais (RPD) - Ferramenta Online</title>
+		<!-- CSS Consolidado -->
+		<style>
+			/* Reset e Transições Globais */
+			*, *::before, *::after {
+			  box-sizing: border-box;
+			  transition: all 0.3s ease-in-out;
+			}
+			html {
+			  scroll-behavior: smooth;
+			}
+			
+			/* Corpo da Página */
+			body {
+			  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			  background: url('https://i.pinimg.com/736x/80/01/42/8001428bb2c23959bb0c8a8a27e01fa2.jpg') no-repeat center center fixed;
+			  background-size: cover;
+			  margin: 0;
+			  padding: 0;
+			  color: #333;
+			  overflow-x: hidden; /* Evita rolagem horizontal */
+			}
+			
+			/* Cabeçalho */
+			header {
+			  background: rgba(0, 0, 0, 0.6);
+			  color: #fff;
+			  padding: 40px;
+			  text-align: center;
+			  font-size: 28px;
+			  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+			}
+			header h1 {
+			  margin: 0;
+			  font-weight: 700;
+			  background: rgba(255, 255, 255, 0.3);
+			  padding: 10px;
+			  border-radius: 10px;
+			  display: inline-block; /* Mantém o texto centralizado e com fundo */
+			}
+			
+			/* Conteúdo Principal */
+			main {
+			  width: 90%;
+			  max-width: 900px;
+			  background-color: rgba(255, 255, 255, 0.9);
+			  margin: 300px auto 30px;
+			  padding: 40px;
+			  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+			  border-radius: 18px;
+			  backdrop-filter: blur(10px);
+			  position: relative;
+			  z-index: 2;
+			}
+			
+			label {
+			  display: block;
+			  margin-bottom: 10px;
+			  font-weight: bold;
+			}
+			input[type="text"],
+			select,
+			input[type="date"] {
+			  width: 100%;
+			  padding: 12px;
+			  margin-bottom: 20px;
+			  border: 2px solid #ccc;
+			  border-radius: 18px;
+			  font-size: 16px;
+			  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			  outline: none;
+			}
+			input[type="text"]:focus,
+			select:focus,
+			input[type="date"]:focus {
+			  border-color: #5b9bd5;
+			  box-shadow: 0 0 8px rgba(91, 155, 213, 0.5);
+			}
+			
+			.slider {
+			  -webkit-appearance: none;
+			  appearance: none;
+			  width: 100%;
+			  height: 25px;
+			  background: #ddd;
+			  outline: none;
+			  border-radius: 18px;
+			  overflow: hidden;
+			}
+			.slider::-webkit-slider-runnable-track,
+			.slider::-moz-range-track {
+			  background: linear-gradient(to right, green 0%, yellow 50%, red 100%);
+			  height: 100%;
+			}
+			.slider-value {
+			  font-size: 16px;
+			  vertical-align: middle;
+			}
+			
+			button {
+			  background-color: #006400;
+			  color: #fff;
+			  padding: 12px;
+			  border: none;
+			  border-radius: 18px;
+			  font-size: 18px;
+			  cursor: pointer;
+			  width: 100%;
+			  margin: 20px 0;
+			  transition: background-color 0.3s;
+			  display: flex;
+			  justify-content: center;
+			  align-items: center;
+			  text-align: center;
+			}
+			button:hover {
+			  background-color: #004d00;
+			}
+			
+			/* Linha de botões expansíveis e de áudio */
+			.expansible-row {
+			  display: flex;
+			  flex-wrap: nowrap;         /* Mantém lado a lado em telas grandes */
+			  justify-content: space-between;
+			  gap: 20px;
+			  margin-bottom: 15px;
+			}
+			.expansible-section {
+			  flex: 1 1 50%;            /* Cada botão ocupa 50% do espaço */
+			  display: flex;
+			  align-items: center;
+			  justify-content: center;
+			  min-height: 60px;         /* Garantia de altura igual */
+			}
+			.expansible-button,
+			.audio-button {
+			  background-color: #006400;
+			  color: #fff !important;
+			  border: none;
+			  border-radius: 10px;
+			  font-size: 16px;
+			  cursor: pointer;
+			  padding: 12px;
+			  width: 100%;              /* Ambos 100% para ficarem iguais */
+			  display: inline-flex;
+			  align-items: center;
+			  justify-content: center;
+			  text-align: center;
+			  gap: 8px;
+			  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+			  transition: transform 0.3s, background-color 0.3s;
+			  margin-bottom: 0;
+			}
+			.expansible-button:hover,
+			.audio-button:hover {
+			  background-color: #004d00;
+			  transform: scale(1.03);
+			}
+			.expansible-content {
+			  display: none;
+			  padding: 10px;
+			  border-left: 4px solid #006400;
+			  background: rgba(255, 255, 255, 0.9);
+			  border-radius: 5px;
+			  margin-top: 8px;
+			}
+			
+			.audio-icon {
+			  fill: #FFD700;
+			  width: 24px;
+			  height: 24px;
+			  animation: blink 1.5s infinite;
+			  transition: transform 0.2s;
+			}
+			.audio-icon:hover {
+			  transform: scale(1.1);
+			}
+			
+			@keyframes blink {
+			  0%, 100% { opacity: 1; }
+			  50% { opacity: 0.5; }
+			}
+			
+			/* Responsividade */
+			@media (max-width: 768px) {
+			  main {
+			    width: 95%;
+			    padding: 20px;
+			  }
+			  .expansible-row {
+			    flex-wrap: wrap;       /* Passa a empilhar quando não couber */
+			  }
+			  .expansible-section {
+			    flex: 1 1 100%;        /* Ocupa 100% da largura em telas menores */
+			    margin-bottom: 10px;
+			  }
+			  button {
+			    font-size: 16px;
+			    padding: 10px;
+			  }
+			}
+			@media (max-width: 480px) {
+			  header {
+			    padding: 20px;
+			    font-size: 20px;
+			  }
+			  header h1 {
+			    font-size: 18px;
+			    padding: 8px;
+			  }
+			  main {
+			    padding: 15px;
+			  }
+			  button {
+			    font-size: 14px;
+			    padding: 8px;
+			  }
+			  .audio-icon {
+			    width: 20px;
+			    height: 20px;
+			  }
+			}
+			
+			/* Rodapé */
+			footer {
+			  text-align: center;
+			  margin-top: 30px;
+			  padding: 10px;
+			  background-color: rgba(0, 0, 0, 0.7);
+			  color: #fff;
+			  font-size: 14px;
+			  border-radius: 10px;
+			}
+			
+			/* Ícone de áudio no canto inferior direito */
+			#audio-container {
+			  position: fixed;
+			  bottom: 20px;
+			  right: 20px;
+			  z-index: 9999;
+			}
+			#toggle-audio {
+			  background: rgba(255, 255, 255, 0.8);
+			  border: none;
+			  padding: 12px;
+			  border-radius: 50%;
+			  font-size: 20px;
+			  cursor: pointer;
+			  transition: background 0.3s ease;
+			}
+			#toggle-audio:hover {
+			  background: rgba(255, 255, 255, 1);
+			}
+		</style>
+		<!-- Bibliotecas (jsPDF) e GSAP para animações suaves -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/gsap.min.js"></script>
+	</head>
 
 <body>
 	<header>
 		<h1>Registro de Pensamentos Disfuncionais (RPD)</h1>
 	</header>
 	<main>
-		<!-- Seção "O que é o RPD?" -->
-		<div class="expansible-section">
-			<button class="expansible-button" onclick="toggleContent('rpd-expansion')"> O que é o RPD? (Clique aqui para saber mais) </button>
-			<!-- Botão de áudio com ícone dourado e efeito hover -->
-			<button onclick="playAudio('audioRPD')" class="audio-button">
-				<svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16">
-					<path d="M11.536 14.01a.5.5 0 0 0 .707.038A8.004 8.004 0 0 0 16 8a8.003 8.003 0 0 0-3.757-6.912.5.5 0 0 0-.63.776A7.002 7.002 0 0 1 15 8a7.003 7.003 0 0 1-3.086 5.796.5.5 0 0 0-.038.707z" />
-					<path d="M8 5.993c-.147 0-.293.054-.414.162L5.825 7.44H4.5A1.5 1.5 0 0 0 3 8.993v1c0 .828.672 1.5 1.5 1.5h1.325l1.761 1.285c.12.107.266.161.414.161.337 0 .586-.252.586-.583V6.576c0-.331-.25-.583-.586-.583z" />
-				</svg>
-				<span>Ouvir áudio explicativo</span>
-			</button>
-			<audio id="audioRPD">
-				<source src="https://raw.githubusercontent.com/ricmurtapsicologia/RPD/main/RPD1.mp3" type="audio/mpeg"> Seu navegador não suporta áudio.
-			</audio>
-			<div id="rpd-expansion" class="expansible-content">
-				<p>O Registro de Pensamentos Disfuncionais (RPD) é uma técnica da Terapia Cognitivo-Comportamental (TCC) que ajuda a identificar e reestruturar pensamentos automáticos negativos.</p>
-				<p>Preencher o RPD pode ajudar a tornar mais claro como os pensamentos influenciam as emoções e o comportamento, promovendo uma visão mais equilibrada da situação.</p>
-				<p>Assista ao vídeo: <a href="https://www.youtube.com/watch?v=qp8VUlVqooI" target="_blank">Como fazer o RPD</a></p>
+		<!-- Linha contendo botões: "O que é o RPD?" e "Ouvir áudio explicativo" -->
+		<div class="expansible-row">
+			<!-- Botão Expansível -->
+			<div class="expansible-section">
+				<button class="expansible-button" onclick="toggleContent('rpd-expansion')"> O que é o RPD? (Clique aqui para saber mais) </button>
+			</div>
+			<!-- Botão de áudio -->
+			<div class="expansible-section">
+				<button class="audio-button" onclick="playAudio('audioRPD')">
+					<svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+						<path d="M11.536 14.01a.5.5 0 0 0 .707.038A8.004 8.004 0 0 0 16 8a8.003 8.003 0 0 0-3.757-6.912.5.5 0 0 0-.63.776A7.002 7.002 0 0 1 15 8a7.003 7.003 0 0 1-3.086 5.796.5.5 0 0 0-.038.707z" />
+						<path d="M8 5.993c-.147 0-.293.054-.414.162L5.825 7.44H4.5A1.5 1.5 0 0 0 3 8.993v1c0 .828.672 1.5 1.5 1.5h1.325l1.761 1.285c.12.107.266.161.414.161.337 0 .586-.252.586-.583V6.576c0-.331-.25-.583-.586-.583z" />
+					</svg>
+					<span>Ouvir áudio explicativo</span>
+				</button>
+				<audio id="audioRPD">
+					<source src="https://raw.githubusercontent.com/ricmurtapsicologia/RPD/main/RPD1.mp3" type="audio/mpeg"> Seu navegador não suporta áudio.
+				</audio>
 			</div>
 		</div>
-		<!-- Seção "O que são distorções cognitivas?" -->
-		<div class="expansible-section">
+		<!-- Conteúdo Expansível: RPD -->
+		<div id="rpd-expansion" class="expansible-content">
+			<p>O Registro de Pensamentos Disfuncionais (RPD) é uma técnica da Terapia Cognitivo-Comportamental (TCC) que ajuda a identificar e reestruturar pensamentos automáticos negativos.</p>
+			<p>Preencher o RPD pode ajudar a tornar mais claro como os pensamentos influenciam as emoções e o comportamento, promovendo uma visão mais equilibrada da situação.</p>
+			<p>Assista ao vídeo: <a href="https://www.youtube.com/watch?v=qp8VUlVqooI" target="_blank">Como fazer o RPD</a></p>
+		</div>
+		<!-- Botão Expansível: "O que são distorções cognitivas?" -->
+		<div class="expansible-section" style="margin-bottom: 15px;">
 			<button class="expansible-button" onclick="toggleContent('distorcoes-expansion')"> O que são distorções cognitivas? (Clique para entender) </button>
 			<div id="distorcoes-expansion" class="expansible-content">
 				<p>As distorções cognitivas são padrões de pensamento que podem distorcer a realidade, levando a interpretações negativas ou irreais das situações.</p>
@@ -240,159 +328,42 @@
 				<p>Identificar e corrigir essas distorções pode ajudar a reduzir a ansiedade e melhorar o bem-estar emocional.</p>
 			</div>
 		</div>
-		<!-- Estilos melhorados -->
-		<style>
-			.expansible-section {
-			    margin-bottom: 15px;
-			}
-			        
-			.expansible-button {
-			    width: 100%;
-			    background-color: #006400;
-			    color: white;
-			    padding: 12px;
-			    border: none;
-			    border-radius: 10px;
-			    font-size: 16px;
-			    cursor: pointer;
-			    transition: background-color 0.3s ease;
-			    text-align: center;
-			}
-			        
-			.expansible-button:hover {
-			    background-color: #004d00;
-			}
-			        
-			.expansible-content {
-			    display: none;
-			    padding: 10px;
-			    border-left: 4px solid #006400;
-			    background: rgba(255, 255, 255, 0.9);
-			    border-radius: 5px;
-			    margin-top: 8px;
-			    transition: max-height 0.3s ease-in-out;
-			}
-			        
-			.audio-button {
-			    display: flex;
-			    align-items: center;
-			    gap: 8px;
-			    background: none;
-			    border: none;
-			    cursor: pointer;
-			    font-size: 16px;
-			    font-weight: bold;
-			    color: #555;
-			    margin-top: 8px;
-			    transition: color 0.3s ease-in-out;
-			}
-			        
-			.audio-button:hover {
-			    color: #000;
-			}
-			        
-			.audio-icon {
-			    fill: #FFD700; /* Ícone dourado */
-			    width: 28px;
-			    height: 28px;
-			    transition: transform 0.2s, fill 0.3s;
-			}
-			        
-			.audio-button:hover .audio-icon {
-			    fill: #FFC107; /* Tom mais escuro de dourado */
-			    transform: scale(1.1);
-			}
-		</style>
-		<!-- JavaScript corrigido -->
-		<script>
-			function playAudio(audioId) {
-			    var audio = document.getElementById(audioId);
-			    if (audio.paused) {
-			        audio.play();
-			    } else {
-			        audio.pause();
-			    }
-			}
-			        
-			function toggleContent(id) {
-			    var element = document.getElementById(id);
-			    if (element.style.display === "none" || element.style.display === "") {
-			        element.style.display = "block";
-			    } else {
-			        element.style.display = "none";
-			    }
-			}
-		</script>
+		<!-- Formulário do RPD -->
 		<form id="rpd-form" name="rpd-form">
 			<label for="nome">Nome Completo:</label>
 			<input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
 			<label for="data">Data de Preenchimento:</label>
 			<input type="date" id="data" name="data" required>
 			<label for="situacao">1. Situação:</label>
-			<input type="text" id="situacao" name="1. situacao" placeholder="O que aconteceu antes dessa emoção surgir? Descreva brevemente o que desencadeou esse pensamento." required>
+			<input type="text" id="situacao" name="situacao" placeholder="O que aconteceu antes dessa emoção surgir? Descreva brevemente o que desencadeou esse pensamento." required>
 			<label for="emocoes">2. Emoções:</label>
 			<p>Clique para selecionar as emoções que melhor representam o que você sentiu.</p>
-			<!-- Botão para expandir a seleção -->
-			<button type="button" onclick="toggleEmocoes()" style="background-color: #006400; color: white; padding: 8px; border: none; border-radius: 10px; font-size: 16px; cursor: pointer; width: 100%;"> Escolher Emoções ⬇ </button>
-			<!-- Caixa de seleção oculta -->
+			<button type="button" onclick="toggleEmocoes()" style="background-color: #006400; color: #fff; padding: 8px; border: none; border-radius: 10px; font-size: 16px; cursor: pointer; width: 100%;"> Escolher Emoções ⬇ </button>
 			<div id="emocoes-container" style="display: none; margin-top: 10px;">
 				<p>📌 Marque todas as emoções que você sentiu:</p>
 				<div id="emocoes" style="display: flex; flex-wrap: wrap; gap: 10px;">
-					<label>
-						<input type="checkbox" name="emocoes" value="Ansiedade"> 😟 Ansiedade</label>
-					<label>
-						<input type="checkbox" name="emocoes" value="Tristeza"> 😢 Tristeza</label>
-					<label>
-						<input type="checkbox" name="emocoes" value="Raiva"> 😡 Raiva</label>
-					<label>
-						<input type="checkbox" name="emocoes" value="Culpa"> 😔 Culpa</label>
-					<label>
-						<input type="checkbox" name="emocoes" value="Medo"> 😨 Medo</label>
-					<label>
-						<input type="checkbox" name="emocoes" value="Vergonha"> 😳 Vergonha</label>
-					<label>
-						<input type="checkbox" name="emocoes" value="Euforia"> 😃 Euforia</label>
-					<label>
-						<input type="checkbox" name="emocoes" value="Frustração"> 😞 Frustração</label>
-					<label>
-						<input type="checkbox" name="emocoes" value="Insegurança"> 😓 Insegurança</label>
-					<label>
-						<input type="checkbox" name="emocoes" value="Desânimo"> 😩 Desânimo</label>
-					<label>
-						<input type="checkbox" name="emocoes" value="Outra"> ❓ Outra</label>
+					<label><input type="checkbox" name="emocoes" value="Ansiedade"> 😟 Ansiedade</label>
+					<label><input type="checkbox" name="emocoes" value="Tristeza"> 😢 Tristeza</label>
+					<label><input type="checkbox" name="emocoes" value="Raiva"> 😡 Raiva</label>
+					<label><input type="checkbox" name="emocoes" value="Culpa"> 😔 Culpa</label>
+					<label><input type="checkbox" name="emocoes" value="Medo"> 😨 Medo</label>
+					<label><input type="checkbox" name="emocoes" value="Vergonha"> 😳 Vergonha</label>
+					<label><input type="checkbox" name="emocoes" value="Euforia"> 😃 Euforia</label>
+					<label><input type="checkbox" name="emocoes" value="Frustração"> 😞 Frustração</label>
+					<label><input type="checkbox" name="emocoes" value="Insegurança"> 😓 Insegurança</label>
+					<label><input type="checkbox" name="emocoes" value="Desânimo"> 😩 Desânimo</label>
+					<label><input type="checkbox" name="emocoes" value="Outra"> ❓ Outra</label>
 				</div>
 			</div>
-			<!-- Exibir emoções selecionadas -->
 			<p id="emocoes-selecionadas" style="margin-top: 10px; font-weight: bold;"></p>
-			<script>
-				function toggleEmocoes() {
-								    var container = document.getElementById("emocoes-container");
-								    if (container.style.display === "none" || container.style.display === "") {
-								        container.style.display = "block";
-								    } else {
-								        container.style.display = "none";
-								    }
-								}
-								            
-								// Atualizar as emoções selecionadas
-								document.querySelectorAll('input[name="emocoes"]').forEach(function(checkbox) {
-								    checkbox.addEventListener("change", function() {
-								        var selecionadas = [];
-								        document.querySelectorAll('input[name="emocoes"]:checked').forEach(function(emocao) {
-								            selecionadas.push(emocao.value);
-								        });
-								        document.getElementById("emocoes-selecionadas").innerText = "Emoções selecionadas: " + (selecionadas.length > 0 ? selecionadas.join(", ") : "Nenhuma");
-								    });
-								});
-			</script>
 			<label for="emocaoAntes">3. Intensidade da Emoção Antes:</label>
-			<p> De 0 a 100, quão forte essa emoção foi para você? Ajuste a barra.</p>
+			<p>De 0 a 100, quão forte essa emoção foi para você? Ajuste a barra.</p>
 			<input type="range" id="emocaoAntes" name="emocaoAntes" min="0" max="100" value="50" class="slider" oninput="document.getElementById('slider-value-antes').textContent = this.value">
 			<span id="slider-value-antes" class="slider-value">50</span>
 			<label for="pensamento">4. Pensamento Automático:</label>
 			<input type="text" id="pensamento" name="pensamento" placeholder="Que ideia veio à sua mente imediatamente nessa situação?" required>
 			<label for="distorcao">5. Distorção Cognitiva:</label>
-			<p> Se esse pensamento fosse um erro de lógica, qual seria? Escolha a mais próxima.</p>
+			<p>Se esse pensamento fosse um erro de lógica, qual seria? Escolha a mais próxima.</p>
 			<select id="distorcao" name="distorcao" required>
 				<option value="">Selecione uma opção</option>
 				<option value="Catastrofização">Catastrofização (imaginar o pior cenário possível)</option>
@@ -422,220 +393,237 @@
 			<label for="emocaoDepois">13. Intensidade da Emoção Depois:</label>
 			<input type="range" id="emocaoDepois" name="emocaoDepois" min="0" max="100" value="50" class="slider" oninput="document.getElementById('slider-value-depois').textContent = this.value">
 			<span id="slider-value-depois" class="slider-value">50</span>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 			<!-- Botões de ação -->
 			<button type="button" class="whatsapp-button" onclick="sendWhatsAppMessage()">📲 Enviar via WhatsApp</button>
 			<button type="button" class="pdf-button" onclick="saveAsPDF()">📄 Salvar como PDF</button>
-			<script>
-				function sendWhatsAppMessage() {
-								    const nome = document.getElementById("nome").value || "Sem Nome";
-								    const data = document.getElementById("data").value || "Sem Data";
-								    const situacao = document.getElementById("situacao").value || "Não informado";
-								    const emocoes = Array.from(document.querySelectorAll('input[name="emocoes"]:checked'))
-								                        .map(el => el.value)
-								                        .join(", ") || "Não informado";
-								    const pensamento = document.getElementById("pensamento").value || "Não informado";
-								    const distorcao = document.getElementById("distorcao").value || "Não informado";
-								    const emocaoDepois = document.getElementById("emocaoDepois").value;
-								            
-								    const reflexoes = [
-								        `1. O que faz você acreditar que as coisas são assim? ${document.getElementById("q1").value || "Não informado"}`,
-								        `2. Se outra pessoa estivesse no seu lugar, ela pensaria da mesma forma? ${document.getElementById("q6").value || "Não informado"}`,
-								        `3. Esse pensamento é um fato ou uma interpretação sua? ${document.getElementById("q7").value || "Não informado"}`,
-								        `4. Esse pensamento está ajudando você ou te fazendo mal? ${document.getElementById("q4").value || "Não informado"}`,
-								        `5. Se você simplesmente não tivesse esse pensamento, o que mudaria? ${document.getElementById("q8").value || "Não informado"}`,
-								        `6. Como você poderia pensar de forma mais útil sobre isso? ${document.getElementById("q5").value || "Não informado"}`,
-								        `7. Como você se sente agora? ${document.getElementById("q2").value || "Não informado"}`
-								    ].join("%0A");
-								            
-								    let message = `Nome: ${nome}%0AData: ${data}%0ASituação: ${situacao}%0AEmoções: ${emocoes}%0APensamento: ${pensamento}%0ADistorção Cognitiva: ${distorcao}%0AIntensidade da Emoção Depois: ${emocaoDepois}/100%0A%0A**Perguntas de Reflexão:**%0A${reflexoes}`;
-								            
-								    const whatsappUrl = `https://api.whatsapp.com/send?phone=+5535984640729&text=${message}`;
-								    window.open(whatsappUrl, '_blank');
-								}
-								            
-								function saveAsPDF() {
-								    if (!window.jspdf) {
-								        alert("Erro ao carregar a biblioteca jsPDF. Verifique a conexão com a internet.");
-								        return;
-								    }
-								            
-								    const { jsPDF } = window.jspdf;
-								    const doc = new jsPDF({ format: "a4", orientation: "portrait" });
-								            
-								    // Coletando dados do formulário
-								    const nome = document.getElementById("nome").value || "Sem Nome";
-								    const data = document.getElementById("data").value || "Sem Data";
-								    const situacao = document.getElementById("situacao").value || "Não informado";
-								    const emocoes = Array.from(document.querySelectorAll('input[name="emocoes"]:checked'))
-								                        .map(el => el.value)
-								                        .join(", ") || "Não informado";
-								    const pensamento = document.getElementById("pensamento").value || "Não informado";
-								    const distorcao = document.getElementById("distorcao").value || "Não informado";
-								    const emocaoDepois = document.getElementById("emocaoDepois").value;
-								            
-								    // Cabeçalho
-								    doc.setFont("Arial", "bold");
-								    doc.setFontSize(14);
-								    doc.text("REGISTRO DE PENSAMENTOS DISFUNCIONAIS", 105, 20, { align: "center" });
-								            
-								    // Parágrafo introdutório aprimorado
-								    doc.setFontSize(12);
-								    doc.setFont("Arial", "normal");
-								    doc.text("Este registro é um instrumento poderoso para ajudá-lo a entender como seus pensamentos influenciam suas emoções e comportamentos. Ao preencher o RPD, você cria a oportunidade de reestruturar padrões de pensamento automáticos, desenvolvendo uma visão mais equilibrada e saudável das situações que vivencia.", 20, 30, { maxWidth: 170, align: "justify" });
-								            
-								    let y = 50;
-								    const campos = [
-								        { label: "Nome:", value: nome },
-								        { label: "Data:", value: data },
-								        { label: "Situação:", value: situacao },
-								        { label: "Emoções Sentidas:", value: emocoes },
-								        { label: "Pensamento Automático:", value: `    ${pensamento}` },  // Adicionando espaçamento no início
-								        { label: "Distorção Cognitiva:", value: distorcao }
-								    ];
-								            
-								    // Adicionando os campos ao PDF
-								    campos.forEach(campo => {
-								        doc.setFont("Arial", "bold");
-								        doc.text(campo.label, 20, y);
-								        doc.setFont("Arial", "normal");
-								        doc.text(doc.splitTextToSize(campo.value, 140), 70, y);
-								        y += 10;
-								    });
-								            
-								    // Reflexões
-								    y += 10;
-								    doc.setFont("Arial", "bold");
-								    doc.text("Reflexões:", 20, y);
-								    y += 10;
-								    doc.setFont("Arial", "normal");
-								    doc.text("As perguntas a seguir ajudarão você a desafiar seus pensamentos e explorar formas mais saudáveis de interpretá-los, promovendo uma maior clareza mental e bem-estar emocional.", 20, y, { maxWidth: 170, align: "justify" });
-								    y += 10;
-								            
-								    const reflexoes = [
-								        { pergunta: "1. O que faz você acreditar que as coisas são assim?", resposta: document.getElementById("q1").value || "Não informado" },
-								        { pergunta: "2. Se outra pessoa estivesse no seu lugar, ela pensaria da mesma forma?", resposta: document.getElementById("q6").value || "Não informado" },
-								        { pergunta: "3. Esse pensamento é um fato ou uma interpretação sua?", resposta: document.getElementById("q7").value || "Não informado" },
-								        { pergunta: "4. Esse pensamento está ajudando você ou te fazendo mal?", resposta: document.getElementById("q4").value || "Não informado" },
-								        { pergunta: "5. Se você simplesmente não tivesse esse pensamento, o que mudaria?", resposta: document.getElementById("q8").value || "Não informado" },
-								        { pergunta: "6. Como você poderia pensar de forma mais útil sobre isso?", resposta: document.getElementById("q5").value || "Não informado" },
-								        { pergunta: "7. Como você se sente agora?", resposta: document.getElementById("q2").value || "Não informado" }
-								    ];
-								            
-								    reflexoes.forEach(reflexao => {
-								        doc.setFont("Arial", "bold");
-								        doc.text(reflexao.pergunta, 20, y);
-								        y += 6;
-								        doc.setFont("Arial", "normal");
-								        let respostaFormatada = doc.splitTextToSize(reflexao.resposta, 160);
-								        doc.text(respostaFormatada, 20, y);
-								        y += respostaFormatada.length * 6 + 4;
-								    });
-								            
-								    // Mensagem final reforçada
-								    y += 20;
-								    doc.setFont("Arial", "bold");
-								    doc.text("Parabéns por concluir esta atividade!", 20, y);
-								    y += 10;
-								    doc.setFont("Arial", "normal");
-								    doc.text("Espero que este exercício tenha lhe proporcionado maior clareza sobre seus pensamentos e emoções. A percepção é a chave para a mudança, e ao se permitir refletir, você já está trilhando um caminho de crescimento emocional e bem-estar.", 20, y, { maxWidth: 170, align: "justify" });
-								            
-								    // Assinatura profissional alinhada
-								    y += 30;
-								    doc.setFont("Arial", "bold");
-								    doc.text("Richelmy Murta Pinto", 105, y, { align: "center" });
-								    doc.setFont("Arial", "normal");
-								    doc.text("Psicólogo Clínico", 105, y + 8, { align: "center" });
-								    doc.text("Especialista em Terapia Cognitivo-Comportamental", 105, y + 16, { align: "center" });
-								            
-								            // Criar uma nova página para a assinatura
-								            doc.addPage();
-								            y = 50; // Reinicia a posição no topo da nova página
-								            
-								            // Assinatura profissional centralizada
-								            doc.setFont("Arial", "bold");
-								            doc.text("Richelmy Murta Pinto", 105, y, { align: "center" });
-								            doc.setFont("Arial", "normal");
-								            doc.text("Psicólogo Clínico", 105, y + 8, { align: "center" });
-								            doc.text("Especialista em Terapia Cognitivo-Comportamental", 105, y + 16, { align: "center" });
-								            
-								            // Salvar o PDF após incluir a assinatura
-								            doc.save(`RPD_${nome}_${data}.pdf`);
-								            
-								            // Salvar o PDF após incluir a assinatura
-								            doc.save(`RPD_${nome}_${data}.pdf`);
-								            
-								            
-								    // Salvar o PDF
-								    doc.save(`RPD_${nome}_${data}.pdf`);
-								}
-			</script>
+		</form>
 	</main>
-	<footer style="text-align: center; margin-top: 30px; padding: 10px; background-color: rgba(0, 0, 0, 0.7); color: white; font-size: 14px; border-radius: 10px;">
+	<footer>
 		<p>© 2025 Richelmy Murta, Psicólogo Clínico</p>
 		<p>Especialista em Terapia Cognitivo-Comportamental</p>
 	</footer>
-	<!-- Ícone de áudio no canto inferior direito -->
+	<!-- Botão de Áudio no canto inferior direito -->
 	<div id="audio-container">
-		<button id="toggle-audio" class="audio-icon" onclick="toggleAudio()"> 🔊 </button>
+		<button id="toggle-audio" onclick="toggleBackgroundAudio()">🔊</button>
 	</div>
-	<!-- Elemento de áudio com ruído de vento realista -->
 	<audio id="background-audio" loop>
-		<source src="https://www.soundjay.com/nature/sounds/rain-02.mp3" type="audio/mpeg"> Seu navegador não suporta áudio.
+		<source src="https://www.soundjay.com/nature/sounds/rain-02.mp3" type="audio/mpeg" /> Seu navegador não suporta áudio.
 	</audio>
-	<style>
-		/* Ícone de áudio no canto inferior direito */
-				#audio-container {
-				    position: fixed;
-				    bottom: 20px;
-				    right: 20px;
-				    z-index: 9999;
-				}
-				    
-				.audio-icon {
-				    background: rgba(255, 255, 255, 0.8);
-				    border: none;
-				    padding: 12px;
-				    border-radius: 50%;
-				    font-size: 20px;
-				    cursor: pointer;
-				    transition: background 0.3s ease;
-				}
-				    
-				.audio-icon:hover {
-				    background: rgba(255, 255, 255, 1);
-				}
-	</style>
+	<!-- JS Moderno e Funções -->
 	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-				    let audio = document.getElementById("background-audio");
-				    let audioButton = document.getElementById("toggle-audio");
-				    
-				    // Volume inicial reduzido para ser mais relaxante
-				    audio.volume = 0.12;
-				    
-				    // Iniciar o áudio somente após a interação do usuário (evita bloqueios)
-				    document.addEventListener("click", function () {
-				        if (audio.paused) {
-				            audio.play().then(() => {
-				                console.log("Áudio reproduzido com sucesso.");
-				            }).catch(error => {
-				                console.log("Reprodução automática bloqueada. O usuário precisa ativar manualmente.");
-				            });
-				        }
-				    }, { once: true });
-				    
-				    // Função para alternar o áudio manualmente
-				    window.toggleAudio = function () {
-				        if (audio.paused) {
-				            audio.play();
-				            audioButton.textContent = "🔇";
-				        } else {
-				            audio.pause();
-				            audioButton.textContent = "🔊";
-				        }
-				    };
-				});
+		// Toggle exibição com transição suave (GSAP)
+		function toggleContent(id) {
+		  const element = document.getElementById(id);
+		  if (!element) return;
+		  if (element.style.display === "none" || element.style.display === "") {
+		    element.style.display = "block";
+		    gsap.fromTo(element, { opacity: 0 }, { opacity: 1, duration: 0.4 });
+		  } else {
+		    gsap.to(element, {
+		      opacity: 0,
+		      duration: 0.4,
+		      onComplete: () => { element.style.display = "none"; }
+		    });
+		  }
+		}
+		
+		// Tocar/pausar áudio explicativo
+		function playAudio(audioId) {
+		  const audio = document.getElementById(audioId);
+		  audio.paused ? audio.play() : audio.pause();
+		}
+		
+		// Mostrar/ocultar caixa de emoções
+		function toggleEmocoes() {
+		  const container = document.getElementById("emocoes-container");
+		  if (container.style.display === "none" || container.style.display === "") {
+		    container.style.display = "block";
+		    gsap.fromTo(container, { opacity: 0 }, { opacity: 1, duration: 0.4 });
+		  } else {
+		    gsap.to(container, {
+		      opacity: 0,
+		      duration: 0.4,
+		      onComplete: () => { container.style.display = "none"; }
+		    });
+		  }
+		}
+		
+		// Atualizar emoções selecionadas
+		document.querySelectorAll('input[name="emocoes"]').forEach(checkbox => {
+		  checkbox.addEventListener("change", () => {
+		    const selecionadas = Array.from(document.querySelectorAll('input[name="emocoes"]:checked')).map(el => el.value);
+		    document.getElementById("emocoes-selecionadas").innerText =
+		      "Emoções selecionadas: " + (selecionadas.length ? selecionadas.join(", ") : "Nenhuma");
+		  });
+		});
+		
+		// Áudio de fundo
+		const backgroundAudio = document.getElementById("background-audio");
+		const toggleAudioBtn = document.getElementById("toggle-audio");
+		backgroundAudio.volume = 0.12; // volume inicial
+		document.addEventListener("click", () => {
+		  if (backgroundAudio.paused) {
+		    backgroundAudio.play().catch(() => console.log("Reprodução de áudio bloqueada."));
+		  }
+		}, { once: true });
+		
+		function toggleBackgroundAudio() {
+		  if (backgroundAudio.paused) {
+		    backgroundAudio.play();
+		    toggleAudioBtn.textContent = "🔇";
+		  } else {
+		    backgroundAudio.pause();
+		    toggleAudioBtn.textContent = "🔊";
+		  }
+		}
+		
+		// Envio via WhatsApp
+		function sendWhatsAppMessage() {
+		  const nome = document.getElementById("nome").value || "Sem Nome";
+		  const data = document.getElementById("data").value || "Sem Data";
+		  const situacao = document.getElementById("situacao").value || "Não informado";
+		  const emocoes = Array.from(document.querySelectorAll('input[name="emocoes"]:checked'))
+		    .map(el => el.value)
+		    .join(", ") || "Não informado";
+		  const pensamento = document.getElementById("pensamento").value || "Não informado";
+		  const distorcao = document.getElementById("distorcao").value || "Não informado";
+		  const emocaoDepois = document.getElementById("emocaoDepois").value;
+		
+		  const reflexoes = [
+		    `1. O que faz você acreditar que as coisas são assim? ${document.getElementById("q1").value || "Não informado"}`,
+		    `2. Se outra pessoa estivesse no seu lugar, ela pensaria da mesma forma? ${document.getElementById("q6").value || "Não informado"}`,
+		    `3. Esse pensamento é um fato ou uma interpretação sua? ${document.getElementById("q7").value || "Não informado"}`,
+		    `4. Esse pensamento está ajudando você ou te fazendo mal? ${document.getElementById("q4").value || "Não informado"}`,
+		    `5. Se você simplesmente não tivesse esse pensamento, o que mudaria? ${document.getElementById("q8").value || "Não informado"}`,
+		    `6. Como você poderia pensar de forma mais útil sobre isso? ${document.getElementById("q5").value || "Não informado"}`,
+		    `7. Como você se sente agora? ${document.getElementById("q2").value || "Não informado"}`
+		  ].join("%0A");
+		
+		  let message = `Nome: ${nome}%0AData: ${data}%0ASituação: ${situacao}%0AEmoções: ${emocoes}%0APensamento: ${pensamento}%0ADistorção Cognitiva: ${distorcao}%0AIntensidade da Emoção Depois: ${emocaoDepois}/100%0A%0A**Perguntas de Reflexão:**%0A${reflexoes}`;
+		  const whatsappUrl = `https://api.whatsapp.com/send?phone=+5535984640729&text=${message}`;
+		  window.open(whatsappUrl, '_blank');
+		}
+		
+		// Salvar como PDF
+		function saveAsPDF() {
+		  if (!window.jspdf) {
+		    alert("Erro ao carregar a biblioteca jsPDF. Verifique a conexão com a internet.");
+		    return;
+		  }
+		  const { jsPDF } = window.jspdf;
+		  const doc = new jsPDF({ format: "a4", orientation: "portrait" });
+		
+		  // Cabeçalho
+		  doc.setFont("Arial", "bold");
+		  doc.setFontSize(14);
+		  doc.text("REGISTRO DE PENSAMENTOS DISFUNCIONAIS", 105, 20, { align: "center" });
+		
+		  // Introdução
+		  doc.setFontSize(12);
+		  doc.setFont("Arial", "normal");
+		  doc.text(
+		    "Este registro é um instrumento poderoso para ajudá-lo a entender como seus pensamentos influenciam suas emoções e comportamentos. Ao preencher o RPD, você cria a oportunidade de reestruturar padrões de pensamento automáticos, desenvolvendo uma visão mais equilibrada e saudável das situações que vivencia.",
+		    20,
+		    30,
+		    { maxWidth: 170, align: "justify" }
+		  );
+		
+		  let y = 50;
+		  const campos = [
+		    { label: "Nome:", value: document.getElementById("nome").value || "Sem Nome" },
+		    { label: "Data:", value: document.getElementById("data").value || "Sem Data" },
+		    { label: "Situação:", value: document.getElementById("situacao").value || "Não informado" },
+		    {
+		      label: "Emoções Sentidas:",
+		      value: Array.from(document.querySelectorAll('input[name="emocoes"]:checked')).map(el => el.value).join(", ") || "Não informado"
+		    },
+		    { label: "Pensamento Automático:", value: document.getElementById("pensamento").value || "Não informado" },
+		    { label: "Distorção Cognitiva:", value: document.getElementById("distorcao").value || "Não informado" }
+		  ];
+		
+		  campos.forEach(campo => {
+		    doc.setFont("Arial", "bold");
+		    doc.text(campo.label, 20, y);
+		    doc.setFont("Arial", "normal");
+		    doc.text(doc.splitTextToSize(campo.value, 140), 70, y);
+		    y += 10;
+		  });
+		
+		  y += 10;
+		  doc.setFont("Arial", "bold");
+		  doc.text("Reflexões:", 20, y);
+		  y += 10;
+		  doc.setFont("Arial", "normal");
+		  doc.text(
+		    "As perguntas a seguir ajudarão você a desafiar seus pensamentos e explorar formas mais saudáveis de interpretá-los, promovendo uma maior clareza mental e bem-estar emocional.",
+		    20,
+		    y,
+		    { maxWidth: 170, align: "justify" }
+		  );
+		  y += 10;
+		
+		  const reflexoes = [
+		    {
+		      pergunta: "1. O que faz você acreditar que as coisas são assim?",
+		      resposta: document.getElementById("q1").value || "Não informado"
+		    },
+		    {
+		      pergunta: "2. Se outra pessoa estivesse no seu lugar, ela pensaria da mesma forma?",
+		      resposta: document.getElementById("q6").value || "Não informado"
+		    },
+		    {
+		      pergunta: "3. Esse pensamento é um fato ou uma interpretação sua?",
+		      resposta: document.getElementById("q7").value || "Não informado"
+		    },
+		    {
+		      pergunta: "4. Esse pensamento está ajudando você ou te fazendo mal?",
+		      resposta: document.getElementById("q4").value || "Não informado"
+		    },
+		    {
+		      pergunta: "5. Se você simplesmente não tivesse esse pensamento, o que mudaria?",
+		      resposta: document.getElementById("q8").value || "Não informado"
+		    },
+		    {
+		      pergunta: "6. Como você poderia pensar de forma mais útil sobre isso?",
+		      resposta: document.getElementById("q5").value || "Não informado"
+		    },
+		    {
+		      pergunta: "7. Como você se sente agora?",
+		      resposta: document.getElementById("q2").value || "Não informado"
+		    }
+		  ];
+		
+		  reflexoes.forEach(reflexao => {
+		    doc.setFont("Arial", "bold");
+		    doc.text(reflexao.pergunta, 20, y);
+		    y += 6;
+		    doc.setFont("Arial", "normal");
+		    let respostaFormatada = doc.splitTextToSize(reflexao.resposta, 160);
+		    doc.text(respostaFormatada, 20, y);
+		    y += respostaFormatada.length * 6 + 4;
+		  });
+		
+		  y += 20;
+		  doc.setFont("Arial", "bold");
+		  doc.text("Parabéns por concluir esta atividade!", 20, y);
+		  y += 10;
+		  doc.setFont("Arial", "normal");
+		  doc.text(
+		    "Espero que este exercício tenha lhe proporcionado maior clareza sobre seus pensamentos e emoções. A percepção é a chave para a mudança, e ao se permitir refletir, você já está trilhando um caminho de crescimento emocional e bem-estar.",
+		    20,
+		    y,
+		    { maxWidth: 170, align: "justify" }
+		  );
+		
+		  y += 30;
+		  doc.setFont("Arial", "bold");
+		  doc.text("Richelmy Murta Pinto", 105, y, { align: "center" });
+		  doc.setFont("Arial", "normal");
+		  doc.text("Psicólogo Clínico", 105, y + 8, { align: "center" });
+		  doc.text("Especialista em Terapia Cognitivo-Comportamental", 105, y + 16, { align: "center" });
+		
+		  doc.save(`RPD_${document.getElementById("nome").value || "Sem_Nome"}_${document.getElementById("data").value || "Sem_Data"}.pdf`);
+		}
 	</script>
 </body>
 
