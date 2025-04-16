@@ -612,4 +612,771 @@
 	</script>
 </body>
 
+</html><!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<!-- Metadados Básicos e SEO -->
+	<meta charset="UTF-8" />
+	<meta name="description" content="Ferramenta online para registro de pensamentos disfuncionais (RPD). Uma técnica da Terapia Cognitivo-Comportamental para identificar e reestruturar pensamentos automáticos negativos." />
+	<meta name="keywords" content="RPD, pensamentos disfuncionais, TCC, registro de pensamentos, terapia cognitivo comportamental" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- Open Graph -->
+	<meta property="og:title" content="Registro de Pensamentos Disfuncionais (RPD)" />
+	<meta property="og:description" content="Uma ferramenta online para registro de pensamentos disfuncionais." />
+	<meta property="og:image" content="https://i.pinimg.com/736x/80/01/42/8001428bb2c23959bb0c8a8a27e01fa2.jpg" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://ricmurtapsicologia.github.io/RPD/" />
+	<title>Registro de Pensamentos Disfuncionais (RPD) - Landing Page</title>
+	<!-- Favicon -->
+	<link rel="icon" href="https://i.pinimg.com/736x/80/01/42/8001428bb2c23959bb0c8a8a27e01fa2.jpg" />
+	<!-- Bibliotecas JS (carregadas de forma defer para melhor performance) -->
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/gsap.min.js"></script>
+	<!-- Estilos (Mobile-First) com variáveis para facilitar manutenção -->
+	<style>
+		:root {
+		  --primary-color: #006400;
+		  --primary-hover: #004d00;
+		  --bg-color: #fff;
+		  --text-color: #333;
+		  --splash-bg: #02848b;
+		  --box-bg: rgba(255, 255, 255, 0.9);
+		  --box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+		  --border-radius: 18px;
+		  --transition-duration: 0.3s;
+		}
+		
+		/* Reset e transições */
+		*,
+		*::before,
+		*::after {
+		  box-sizing: border-box;
+		  transition: all var(--transition-duration) ease-in-out;
+		}
+		html {
+		  scroll-behavior: smooth;
+		}
+		body {
+		  margin: 0;
+		  padding: 0;
+		  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		  color: var(--text-color);
+		  background-color: var(--bg-color);
+		  overflow-x: hidden;
+		}
+		p {
+		  text-align: justify;
+		}
+		
+		/* Splash Screen */
+		#splash-screen {
+		  position: fixed;
+		  top: 0;
+		  left: 0;
+		  width: 100vw;
+		  height: 100vh;
+		  background-color: var(--splash-bg);
+		  z-index: 9999;
+		  display: flex;
+		  flex-direction: column;
+		  justify-content: center;
+		  align-items: center;
+		  text-align: center;
+		  color: #fff;
+		  padding: 20px;
+		}
+		#splash-screen.fade-out {
+		  opacity: 0;
+		  transition: opacity 1s ease;
+		}
+		#splash-screen h1 {
+		  font-size: 2rem;
+		  margin-bottom: 10px;
+		}
+		#splash-screen p {
+		  font-size: 1.25rem;
+		  margin: 0;
+		}
+		
+		/* Banner */
+		header {
+		  width: 100%;
+		  min-height: 500px;
+		  background: url("https://i.pinimg.com/736x/fd/eb/6b/fdeb6b12e0f52dfc2e75baba8d0c65df.jpg")
+		    no-repeat center;
+		  background-position: center 10%;
+		  background-size: cover;
+		  background-color: var(--bg-color);
+		}
+		
+		/* Seção Principal */
+		main {
+		  width: 90%;
+		  max-width: 900px;
+		  margin: 20px auto 40px;
+		}
+		
+		/* Seções e conteúdo expansível */
+		.explicacao-section,
+		.form-rpd,
+		.converse-section {
+		  background-color: var(--box-bg);
+		  box-shadow: var(--box-shadow);
+		  border-radius: var(--border-radius);
+		  backdrop-filter: blur(10px);
+		  padding: 20px;
+		  margin-bottom: 30px;
+		}
+		.expansible-row {
+		  display: flex;
+		  flex-wrap: wrap;
+		  gap: 20px;
+		  justify-content: center;
+		}
+		.expansible-section {
+		  flex: 1 1 260px;
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+		}
+		
+		/* Botões unificados: dimensões e forma fixas */
+		button {
+		  background-color: var(--primary-color);
+		  color: #fff;
+		  border: none;
+		  border-radius: 10px;
+		  font-size: 1rem;
+		  cursor: pointer;
+		  display: inline-flex;
+		  align-items: center;
+		  justify-content: center;
+		  gap: 8px;
+		  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+		  width: 270px; /* Largura fixa baseada no maior botão */
+		  height: 48px; /* Altura fixa */
+		  padding: 0;   /* Removendo padding para manter as dimensões */
+		  text-align: center;
+		  transition: all var(--transition-duration) ease-in-out;
+		}
+		button:hover {
+		  background-color: var(--primary-hover);
+		  transform: scale(1.03);
+		}
+		
+		/* Contêiner para centralizar os botões (RPD) */
+		.submit-buttons-container {
+		  display: flex;
+		  justify-content: center;
+		  flex-wrap: wrap;
+		  gap: 1rem;
+		  margin: 20px 0;
+		}
+		.submit-btn {
+		  flex: 1 1 auto;
+		  max-width: 270px;
+		  text-align: center;
+		}
+		
+		/* Conteúdo expansível */
+		.expansible-content {
+		  display: none;
+		  margin-top: 15px;
+		  padding: 10px;
+		  border-left: 4px solid var(--primary-color);
+		  background-color: var(--box-bg);
+		  border-radius: 5px;
+		}
+		.expansible-content p,
+		.expansible-content iframe {
+		  width: 100%;
+		}
+		
+		/* Vídeo em grid */
+		.video-grid {
+		  display: grid;
+		  place-items: center;
+		  margin-top: 15px;
+		}
+		.video-grid iframe {
+		  width: 100%;
+		  max-width: 560px;
+		  height: 315px;
+		  border: none;
+		  border-radius: 5px;
+		}
+		
+		/* Ícone de áudio */
+		.audio-icon {
+		  fill: #ffd700;
+		  width: 24px;
+		  height: 24px;
+		  animation: blink 1.5s infinite;
+		  transition: transform 0.2s;
+		}
+		@keyframes blink {
+		  0%, 100% { opacity: 1; }
+		  50% { opacity: 0.5; }
+		}
+		
+		/* Inputs e formulários */
+		.form-rpd label,
+		.converse-section label {
+		  font-weight: bold;
+		  margin-bottom: 10px;
+		  display: block;
+		}
+		.form-rpd input[type="text"],
+		.form-rpd input[type="date"],
+		.form-rpd select,
+		.converse-section input,
+		.converse-section textarea {
+		  width: 100%;
+		  padding: 12px;
+		  margin-bottom: 20px;
+		  border: 2px solid #ccc;
+		  border-radius: var(--border-radius);
+		  font-size: 1rem;
+		  outline: none;
+		}
+		.form-rpd input:focus,
+		.form-rpd select:focus,
+		.converse-section input:focus,
+		.converse-section textarea:focus {
+		  border-color: #5b9bd5;
+		  box-shadow: 0 0 8px rgba(91, 155, 213, 0.5);
+		}
+		.slider {
+		  -webkit-appearance: none;
+		  appearance: none;
+		  width: 100%;
+		  height: 25px;
+		  background: #ddd;
+		  border-radius: 18px;
+		  overflow: hidden;
+		  margin-bottom: 10px;
+		}
+		.slider::-webkit-slider-runnable-track,
+		.slider::-moz-range-track {
+		  background: linear-gradient(to right, green 0%, yellow 50%, red 100%);
+		  height: 100%;
+		}
+		.slider-value {
+		  font-size: 1rem;
+		  vertical-align: middle;
+		  margin-left: 8px;
+		}
+		
+		/* Botão "Escolher Emoções" centralizado */
+		.btn-emocoes {
+		  margin: 0 auto 10px;
+		  display: block;
+		  text-align: center;
+		}
+		
+		/* Centralizar o botão "Enviar Mensagem" no chat-form */
+		#chat-form button {
+		  margin: 0 auto;
+		  display: block;
+		  max-width: 270px;
+		}
+		
+		/* Rodapé */
+		footer {
+		  display: flex;
+		  flex-direction: column;
+		  align-items: center;
+		  justify-content: center;
+		  gap: 0.5rem;
+		  margin: 50px auto 30px;
+		  padding: 20px 10px;
+		  background-color: rgba(0, 0, 0, 0.7);
+		  color: #fff;
+		  font-size: 0.875rem;
+		  border-radius: 10px;
+		  width: 90%;
+		  max-width: 900px;
+		}
+		
+		/* Botões Flutuantes */
+		.floating-whatsapp,
+		.floating-panic {
+		  position: fixed;
+		  z-index: 9998;
+		  width: 50px;
+		  height: 50px;
+		  border-radius: 50%;
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  font-size: 24px;
+		  color: #fff;
+		  cursor: pointer;
+		}
+		.floating-whatsapp {
+		  bottom: 80px;
+		  left: 20px;
+		  background-color: #25d366;
+		  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+		}
+		.floating-panic {
+		  bottom: 80px;
+		  right: 20px;
+		  background-color: #ff0000;
+		  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+		}
+		
+		/* Áudio Fixo */
+		#audio-container {
+		  position: fixed;
+		  bottom: 20px;
+		  right: 20px;
+		  z-index: 9999;
+		}
+		#toggle-audio {
+		  background: rgba(255, 255, 255, 0.8);
+		  border: none;
+		  /* Dimensões fixas para o botão ficar circular */
+		  width: 48px;
+		  height: 48px;
+		  padding: 0;
+		  border-radius: 50%;
+		  /* Alinhamento central do ícone */
+		  display: inline-flex;
+		  align-items: center;
+		  justify-content: center;
+		  cursor: pointer;
+		}
+		#toggle-audio:hover {
+		  background: rgba(255, 255, 255, 1);
+		}
+		.audio-icon {
+		  fill: #ffd700;
+		  width: 24px;
+		  height: 24px;
+		  animation: blink 1.5s infinite;
+		  transition: transform 0.2s;
+		}
+		.audio-icon:hover {
+		  transform: scale(1.1);
+		}
+		
+		/* Responsividade */
+		@media (min-width: 768px) {
+		  .expansible-row {
+		    justify-content: space-between;
+		  }
+		}
+		@media (min-width: 992px) {
+		  button {
+		    max-width: 270px;
+		  }
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Splash Screen -->
+	<div id="splash-screen" role="alert" aria-live="assertive">
+		<h1>Seja bem-vindo(a) ao Registro de Pensamentos Disfuncionais</h1>
+		<p>Aguarde... mas estou com você aqui!</p>
+	</div>
+	<!-- Banner -->
+	<header></header>
+	<!-- Conteúdo Principal -->
+	<main>
+		<!-- Seção de Explicações -->
+		<section class="explicacao-section">
+			<div class="expansible-row">
+				<!-- Botão RPD -->
+				<div class="expansible-section">
+					<button class="expansible-button" id="btn-rpd"> O que é RPD? </button>
+				</div>
+				<!-- Botão Áudio Explicativo -->
+				<div class="expansible-section">
+					<button class="audio-button" id="btn-audio">
+						<svg class="audio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+							<path d="M11.536 14.01a.5.5 0 0 0 .707.038A8.004 8.004 0 0 0 16 8a8.003 8.003 0 0 0-3.757-6.912.5.5 0 0 0-.63.776A7.002 7.002 0 0 1 15 8a7.003 7.003 0 0 1-3.086 5.796.5.5 0 0 0-.038.707z"></path>
+							<path d="M8 5.993c-.147 0-.293.054-.414.162L5.825 7.44H4.5A1.5 1.5 0 0 0 3 8.993v1c0 .828.672 1.5 1.5 1.5h1.325l1.761 1.285c.12.107.266.161.414.161.337 0 .586-.252.586-.583V6.576c0-.331-.25-.583-.586-.583z"></path>
+						</svg>
+						<span>Áudio Explicativo</span>
+					</button>
+					<audio id="audioRPD">
+						<source src="https://raw.githubusercontent.com/ricmurtapsicologia/RPD/main/RPD1.mp3" type="audio/mpeg" /> Seu navegador não suporta áudio.
+					</audio>
+				</div>
+				<!-- Botão Distorções Cognitivas -->
+				<div class="expansible-section">
+					<button class="expansible-button" id="btn-distorcoes"> Distorções Cognitivas </button>
+				</div>
+			</div>
+			<!-- Conteúdo Expansível: RPD -->
+			<div id="rpd-expansion" class="expansible-content">
+				<p> O Registro de Pensamentos Disfuncionais (RPD) é uma técnica da Terapia Cognitivo-Comportamental (TCC) que ajuda a identificar e reestruturar pensamentos automáticos negativos. Preencher o RPD torna mais claro como esses pensamentos influenciam as emoções e o comportamento, levando a uma perspectiva mais equilibrada. </p>
+				<div class="video-grid">
+					<iframe src="https://www.youtube.com/embed/qp8VUlVqooI" allowfullscreen title="Como fazer RPD"></iframe>
+				</div>
+			</div>
+			<!-- Conteúdo Expansível: Distorções -->
+			<div id="distorcoes-expansion" class="expansible-content">
+				<p> As distorções cognitivas são padrões de pensamento que podem distorcer a realidade, levando a interpretações negativas ou irreais das situações. </p>
+				<p> Exemplos: Catastrofização (imaginar o pior cenário) e Supergeneralização (conclusões amplas a partir de um único evento). Reconhecer estes padrões ajuda a cultivar o autoconhecimento. </p>
+			</div>
+		</section>
+		<!-- Formulário RPD -->
+		<section class="form-rpd">
+			<h2>Preencha seu RPD</h2>
+			<form id="rpd-form">
+				<label for="nome">Nome Completo:</label>
+				<input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required />
+				<label for="data">Data de Preenchimento:</label>
+				<input type="date" id="data" name="data" required />
+				<label for="situacao">1. Situação:</label>
+				<input type="text" id="situacao" name="situacao" placeholder="O que desencadeou essa emoção?" required />
+				<label for="emocoes">2. Emoções:</label>
+				<p>Clique para selecionar as emoções que melhor representam o que você sentiu.</p>
+				<button type="button" id="btn-emocoes" class="button-padrao btn-emocoes"> Escolher Emoções </button>
+				<div id="emocoes-container" style="display: none; margin-top: 10px;">
+					<p>📌 Marque todas as emoções que você sentiu:</p>
+					<div id="emocoes" style="display: flex; flex-wrap: wrap; gap: 10px;">
+						<label><input type="checkbox" name="emocoes" value="Ansiedade" /> 😟 Ansiedade</label>
+						<label><input type="checkbox" name="emocoes" value="Tristeza" /> 😢 Tristeza</label>
+						<label><input type="checkbox" name="emocoes" value="Raiva" /> 😡 Raiva</label>
+						<label><input type="checkbox" name="emocoes" value="Culpa" /> 😔 Culpa</label>
+						<label><input type="checkbox" name="emocoes" value="Medo" /> 😨 Medo</label>
+						<label><input type="checkbox" name="emocoes" value="Vergonha" /> 😳 Vergonha</label>
+						<label><input type="checkbox" name="emocoes" value="Euforia" /> 😃 Euforia</label>
+						<label><input type="checkbox" name="emocoes" value="Frustração" /> 😞 Frustração</label>
+						<label><input type="checkbox" name="emocoes" value="Insegurança" /> 😓 Insegurança</label>
+						<label><input type="checkbox" name="emocoes" value="Desânimo" /> 😩 Desânimo</label>
+						<label><input type="checkbox" name="emocoes" value="Outra" /> ❓ Outra</label>
+					</div>
+				</div>
+				<p id="emocoes-selecionadas" style="margin-top: 10px; font-weight: bold;"></p>
+				<label for="emocaoAntes">3. Intensidade da Emoção Antes:</label>
+				<p>Ajuste a barra para refletir o quanto a emoção foi intensa (0-100):</p>
+				<input type="range" id="emocaoAntes" name="emocaoAntes" min="0" max="100" value="50" class="slider" />
+				<span id="slider-value-antes" class="slider-value">50</span>
+				<label for="pensamento">4. Pensamento Automático:</label>
+				<input type="text" id="pensamento" name="pensamento" placeholder="Que ideia veio à sua mente imediatamente nessa situação?" required />
+				<label for="distorcao">5. Distorção Cognitiva:</label>
+				<p>Se esse pensamento fosse um erro de lógica, qual seria? Escolha a mais próxima.</p>
+				<select id="distorcao" name="distorcao" required>
+					<option value="">Selecione uma opção</option>
+					<option value="Catastrofização">Catastrofização (imaginar o pior cenário possível)</option>
+					<option value="Supergeneralização">Supergeneralização (tirar conclusões amplas a partir de um único evento)</option>
+					<option value="Leitura Mental">Leitura Mental (acreditar que sabe o que os outros estão pensando)</option>
+					<option value="Personalização">Personalização (assumir responsabilidade excessiva por eventos)</option>
+					<option value="Visão em tudo ou nada">Visão em tudo ou nada (pensamento extremista, "tudo ou nada")</option>
+					<option value="Desqualificação do positivo">Desqualificação do positivo (minimizar ou ignorar os aspectos positivos)</option>
+					<option value="Raciocínio Emocional">Raciocínio Emocional (acreditar que sua emoção reflete a realidade)</option>
+					<option value="Rotulação">Rotulação (definir a si mesmo ou aos outros com base em um único evento)</option>
+					<option value="Filtro Mental">Filtro Mental (focar apenas nos aspectos negativos e ignorar os positivos)</option>
+				</select>
+				<label for="q1">6. O que faz você acreditar que as coisas são assim?</label>
+				<input type="text" id="q1" name="q1" placeholder="Explique a razão por trás deste pensamento" required />
+				<label for="q6">7. Se outra pessoa estivesse no seu lugar, ela pensaria da mesma forma?</label>
+				<input type="text" id="q6" name="q6" placeholder="Imagine um(a) amigo(a) nessa situação" required />
+				<label for="q7">8. Esse pensamento é um fato ou interpretação?</label>
+				<input type="text" id="q7" name="q7" placeholder="Diferencie se é algo comprovado ou percepção" required />
+				<label for="q4">9. Esse pensamento ajuda ou atrapalha?</label>
+				<input type="text" id="q4" name="q4" placeholder="É útil ou prejudicial?" required />
+				<label for="q8">10. Se você não tivesse esse pensamento, o que mudaria?</label>
+				<input type="text" id="q8" name="q8" placeholder="Como se sentiria sem este pensamento?" required />
+				<label for="q5">11. Como pensar de forma mais útil sobre isso?</label>
+				<input type="text" id="q5" name="q5" placeholder="Sugira uma alternativa mais construtiva" required />
+				<label for="q2">12. Como você se sente agora?</label>
+				<input type="text" id="q2" name="q2" placeholder="Descreva seu estado emocional atual" required />
+				<label for="emocaoDepois">13. Intensidade da Emoção Depois:</label>
+				<input type="range" id="emocaoDepois" name="emocaoDepois" min="0" max="100" value="50" class="slider" />
+				<span id="slider-value-depois" class="slider-value">50</span>
+				<!-- Contêiner para centralizar os botões (Enviar e Salvar PDF) -->
+				<div class="submit-buttons-container">
+					<button type="button" id="whatsapp-btn" class="submit-btn"> 📲 Enviar resultado ao meu Psicólogo </button>
+					<button type="button" id="pdf-btn" class="submit-btn"> 📄 Salvar como PDF </button>
+				</div>
+			</form>
+		</section>
+		<!-- Seção "Converse Comigo" -->
+		<section class="converse-section">
+			<h2>Converse Comigo</h2>
+			<p> Às vezes, precisamos compartilhar nossos desafios para alcançar mais clareza e bem-estar. Se quiser me contar o que está passando, envie uma mensagem diretamente. Assim que possível, responderei e podemos dialogar em busca de novas perspectivas. </p>
+			<form id="chat-form">
+				<label for="chat-nome">Nome Completo:</label>
+				<input type="text" id="chat-nome" name="chat-nome" placeholder="Digite seu nome completo" required />
+				<label for="chat-telefone">Telefone:</label>
+				<input type="text" id="chat-telefone" name="chat-telefone" placeholder="(XX) XXXXX-XXXX" required />
+				<label for="chat-msg">Sua Mensagem:</label>
+				<textarea id="chat-msg" name="chat-msg" placeholder="Descreva brevemente o que deseja compartilhar." rows="4" required></textarea>
+				<button type="button" id="btn-chat">Enviar Mensagem</button>
+			</form>
+		</section>
+	</main>
+	<!-- Rodapé -->
+	<footer>
+		<p>© 2025 Richelmy Murta, Psicólogo Clínico</p>
+		<p>Especialista em Terapia Cognitivo-Comportamental</p>
+	</footer>
+	<!-- Botões Flutuantes -->
+	<div class="floating-whatsapp" id="floating-wpp-share" title="Compartilhe esta página com alguém que precise dessa ferramenta" aria-label="Compartilhar página via WhatsApp">
+		<img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="Ícone WhatsApp" style="width:28px; height:28px;" />
+	</div>
+	<div class="floating-panic" id="floating-panic" title="Precisa de ajuda? Clique para falar com o CVV" aria-label="Botão de Pânico - CVV">
+		<span>!</span>
+	</div>
+	<!-- Áudio Fixo -->
+	<div id="audio-container">
+		<button id="toggle-audio">🔊</button>
+	</div>
+	<audio id="background-audio" loop>
+		<source src="https://www.soundjay.com/nature/sounds/rain-02.mp3" type="audio/mpeg" /> Seu navegador não suporta áudio.
+	</audio>
+	<!-- JavaScript (ES6+) -->
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+		  // REMOÇÃO DO SPLASH SCREEN
+		  const splash = document.getElementById("splash-screen");
+		  setTimeout(() => {
+		    if (splash) {
+		      splash.classList.add("fade-out");
+		      splash.addEventListener("transitionend", () => splash.remove());
+		    }
+		  }, 2000);
+		
+		  // FUNÇÃO DE TOGGLE COM GSAP
+		  const toggleDisplay = (element) => {
+		    if (!element) return;
+		    if (element.style.display === "block") {
+		      gsap.to(element, {
+		        opacity: 0,
+		        duration: 0.4,
+		        onComplete: () => (element.style.display = "none"),
+		      });
+		    } else {
+		      element.style.display = "block";
+		      gsap.fromTo(element, { opacity: 0 }, { opacity: 1, duration: 0.4 });
+		    }
+		  };
+		
+		  // Botões expansíveis para RPD e Distorções
+		  const btnRpd = document.getElementById("btn-rpd");
+		  const rpdExpansion = document.getElementById("rpd-expansion");
+		  if (btnRpd && rpdExpansion) {
+		    btnRpd.addEventListener("click", () => toggleDisplay(rpdExpansion));
+		  }
+		  const btnDistorcoes = document.getElementById("btn-distorcoes");
+		  const distExpansion = document.getElementById("distorcoes-expansion");
+		  if (btnDistorcoes && distExpansion) {
+		    btnDistorcoes.addEventListener("click", () => toggleDisplay(distExpansion));
+		  }
+		
+		  // Exibição da caixa de seleção de emoções
+		  const btnEmocoes = document.getElementById("btn-emocoes");
+		  const containerEmocoes = document.getElementById("emocoes-container");
+		  if (btnEmocoes && containerEmocoes) {
+		    btnEmocoes.addEventListener("click", () => toggleDisplay(containerEmocoes));
+		  }
+		
+		  // Atualização dos valores dos sliders via JavaScript
+		  const sliderAntes = document.getElementById("emocaoAntes");
+		  const sliderValueAntes = document.getElementById("slider-value-antes");
+		  if (sliderAntes && sliderValueAntes) {
+		    sliderAntes.addEventListener("input", () => {
+		      sliderValueAntes.textContent = sliderAntes.value;
+		    });
+		  }
+		  const sliderDepois = document.getElementById("emocaoDepois");
+		  const sliderValueDepois = document.getElementById("slider-value-depois");
+		  if (sliderDepois && sliderValueDepois) {
+		    sliderDepois.addEventListener("input", () => {
+		      sliderValueDepois.textContent = sliderDepois.value;
+		    });
+		  }
+		
+		  // Atualização das emoções selecionadas
+		  document.querySelectorAll('input[name="emocoes"]').forEach((checkbox) => {
+		    checkbox.addEventListener("change", () => {
+		      const selecionadas = Array.from(document.querySelectorAll('input[name="emocoes"]:checked')).map(el => el.value);
+		      document.getElementById("emocoes-selecionadas").innerText =
+		        "Emoções selecionadas: " + (selecionadas.length ? selecionadas.join(", ") : "Nenhuma");
+		    });
+		  });
+		
+		  // Controle do áudio de fundo
+		  const backgroundAudio = document.getElementById("background-audio");
+		  const toggleAudioBtn = document.getElementById("toggle-audio");
+		  backgroundAudio.volume = 0.12;
+		  document.addEventListener("click", () => {
+		    if (backgroundAudio.paused) {
+		      backgroundAudio.play().catch(() => console.log("Reprodução de áudio bloqueada."));
+		    }
+		  }, { once: true });
+		  if (toggleAudioBtn) {
+		    toggleAudioBtn.addEventListener("click", () => {
+		      if (backgroundAudio.paused) {
+		        backgroundAudio.play();
+		        toggleAudioBtn.textContent = "🔇";
+		      } else {
+		        backgroundAudio.pause();
+		        toggleAudioBtn.textContent = "🔊";
+		      }
+		    });
+		  }
+		
+		  // Áudio Explicativo
+		  const audioExpBtn = document.getElementById("btn-audio");
+		  const audioRPD = document.getElementById("audioRPD");
+		  if (audioExpBtn && audioRPD) {
+		    audioExpBtn.addEventListener("click", () => {
+		      audioRPD.paused ? audioRPD.play() : audioRPD.pause();
+		    });
+		  }
+		
+		  // Envio via WhatsApp (RPD)
+		  const sendWhatsAppMessage = () => {
+		    const nome = document.getElementById("nome").value || "Sem Nome";
+		    const data = document.getElementById("data").value || "Sem Data";
+		    const situacao = document.getElementById("situacao").value || "Não informado";
+		    const emocoes = Array.from(document.querySelectorAll('input[name="emocoes"]:checked'))
+		                      .map(el => el.value)
+		                      .join(", ") || "Não informado";
+		    const pensamento = document.getElementById("pensamento").value || "Não informado";
+		    const distorcao = document.getElementById("distorcao").value || "Não informado";
+		    const emocaoDepois = document.getElementById("emocaoDepois").value;
+		    const reflexoes = [
+		      `1. O que faz você acreditar que as coisas são assim? ${document.getElementById("q1").value || "Não informado"}`,
+		      `2. Se outra pessoa estivesse no seu lugar, ela pensaria da mesma forma? ${document.getElementById("q6").value || "Não informado"}`,
+		      `3. É um fato ou interpretação? ${document.getElementById("q7").value || "Não informado"}`,
+		      `4. Isso ajuda ou atrapalha? ${document.getElementById("q4").value || "Não informado"}`,
+		      `5. Se não tivesse esse pensamento, o que mudaria? ${document.getElementById("q8").value || "Não informado"}`,
+		      `6. Como pensar de forma mais útil? ${document.getElementById("q5").value || "Não informado"}`,
+		      `7. Como você se sente agora? ${document.getElementById("q2").value || "Não informado"}`
+		    ].join("%0A");
+		    const message = `Nome: ${nome}%0AData: ${data}%0ASituação: ${situacao}%0AEmoções: ${emocoes}%0APensamento: ${pensamento}%0ADistorção: ${distorcao}%0AIntensidade Depois: ${emocaoDepois}/100%0A%0A**Reflexões:**%0A${reflexoes}`;
+		    const whatsappUrl = `https://api.whatsapp.com/send?phone=+5535984640729&text=${message}`;
+		    window.open(whatsappUrl, "_blank");
+		  };
+		  const whatsBtn = document.getElementById("whatsapp-btn");
+		  if (whatsBtn) whatsBtn.addEventListener("click", sendWhatsAppMessage);
+		
+		  // Salvar como PDF
+		  const saveAsPDF = () => {
+		    if (!window.jspdf) {
+		      alert("Erro ao carregar a biblioteca jsPDF. Verifique a conexão com a internet.");
+		      return;
+		    }
+		    const { jsPDF } = window.jspdf;
+		    const doc = new jsPDF({ format: "a4", orientation: "portrait" });
+		
+		    // Cabeçalho e Introdução
+		    doc.setFont("Arial", "bold");
+		    doc.setFontSize(14);
+		    doc.text("REGISTRO DE PENSAMENTOS DISFUNCIONAIS", 105, 20, { align: "center" });
+		    doc.setFontSize(12);
+		    doc.setFont("Arial", "normal");
+		    doc.text("Este registro ajuda a compreender como seus pensamentos influenciam suas emoções e comportamentos.", 20, 30, { maxWidth: 170, align: "justify" });
+		    
+		    let y = 50;
+		    const campos = [
+		      { label: "Nome:", value: document.getElementById("nome").value || "Sem Nome" },
+		      { label: "Data:", value: document.getElementById("data").value || "Sem Data" },
+		      { label: "Situação:", value: document.getElementById("situacao").value || "Não informado" },
+		      { label: "Emoções:", value: (Array.from(document.querySelectorAll('input[name="emocoes"]:checked')).map(el => el.value).join(", ")) || "Não informado" },
+		      { label: "Pensamento Automático:", value: document.getElementById("pensamento").value || "Não informado" },
+		      { label: "Distorção Cognitiva:", value: document.getElementById("distorcao").value || "Não informado" }
+		    ];
+		    campos.forEach((campo) => {
+		      doc.setFont("Arial", "bold");
+		      doc.text(campo.label, 20, y);
+		      doc.setFont("Arial", "normal");
+		      doc.text(doc.splitTextToSize(campo.value, 140), 70, y);
+		      y += 10;
+		    });
+		
+		    y += 10;
+		    doc.setFont("Arial", "bold");
+		    doc.text("Reflexões:", 20, y);
+		    y += 10;
+		    doc.setFont("Arial", "normal");
+		    doc.text("As perguntas a seguir ajudam você a desafiar seus pensamentos.", 20, y, { maxWidth: 170, align: "justify" });
+		    y += 10;
+		
+		    const reflexoesData = [
+		      { pergunta: "1. O que faz você acreditar que as coisas são assim?", resposta: document.getElementById("q1").value || "Não informado" },
+		      { pergunta: "2. Se outra pessoa estivesse no seu lugar, ela pensaria da mesma forma?", resposta: document.getElementById("q6").value || "Não informado" },
+		      { pergunta: "3. É um fato ou interpretação?", resposta: document.getElementById("q7").value || "Não informado" },
+		      { pergunta: "4. Isso ajuda ou atrapalha?", resposta: document.getElementById("q4").value || "Não informado" },
+		      { pergunta: "5. Se não tivesse esse pensamento, o que mudaria?", resposta: document.getElementById("q8").value || "Não informado" },
+		      { pergunta: "6. Como pensar de forma mais útil?", resposta: document.getElementById("q5").value || "Não informado" },
+		      { pergunta: "7. Como você se sente agora?", resposta: document.getElementById("q2").value || "Não informado" }
+		    ];
+		    reflexoesData.forEach((reflexao) => {
+		      doc.setFont("Arial", "bold");
+		      doc.text(reflexao.pergunta, 20, y);
+		      y += 6;
+		      doc.setFont("Arial", "normal");
+		      const formattedResponse = doc.splitTextToSize(reflexao.resposta, 160);
+		      doc.text(formattedResponse, 20, y);
+		      y += formattedResponse.length * 6 + 4;
+		    });
+		
+		    y += 20;
+		    doc.setFont("Arial", "bold");
+		    doc.text("Parabéns por concluir esta atividade!", 20, y);
+		    y += 10;
+		    doc.setFont("Arial", "normal");
+		    doc.text("Desejo que este exercício traga clareza e fortaleça seus recursos internos.", 20, y, { maxWidth: 170, align: "justify" });
+		
+		    y += 30;
+		    doc.setFont("Arial", "bold");
+		    doc.text("Richelmy Murta Pinto", 105, y, { align: "center" });
+		    doc.setFont("Arial", "normal");
+		    doc.text("Psicólogo Clínico", 105, y + 8, { align: "center" });
+		    doc.text("Especialista em Terapia Cognitivo-Comportamental", 105, y + 16, { align: "center" });
+		
+		    doc.save(`RPD_${document.getElementById("nome").value || "Sem_Nome"}_${document.getElementById("data").value || "Sem_Data"}.pdf`);
+		  };
+		  const pdfBtn = document.getElementById("pdf-btn");
+		  if (pdfBtn) pdfBtn.addEventListener("click", saveAsPDF);
+		
+		  // Compartilhar via WhatsApp - botão fixo
+		  const wppShare = document.getElementById("floating-wpp-share");
+		  if (wppShare) {
+		    wppShare.addEventListener("click", () => {
+		      const textShare = "Olá! Encontrei esta ferramenta de Registro de Pensamentos Disfuncionais (RPD) que pode ajudar muito. Confira!";
+		      const pageUrl = encodeURIComponent(window.location.href);
+		      const shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(textShare)}%20${pageUrl}`;
+		      window.open(shareUrl, "_blank");
+		    });
+		  }
+		
+		  // Botão de Pânico (CVV)
+		  const panicBtn = document.getElementById("floating-panic");
+		  if (panicBtn) {
+		    panicBtn.addEventListener("click", () => {
+		      window.open("https://cvv.org.br/", "_blank");
+		    });
+		  }
+		
+		  // Formulário "Converse Comigo" - Envio via WhatsApp
+		  const btnChat = document.getElementById("btn-chat");
+		  if (btnChat) {
+		    btnChat.addEventListener("click", () => {
+		      const nomeChat = document.getElementById("chat-nome").value.trim();
+		      const telChat = document.getElementById("chat-telefone").value.trim();
+		      const msgChat = document.getElementById("chat-msg").value.trim();
+		      if (!nomeChat || !telChat || !msgChat) {
+		        alert("Por favor, preencha seu nome, telefone e mensagem.");
+		        return;
+		      }
+		      const messageToSend = `Olá, meu nome é ${nomeChat} (tel: ${telChat}).\n\n${msgChat}`;
+		      const whatsappUrl = `https://api.whatsapp.com/send?phone=+5535984640729&text=${encodeURIComponent(messageToSend)}`;
+		      window.open(whatsappUrl, "_blank");
+		    });
+		  }
+		});
+	</script>
+</body>
+
 </html>
