@@ -1,0 +1,32 @@
+name: Apply RPD v2.3.0
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-v230.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply v2.3.0 patches
+        run: |
+          git apply scripts/index_v230.patch
+          git apply scripts/js_v230.patch
+          git apply scripts/validate_v230.patch
+      - name: Validate updated source
+        run: bash scripts/validate.sh
+      - name: Commit v2.3.0
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/js/app.js scripts/validate.sh
+          git commit -m "Atualiza RPD para v2.3.0"
+          git push origin HEAD:main
