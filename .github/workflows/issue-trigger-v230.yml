@@ -1,0 +1,88 @@
+name: Apply RPD v2.3.0 by issue
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  apply:
+    if: github.event.issue.title == 'apply-v230-trigger-2'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Apply v2.3.0 patches
+        run: |
+          git apply scripts/index_v230.patch
+          git apply scripts/js_v230.patch
+          git apply scripts/validate_v230.patch
+
+      - name: Add permanent validation workflow
+        run: |
+          cat > .github/workflows/validate.yml <<'YAML'
+          name: Validate RPD
+
+          on:
+            push:
+              branches: [main]
+            pull_request:
+
+          permissions:
+            contents: read
+
+          jobs:
+            structural:
+              runs-on: ubuntu-latest
+              steps:
+                - uses: actions/checkout@v4
+                - uses: actions/setup-node@v4
+                  with:
+                    node-version: '22'
+                - name: Validate source
+                  run: bash scripts/validate.sh
+
+            browser:
+              runs-on: ubuntu-latest
+              steps:
+                - uses: actions/checkout@v4
+                - uses: actions/setup-node@v4
+                  with:
+                    node-version: '22'
+                - name: Install test dependencies
+                  run: npm install
+                - name: Install Chromium
+                  run: npx playwright install --with-deps chromium
+                - name: Run browser regression
+                  run: npm run test:e2e
+          YAML
+
+      - name: Validate updated source
+        run: bash scripts/validate.sh
+
+      - name: Clean temporary migration files
+        run: |
+          rm -f scripts/index_v230.patch scripts/js_v230.patch scripts/validate_v230.patch
+          rm -f .github/workflows/apply-v230.yml .github/workflows/issue-trigger-v230.yml
+
+      - name: Commit v2.3.0
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Consolida RPD v2.3.0"
+          git push origin HEAD:main
+
+      - name: Close trigger issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue close "${{ github.event.issue.number }}" --comment "Atualização v2.3.0 aplicada e validada."
