@@ -40,7 +40,9 @@ A mudança numérica é apresentada de forma descritiva, sem interpretar automat
 
 ## Padrões cognitivos
 
-A classificação de padrões de pensamento é opcional e admite múltiplas escolhas.
+A classificação de padrões de pensamento é opcional e admite múltiplas escolhas. A interface inclui um **guia para leigos** com definição e exemplo de cada padrão, além de um CTA na etapa 3 para consultar essas explicações antes de marcar qualquer opção.
+
+Os padrões apresentados são: catastrofização, supergeneralização, leitura mental, personalização, tudo ou nada, desqualificação do positivo, raciocínio emocional, rotulação e filtro mental.
 
 Também estão disponíveis:
 
@@ -61,6 +63,15 @@ Reconhecer um padrão não significa que o pensamento seja necessariamente falso
 - compartilhamento só ocorre após ação e confirmação do usuário;
 - política de privacidade disponível em `privacidade.html`.
 
+## Conteúdo multimídia
+
+A página preserva dois recursos de apoio ao aprendizado:
+
+- **áudio explicativo** (`RPD1.mp3`), hospedado no próprio repositório e carregado apenas quando o usuário decide reproduzi-lo;
+- **vídeo explicativo**, incorporado com o modo de privacidade aprimorada do YouTube (`youtube-nocookie.com`) e carregamento adiado (`loading="lazy"`).
+
+Ambos aparecem antes da trilha principal com CTAs para retornar diretamente ao registro após o conteúdo.
+
 ## PDF
 
 A versão de impressão foi criada especificamente para A4 e organiza o conteúdo em blocos editoriais:
@@ -80,7 +91,7 @@ A aplicação não depende de jsPDF.
 
 ## Arquitetura
 
-Aplicação estática, sem framework e sem dependências JavaScript externas.
+Aplicação estática, sem framework e sem dependências JavaScript externas de execução. O conteúdo principal funciona sem bibliotecas de terceiros; áudio e vídeo são recursos de mídia opcionais.
 
 Principais arquivos:
 
@@ -91,6 +102,7 @@ Principais arquivos:
 ├── README.md
 ├── robots.txt
 ├── sitemap.xml
+├── RPD1.mp3
 └── assets/
     ├── favicon.svg
     └── og-card.svg
@@ -119,10 +131,14 @@ O RPD integra o mesmo ecossistema visual e funcional de:
 
 ## Segurança e apoio
 
-A página inclui acesso ao CVV para situações de sofrimento intenso. O RPD não deve ser usado como único recurso em uma emergência.
+A página inclui acesso a recursos externos de apoio para situações de sofrimento intenso. O RPD não deve ser usado como único recurso em uma emergência.
 
 ## Autoria
 
 **Richelmy Murta · Psicólogo clínico**
 
 A identificação profissional completa deve seguir as regras aplicáveis à divulgação profissional. Não inserir número de registro sem verificação da informação.
+
+## Licença e uso
+
+Antes de reutilizar conteúdo, identidade visual ou materiais clínicos, verifique autoria, finalidade e eventuais requisitos éticos ou profissionais aplicáveis.
