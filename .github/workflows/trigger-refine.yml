@@ -1,0 +1,33 @@
+name: Trigger RPD media refinement
+on:
+  issues:
+    types: [opened]
+permissions:
+  contents: write
+jobs:
+  apply:
+    if: startsWith(github.event.issue.title, '[apply-rpd-media]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Extract and run prepared refinement
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          y=Path('.github/workflows/refine-media.yml').read_text(encoding='utf-8').splitlines()
+          start=next(i for i,l in enumerate(y) if "python - <<'PY'" in l)+1
+          end=next(i for i in range(start,len(y)) if y[i].strip()=='PY')
+          code='\n'.join((line[10:] if line.startswith('          ') else line) for line in y[start:end])
+          Path('/tmp/apply_refine.py').write_text(code,encoding='utf-8')
+          PY
+          python /tmp/apply_refine.py
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add index.html README.md privacidade.html
+          git commit -m "Restaura áudio, vídeo e guia didático de distorções"
+          git rm .github/workflows/refine-media.yml .github/workflows/trigger-refine.yml
+          git commit -m "Remove workflows temporários de refinamento"
+          git push
