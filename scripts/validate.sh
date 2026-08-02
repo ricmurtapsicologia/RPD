@@ -13,20 +13,33 @@ if not html_path.exists():
     raise SystemExit('index.html ausente')
 html = html_path.read_text(encoding='utf-8')
 js = Path('assets/js/app.js').read_text(encoding='utf-8')
+css = Path('assets/css/app.css').read_text(encoding='utf-8')
 
 required_html = [
     'RPD1.mp3', 'id="loadVideo"', 'id="videoSlot"', 'id="beliefBefore"',
     'id="beliefAfter"', 'id="otherEmotion"', 'id="distortionDialog"',
-    'id="shareSummary"', 'id="shareFull"', 'v2.1.1'
+    'id="shareSummary"', 'id="shareFull"'
 ]
 for token in required_html:
     if token not in html:
         raise SystemExit(f'Recurso crítico ausente no HTML: {token}')
 
-required_js = ['youtube-nocookie.com/embed/qp8VUlVqooI', 'sessionStorage', 'renderSummary', 'buildPrint']
+required_js = [
+    'const VERSION="2.1.2"', 'youtube-nocookie.com/embed/qp8VUlVqooI',
+    'sessionStorage', 'renderSummary', 'buildPrint', 'distortion-option-body',
+    'Como perceber:'
+]
 for token in required_js:
     if token not in js:
         raise SystemExit(f'Recurso crítico ausente no JS: {token}')
+
+required_css = [
+    '#pdf-area,.print-sheet{display:none!important}',
+    '.distortion-option-body', '.distortion-cue', '.distortion-example-inline'
+]
+for token in required_css:
+    if token not in css:
+        raise SystemExit(f'Recurso crítico ausente no CSS: {token}')
 
 class Checker(HTMLParser):
     def __init__(self):
@@ -49,5 +62,5 @@ if steps != list('1234567'):
 if '{% include' in html or '---\n---' in html[:20]:
     raise SystemExit('index.html ainda depende de composição Jekyll')
 
-print('RPD v2.1.1: validação estrutural OK')
+print('RPD v2.1.2: validação estrutural OK')
 PY
