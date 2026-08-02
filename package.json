@@ -1,0 +1,12 @@
+{
+  "name": "rpd-registro-de-pensamentos",
+  "private": true,
+  "version": "2.3.0",
+  "scripts": {
+    "validate": "bash scripts/validate.sh",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0"
+  }
+}
