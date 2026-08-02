@@ -1,12 +1,23 @@
 # RPD — Registro de Pensamentos
 
-**Versão atual: v2.1.1 — 02/08/2026**
+**Versão atual: v2.1.2 — 02/08/2026**
 
 Ferramenta web psicoeducativa para organizar situações, emoções ou estados, pensamentos automáticos, evidências, convicção cognitiva, valores, respostas alternativas e próximos passos.
 
 Aplicação: https://ricmurtapsicologia.github.io/RPD/
 
 > O RPD é um recurso psicoeducativo inspirado na Terapia Cognitivo-Comportamental. Não é teste psicológico, diagnóstico, prontuário profissional ou substituto de atendimento individualizado.
+
+## v2.1.2 — correção de UX clínica e área de impressão
+
+A v2.1.2 corrige dois pontos observados em uso real:
+
+- a área técnica usada para gerar o PDF passou a ficar totalmente oculta na tela e só é exibida em modo de impressão;
+- as distorções cognitivas passaram a ser explicadas **no próprio ponto de escolha**, sem exigir que o paciente abra outro guia para compreender o significado;
+- cada cartão mostra nome, significado curto, pergunta de reconhecimento e exemplo cotidiano;
+- `Não identifiquei um padrão` e `Não sei ainda` permanecem disponíveis como escolhas legítimas;
+- os cartões foram reorganizados para leitura em uma coluna em telas menores, reduzindo carga visual durante ativação emocional;
+- a microcopy reforça que o paciente não precisa saber nomes técnicos nem “acertar” uma classificação.
 
 ## v2.1.1 — correção de estabilidade e renderização
 
@@ -111,12 +122,12 @@ Aplicação estática sem framework e sem dependências JavaScript de terceiros 
 
 ## Validação
 
-A validação de regressão verifica, no mínimo:
+A validação de regressão deve verificar, no mínimo:
 
 - sintaxe JavaScript;
 - sete etapas presentes;
 - IDs HTML sem duplicação;
-- áudio `RPD1.mp3` referenciado;
+- áudio `RPD1.mp3` presente;
 - botão de vídeo e carregamento do iframe presentes;
 - campos de convicção antes/depois;
 - emoção `Outra` com campo de especificação;
