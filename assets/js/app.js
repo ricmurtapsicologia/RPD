@@ -1,10 +1,12 @@
 (()=>{
 "use strict";
-const VERSION="2.1.2";
+const VERSION="2.2.0";
 const WHATSAPP="5535984640729";
 const PAGE_URL="https://ricmurtapsicologia.github.io/RPD/";
 const DRAFT_KEY=`rpd_draft_v${VERSION.replace(/\./g,"_")}`;
+
 const EMOTIONS=["Ansiedade","Tristeza","Raiva","Culpa","Medo","Vergonha","Frustração","Insegurança","Desânimo","Solidão","Confusão","Alívio","Alegria","Outra"];
+
 const DISTORTIONS=[
 ["Catastrofização","Imaginar um desfecho muito ruim como se fosse provável ou inevitável, mesmo quando existem outros resultados possíveis.","Se eu errar nesta apresentação, minha carreira acabou.","Estou tratando o pior cenário possível como se fosse o mais provável?"],
 ["Supergeneralização","Usar um episódio específico como prova de uma regra ampla sobre você, os outros ou o futuro.","Não consegui desta vez; eu nunca consigo nada.","Estou transformando um episódio em uma regra sobre sempre ou nunca?"],
@@ -14,30 +16,113 @@ const DISTORTIONS=[
 ["Desqualificação do positivo","Diminuir ou invalidar evidências favoráveis para que elas não contem na avaliação.","Só elogiaram porque foram educados.","Estou descartando evidências positivas sem examiná-las com o mesmo rigor?"],
 ["Raciocínio emocional","Tratar o que você sente como prova suficiente de que algo é objetivamente verdadeiro.","Estou com medo, então deve haver perigo real.","Estou usando a intensidade do que sinto como prova do que aconteceu?"],
 ["Rotulação","Transformar um comportamento, erro ou dificuldade em uma definição rígida da pessoa inteira.","Cometi um erro; sou um fracasso.","Estou resumindo uma pessoa inteira a um rótulo?"],
-["Filtro mental","Prender a atenção quase só a uma parte negativa e perder de vista o restante da situação.","Recebi vários retornos bons, mas só penso na única crítica.","Minha atenção está presa a um detalhe e ignorando o conjunto?"],
-["Não identifiquei um padrão","Nenhum desses padrões ficou claro neste momento.","Use quando seu pensamento não parecer se encaixar nas descrições.","Nenhuma descrição parece combinar de forma útil?"],
-["Não sei ainda","A classificação pode ficar em aberto.","Use quando ainda estiver em dúvida.","Seria mais honesto deixar essa classificação em aberto por enquanto?"]
+["Filtro mental","Prender a atenção quase só a uma parte negativa e perder de vista o restante da situação.","Recebi vários retornos bons, mas só penso na única crítica.","Minha atenção está presa a um detalhe e ignorando o conjunto?"]
 ];
+
+const SPECIAL_DISTORTIONS=[
+["Não sei ainda","A classificação pode ficar em aberto. Isso é uma resposta válida."],
+["Não identifiquei um padrão","Use quando nenhuma descrição parecer combinar de forma útil."]
+];
+
+const SEQUENCES={
+  full:[1,2,3,4,5,6,7],
+  essential:[1,2,3,5,7]
+};
+
 let step=1;
+let mode="full";
 let dirty=false;
 let pendingAction=null;
+
+const rangeTouched={
+  before:false,
+  beliefBefore:false,
+  beliefAfter:false,
+  after:false
+};
+
 const $=(selector,context=document)=>context.querySelector(selector);
 const $$=(selector,context=document)=>Array.from(context.querySelectorAll(selector));
 const val=id=>$("#"+id)?.value?.trim()||"";
 const checked=name=>$$(`input[name="${name}"]:checked`).map(el=>el.value);
-const toast=message=>{const el=$("#toast");if(!el)return;el.textContent=message;el.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove("show"),3200)};
-const setText=(id,text,empty="Não informado")=>{const el=$("#"+id);if(el)el.textContent=(text||"").trim()||empty};
+
+const toast=message=>{
+  const el=$("#toast");
+  if(!el)return;
+  el.textContent=message;
+  el.classList.add("show");
+  clearTimeout(toast.timer);
+  toast.timer=setTimeout(()=>el.classList.remove("show"),3200);
+};
+
+const setText=(id,text,empty="Não informado")=>{
+  const el=$("#"+id);
+  if(el)el.textContent=(text||"").trim()||empty;
+};
+
+function localDate(){
+  const now=new Date();
+  const local=new Date(now.getTime()-now.getTimezoneOffset()*60000);
+  return local.toISOString().slice(0,10);
+}
+
+function currentSequence(){
+  return SEQUENCES[mode];
+}
+
+function escapeAttr(text){
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/"/g,"&quot;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
+}
 
 function setupChoices(){
-  $("#emotionGrid").innerHTML=EMOTIONS.map((name,i)=>`<label class="choice"><input id="emotion_${i}" type="checkbox" name="emotion" value="${name}"><span>${name}</span></label>`).join("");
-  $("#distortionGrid").innerHTML=DISTORTIONS.map(([name,description,example,question],i)=>{const special=i>=9;return `<label class="distortion-option${special?" special":""}"><input id="distortion_${i}" type="checkbox" name="distortion" value="${name}" aria-label="${name}: ${description}"><span class="distortion-option-body"><span class="distortion-name">${name}</span><span class="distortion-meaning">${description}</span>${special?"":`<span class="distortion-cue"><strong>Como perceber:</strong> ${question}</span>`}<span class="distortion-example-inline"><strong>${special?"Quando usar":"Exemplo"}:</strong> ${example}</span></span></label>`}).join("");
-  $("#distortionGuideCards").innerHTML=DISTORTIONS.slice(0,9).map(([name,description,example,question])=>`<article class="distortion-card"><b>${name}</b><p>${description}</p><p class="example"><strong>Exemplo:</strong> ${example}</p><p class="question"><strong>Pergunte-se:</strong> ${question}</p></article>`).join("");
+  $("#emotionGrid").innerHTML=EMOTIONS.map((name,i)=>
+    `<label class="choice"><input id="emotion_${i}" type="checkbox" name="emotion" value="${escapeAttr(name)}"><span>${name}</span></label>`
+  ).join("");
+
+  $("#distortionQuick").innerHTML=SPECIAL_DISTORTIONS.map(([name,description],i)=>
+    `<label class="quick-choice"><input id="distortion_special_${i}" type="checkbox" name="distortion" value="${escapeAttr(name)}"><span><b>${name}</b><small>${description}</small></span></label>`
+  ).join("");
+
+  $("#distortionGrid").innerHTML=DISTORTIONS.map(([name,description,example,question],i)=>
+    `<article class="distortion-option">
+      <label class="distortion-select">
+        <input id="distortion_${i}" type="checkbox" name="distortion" value="${escapeAttr(name)}" aria-label="${escapeAttr(name+": "+description)}">
+        <span class="distortion-option-body">
+          <span class="distortion-name">${name}</span>
+          <span class="distortion-meaning">${description}</span>
+        </span>
+      </label>
+      <details class="distortion-more">
+        <summary>Como reconhecer e exemplo</summary>
+        <div class="distortion-more-content">
+          <span class="distortion-cue"><strong>Como perceber:</strong> ${question}</span>
+          <span class="distortion-example-inline"><strong>Exemplo:</strong> ${example}</span>
+        </div>
+      </details>
+    </article>`
+  ).join("");
+
+  const guide=$("#distortionGuideCards");
+  if(guide){
+    guide.innerHTML=DISTORTIONS.map(([name,description,example,question])=>
+      `<article class="distortion-card"><b>${name}</b><p>${description}</p><p class="example"><strong>Exemplo:</strong> ${example}</p><p class="question"><strong>Pergunte-se:</strong> ${question}</p></article>`
+    ).join("");
+  }
 }
+
 function emotionLabels(){
   const values=checked("emotion").filter(v=>v!=="Outra");
-  if(checked("emotion").includes("Outra")){const custom=val("otherEmotion");values.push(custom?`Outra: ${custom}`:"Outra")}
+  if(checked("emotion").includes("Outra")){
+    const custom=val("otherEmotion");
+    values.push(custom?`Outra: ${custom}`:"Outra");
+  }
   return values;
 }
+
 function updateSelections(){
   const emotions=emotionLabels();
   const distortions=checked("distortion");
@@ -45,181 +130,773 @@ function updateSelections(){
   $("#selectedDistortions").textContent=`Padrões selecionados: ${distortions.length?distortions.join(", "):"nenhum"}.`;
   $("#otherEmotionWrap").hidden=!checked("emotion").includes("Outra");
 }
-function bindRange(id,outId){
-  const input=$("#"+id),out=$("#"+outId);
-  const sync=()=>out.textContent=`${input.value}/100`;
-  input.addEventListener("input",sync);sync();
+
+function markRange(id,outId){
+  rangeTouched[id]=true;
+  const input=$("#"+id);
+  const out=$("#"+outId);
+  input.dataset.touched="true";
+  out.textContent=`${input.value}/100`;
+  out.classList.remove("is-empty");
+  input.setAttribute("aria-valuetext",`${input.value} de 100`);
+  dirty=true;
+  saveDraft();
 }
+
+function bindRange(id,outId){
+  const input=$("#"+id);
+  const out=$("#"+outId);
+
+  input.addEventListener("input",()=>markRange(id,outId));
+  input.addEventListener("change",()=>markRange(id,outId));
+
+  input.addEventListener("keydown",event=>{
+    if(["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","Home","End","PageUp","PageDown"].includes(event.key)){
+      markRange(id,outId);
+    }
+  });
+
+  input.addEventListener("pointerdown",()=>{
+    if(!rangeTouched[id])markRange(id,outId);
+  });
+
+  if(!rangeTouched[id]){
+    out.textContent="Não avaliado";
+    out.classList.add("is-empty");
+    input.setAttribute("aria-valuetext","Não avaliado");
+  }
+}
+
+function rangeText(id){
+  return rangeTouched[id]?`${$("#"+id).value}/100`:"Não avaliado";
+}
+
 function autoGrow(el){
   el.style.height="auto";
   el.style.height=Math.min(el.scrollHeight,360)+"px";
 }
+
+function syncNavHeight(){
+  const nav=$("nav");
+  if(nav){
+    document.documentElement.style.setProperty("--nav-h",`${Math.ceil(nav.getBoundingClientRect().height)}px`);
+  }
+}
+
 function progress(){
-  $("#progressLabel").textContent=`Etapa ${step} de 7`;
-  $("#progressBar").style.width=`${(step/7)*100}%`;
+  const seq=currentSequence();
+  const index=seq.indexOf(step);
+  const total=seq.length;
+  const pos=Math.max(0,index)+1;
+
+  $("#progressLabel").textContent=
+    `${mode==="full"?"Etapa":"Passo"} ${pos} de ${total} · modo ${mode==="full"?"completo":"essencial"}`;
+
+  $("#progressBar").style.width=`${(pos/total)*100}%`;
+
+  $$(".step").forEach(el=>{
+    const stepNumber=Number(el.dataset.step);
+    const position=seq.indexOf(stepNumber);
+    const badge=$(".step-number",el);
+    if(badge && position>=0)badge.textContent=String(position+1);
+  });
 }
+
 function showStep(n,scroll=true){
-  step=Math.max(1,Math.min(7,n));
-  $$(".step").forEach(el=>el.classList.toggle("is-active",Number(el.dataset.step)===step));
+  const seq=currentSequence();
+  if(!seq.includes(n))n=seq[0];
+
+  step=n;
+
+  $$(".step").forEach(el=>{
+    el.classList.toggle("is-active",Number(el.dataset.step)===step);
+  });
+
   progress();
+
   if(step===7)renderSummary();
-  if(scroll)$("#form-area").scrollIntoView({behavior:"smooth",block:"start"});
+
+  if(scroll){
+    $("#form-area").scrollIntoView({behavior:"smooth",block:"start"});
+  }
 }
+
+function navigate(delta){
+  const seq=currentSequence();
+  const index=seq.indexOf(step);
+  const next=seq[index+delta];
+
+  if(next===undefined)return;
+  if(delta>0 && !validateStep(step))return;
+
+  showStep(next);
+}
+
+function setMode(nextMode,announce=true){
+  if(!SEQUENCES[nextMode])return;
+
+  mode=nextMode;
+
+  const radio=$(nextMode==="full"?"#modeFull":"#modeEssential");
+  if(radio)radio.checked=true;
+
+  if(!currentSequence().includes(step)){
+    step=1;
+    showStep(1,false);
+  }else{
+    progress();
+  }
+
+  if(announce){
+    toast(
+      mode==="essential"
+        ?"Modo essencial: menos passos e menos decisões de uma vez."
+        :"Modo completo: sete etapas do RPD."
+    );
+  }
+
+  saveDraft();
+}
+
 function clearErrors(root=document){
   $$(".has-error",root).forEach(el=>el.classList.remove("has-error"));
   $$(".field-error",root).forEach(el=>el.textContent="");
 }
+
 function fieldError(el,message){
   const field=el.closest(".field");
-  if(field){field.classList.add("has-error");const box=$(".field-error",field);if(box)box.textContent=message}
+
+  if(field){
+    field.classList.add("has-error");
+    const box=$(".field-error",field);
+    if(box)box.textContent=message;
+  }
+
   el.focus();
 }
+
 function validateStep(n=step){
   const active=$(`.step[data-step="${n}"]`);
   if(!active)return true;
+
   clearErrors(active);
-  for(const field of $$('[required]',active)){
-    if(!field.value.trim()){fieldError(field,"Preencha este campo para continuar.");return false}
+
+  for(const field of $$("[required]",active)){
+    if(!field.value.trim()){
+      fieldError(field,"Preencha este campo para continuar.");
+      return false;
+    }
   }
-  if(n===2&&checked("emotion").length===0){toast("Selecione pelo menos uma emoção ou estado para continuar.");return false}
-  if(n===2&&checked("emotion").includes("Outra")&&!val("otherEmotion")){fieldError($("#otherEmotion"),"Escreva qual emoção ou estado você quis acrescentar.");return false}
+
+  if(n===2 && checked("emotion").length===0){
+    toast("Selecione pelo menos uma emoção ou estado para continuar.");
+    return false;
+  }
+
+  if(n===2 && checked("emotion").includes("Outra") && !val("otherEmotion")){
+    fieldError($("#otherEmotion"),"Escreva qual emoção ou estado você quis acrescentar.");
+    return false;
+  }
+
   return true;
 }
+
 function formState(){
-  const state={step,draftEnabled:$("#draftToggle").checked,fields:{},checks:{}};
+  const state={
+    step,
+    mode,
+    draftEnabled:$("#draftToggle").checked,
+    fields:{},
+    checks:{},
+    rangeTouched:{...rangeTouched}
+  };
+
   $$("#rpdForm input,#rpdForm textarea,#rpdForm select").forEach(el=>{
-    if(el.type==="checkbox")state.checks[el.id]=el.checked;
-    else state.fields[el.id]=el.value;
+    if(el.type==="checkbox" || el.type==="radio"){
+      state.checks[el.id]=el.checked;
+    }else{
+      state.fields[el.id]=el.value;
+    }
   });
+
   return state;
 }
+
 function saveDraft(){
   if(!$("#draftToggle").checked)return;
-  try{sessionStorage.setItem(DRAFT_KEY,JSON.stringify(formState()))}catch(e){}
+
+  try{
+    sessionStorage.setItem(DRAFT_KEY,JSON.stringify(formState()));
+  }catch(e){}
 }
+
+function rangeOutId(id){
+  return {
+    before:"beforeOut",
+    after:"afterOut",
+    beliefBefore:"beliefBeforeOut",
+    beliefAfter:"beliefAfterOut"
+  }[id];
+}
+
 function restoreDraft(){
   let raw=null;
-  try{raw=sessionStorage.getItem(DRAFT_KEY)}catch(e){}
+
+  try{
+    raw=sessionStorage.getItem(DRAFT_KEY);
+  }catch(e){}
+
   if(!raw)return;
+
   try{
     const data=JSON.parse(raw);
     if(!data.draftEnabled)return;
+
     $("#draftToggle").checked=true;
-    Object.entries(data.fields||{}).forEach(([id,value])=>{const el=$("#"+CSS.escape(id));if(el)el.value=value});
-    Object.entries(data.checks||{}).forEach(([id,value])=>{const el=$("#"+CSS.escape(id));if(el)el.checked=Boolean(value)});
+
+    Object.entries(data.fields||{}).forEach(([id,value])=>{
+      const el=$("#"+CSS.escape(id));
+      if(el)el.value=value;
+    });
+
+    Object.entries(data.checks||{}).forEach(([id,value])=>{
+      const el=$("#"+CSS.escape(id));
+      if(el)el.checked=Boolean(value);
+    });
+
+    Object.assign(rangeTouched,data.rangeTouched||{});
+
+    for(const [id,touched] of Object.entries(rangeTouched)){
+      const input=$("#"+id);
+      const out=$("#"+rangeOutId(id));
+
+      if(input && out && touched){
+        input.dataset.touched="true";
+        out.textContent=`${input.value}/100`;
+        out.classList.remove("is-empty");
+        input.setAttribute("aria-valuetext",`${input.value} de 100`);
+      }
+    }
+
+    setMode(data.mode||"full",false);
     updateSelections();
     $$("textarea").forEach(autoGrow);
-    showStep(data.step||1,false);
+    showStep(currentSequence().includes(data.step)?data.step:1,false);
     toast("Rascunho desta aba restaurado.");
-  }catch(e){try{sessionStorage.removeItem(DRAFT_KEY)}catch(_){}
+  }catch(e){
+    try{
+      sessionStorage.removeItem(DRAFT_KEY);
+    }catch(_){}
   }
 }
+
 function data(){
-  return{
-    identity:val("identity")||"Não informado",date:val("date"),situation:val("situation"),emotions:emotionLabels().join(", "),before:`${$("#before").value}/100`,
-    thought:val("thought"),beliefBefore:`${$("#beliefBefore").value}/100`,distortions:checked("distortion").join(", ")||"Não classificado",
-    supporting:val("supporting"),contrary:val("contrary")||"Não identifiquei neste momento",alternative:val("alternative")||"Não identifiquei neste momento",
-    perspective:val("perspective")||"Não informado",status:val("status"),utility:val("utility"),value:val("value")||"Não informado",action:val("action")||"Não informado",
-    distance:val("distance")||"Não informado",response:val("response"),beliefAfter:`${$("#beliefAfter").value}/100`,stateNow:val("stateNow")||"Não informado",after:`${$("#after").value}/100`
+  return {
+    identity:val("identity")||"Não informado",
+    date:val("date"),
+    situation:val("situation"),
+    emotions:emotionLabels().join(", "),
+    before:rangeText("before"),
+    thought:val("thought"),
+    beliefBefore:rangeText("beliefBefore"),
+    distortions:checked("distortion").join(", ")||"Não classificado",
+    supporting:val("supporting")||"Não informado",
+    contrary:val("contrary")||"Não informado",
+    alternative:val("alternative")||"Não informado",
+    perspective:val("perspective")||"Não informado",
+    status:val("status"),
+    utility:val("utility"),
+    value:val("value")||"Não informado",
+    action:val("action")||"Não informado",
+    distance:val("distance")||"Não informado",
+    response:mode==="essential"?"Não preenchida no modo essencial":val("response"),
+    beliefAfter:mode==="essential"?"Não avaliado":rangeText("beliefAfter"),
+    stateNow:mode==="essential"?"Não avaliado":val("stateNow")||"Não informado",
+    after:mode==="essential"?"Não avaliado":rangeText("after")
   };
 }
+
 function makeGroup(title,editStep,items){
-  const section=document.createElement("section");section.className="summary-group";
-  const head=document.createElement("div");head.className="summary-group-head";
-  const heading=document.createElement("h4");heading.textContent=title;
-  const edit=document.createElement("button");edit.type="button";edit.className="btn btn-ghost btn-small edit-step";edit.dataset.step=String(editStep);edit.textContent="Editar";
+  const section=document.createElement("section");
+  section.className="summary-group";
+
+  const head=document.createElement("div");
+  head.className="summary-group-head";
+
+  const heading=document.createElement("h4");
+  heading.textContent=title;
+
+  const edit=document.createElement("button");
+  edit.type="button";
+  edit.className="btn btn-ghost btn-small edit-step";
+  edit.dataset.step=String(editStep);
+  edit.textContent="Editar";
+
   head.append(heading,edit);
-  const list=document.createElement("div");list.className="summary-list";
-  items.forEach(([label,value])=>{const row=document.createElement("div");row.className="summary-row";const strong=document.createElement("strong");strong.textContent=label;const span=document.createElement("span");span.textContent=value;row.append(strong,span);list.append(row)});
-  section.append(head,list);return section;
+
+  const list=document.createElement("div");
+  list.className="summary-list";
+
+  items.forEach(([label,value])=>{
+    const row=document.createElement("div");
+    row.className="summary-row";
+
+    const strong=document.createElement("strong");
+    strong.textContent=label;
+
+    const span=document.createElement("span");
+    span.textContent=value;
+
+    row.append(strong,span);
+    list.append(row);
+  });
+
+  section.append(head,list);
+  return section;
 }
+
 function renderSummary(){
-  const d=data(),summary=$("#summary");summary.innerHTML="";
-  summary.append(makeGroup("O que aconteceu",1,[["Situação",d.situation],["Emoções ou estados",d.emotions],["Desconforto antes",d.before]]));
-  summary.append(makeGroup("Como interpretei",3,[["Pensamento automático",d.thought],["Convicção inicial",d.beliefBefore],["Padrões possíveis",d.distortions]]));
-  summary.append(makeGroup("O que percebi ao investigar",4,[["Evidências que sustentam",d.supporting],["O que pode estar faltando",d.contrary],["Outra explicação",d.alternative],["Perspectiva externa",d.perspective],["Status do pensamento",d.status],["Utilidade percebida",d.utility]]));
-  summary.append(makeGroup("Como quero responder",5,[["Valor importante",d.value],["Pequena ação possível",d.action],["Se o pensamento não comandasse minha ação",d.distance],["Resposta alternativa",d.response],["Estado atual",d.stateNow]]));
-  $("#beliefBeforeSummary").textContent=d.beliefBefore;$("#beliefAfterSummary").textContent=d.beliefAfter;$("#beforeSummary").textContent=d.before;$("#afterSummary").textContent=d.after;
-}
-function fullValid(){
-  const original=step;
-  for(let n=1;n<=6;n++){if(!validateStep(n)){showStep(n);return false}}
-  step=original;progress();return true;
-}
-function message(mode="full"){
   const d=data();
-  if(mode==="summary")return["RPD — resumo essencial",`Data: ${d.date}`,`Situação: ${d.situation}`,`Emoções/estados: ${d.emotions}`,`Pensamento automático: ${d.thought}`,`Convicção: ${d.beliefBefore} → ${d.beliefAfter}`,`Resposta alternativa: ${d.response}`,`Próxima ação: ${d.action}`,`Desconforto: ${d.before} → ${d.after}`].join("\n");
-  return["Registro de Pensamentos — RPD",`Nome/iniciais: ${d.identity}`,`Data: ${d.date}`,`Situação: ${d.situation}`,`Emoções/estados: ${d.emotions}`,`Desconforto antes: ${d.before}`,`Pensamento automático: ${d.thought}`,`Convicção inicial: ${d.beliefBefore}`,`Padrões possíveis: ${d.distortions}`,`Evidências que sustentam: ${d.supporting}`,`O que pode estar faltando: ${d.contrary}`,`Outra explicação possível: ${d.alternative}`,`Perspectiva externa: ${d.perspective}`,`Pensamento: ${d.status}`,`Utilidade: ${d.utility}`,`Valor importante: ${d.value}`,`Pequena ação possível: ${d.action}`,`Se o pensamento não comandasse a ação: ${d.distance}`,`Resposta alternativa: ${d.response}`,`Convicção agora: ${d.beliefAfter}`,`Estado emocional atual: ${d.stateNow}`,`Desconforto depois: ${d.after}`].join("\n");
+  const summary=$("#summary");
+  summary.innerHTML="";
+
+  summary.append(
+    makeGroup("O que aconteceu",1,[
+      ["Situação",d.situation],
+      ["Emoções ou estados",d.emotions],
+      ["Desconforto antes",d.before]
+    ])
+  );
+
+  summary.append(
+    makeGroup("Como interpretei",3,[
+      ["Pensamento automático",d.thought],
+      ["Convicção inicial",d.beliefBefore],
+      ["Padrões possíveis",d.distortions]
+    ])
+  );
+
+  if(mode==="full"){
+    summary.append(
+      makeGroup("O que percebi ao investigar",4,[
+        ["O que fez parecer verdadeiro",d.supporting],
+        ["O que pode estar faltando",d.contrary],
+        ["Outra explicação",d.alternative],
+        ["Perspectiva externa",d.perspective],
+        ["Status do pensamento",d.status],
+        ["Utilidade percebida",d.utility]
+      ])
+    );
+  }
+
+  summary.append(
+    makeGroup(mode==="full"?"Como quero responder":"O que posso fazer agora",5,[
+      ["Valor importante",d.value],
+      ["Pequena ação possível",d.action],
+      ["Se o pensamento não comandasse minha ação",d.distance]
+    ])
+  );
+
+  if(mode==="full"){
+    summary.append(
+      makeGroup("Nova leitura",6,[
+        ["Resposta alternativa",d.response],
+        ["Estado atual",d.stateNow]
+      ])
+    );
+  }
+
+  $("#beliefBeforeSummary").textContent=d.beliefBefore;
+  $("#beliefAfterSummary").textContent=d.beliefAfter;
+  $("#beforeSummary").textContent=d.before;
+  $("#afterSummary").textContent=d.after;
 }
-function openWhatsApp(mode){window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message(mode))}`,"_blank","noopener,noreferrer")}
+
+function journeyValid(){
+  for(const n of currentSequence().filter(n=>n!==7)){
+    if(!validateStep(n)){
+      showStep(n);
+      return false;
+    }
+  }
+  return true;
+}
+
+function message(kind="full"){
+  const d=data();
+
+  if(kind==="summary"){
+    return [
+      "RPD — resumo essencial",
+      `Modo: ${mode==="full"?"completo":"essencial"}`,
+      `Data: ${d.date}`,
+      `Situação: ${d.situation}`,
+      `Emoções/estados: ${d.emotions}`,
+      `Pensamento automático: ${d.thought}`,
+      `Convicção inicial: ${d.beliefBefore}`,
+      `Próxima ação: ${d.action}`,
+      mode==="full"?`Resposta alternativa: ${d.response}`:null,
+      `Desconforto antes: ${d.before}`,
+      mode==="full"?`Desconforto depois: ${d.after}`:null
+    ].filter(Boolean).join("\n");
+  }
+
+  return [
+    "Registro de Pensamentos — RPD",
+    `Modo: ${mode==="full"?"completo":"essencial"}`,
+    `Nome/iniciais: ${d.identity}`,
+    `Data: ${d.date}`,
+    `Situação: ${d.situation}`,
+    `Emoções/estados: ${d.emotions}`,
+    `Desconforto antes: ${d.before}`,
+    `Pensamento automático: ${d.thought}`,
+    `Convicção inicial: ${d.beliefBefore}`,
+    `Padrões possíveis: ${d.distortions}`,
+    mode==="full"?`O que fez o pensamento parecer verdadeiro: ${d.supporting}`:null,
+    mode==="full"?`O que pode estar faltando: ${d.contrary}`:null,
+    mode==="full"?`Outra explicação possível: ${d.alternative}`:null,
+    mode==="full"?`Perspectiva externa: ${d.perspective}`:null,
+    `Valor importante: ${d.value}`,
+    `Pequena ação possível: ${d.action}`,
+    `Se o pensamento não comandasse a ação: ${d.distance}`,
+    mode==="full"?`Resposta alternativa: ${d.response}`:null,
+    mode==="full"?`Convicção agora: ${d.beliefAfter}`:null,
+    mode==="full"?`Estado emocional atual: ${d.stateNow}`:null,
+    mode==="full"?`Desconforto depois: ${d.after}`:null
+  ].filter(Boolean).join("\n");
+}
+
+function openWhatsApp(kind){
+  window.open(
+    `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message(kind))}`,
+    "_blank",
+    "noopener,noreferrer"
+  );
+}
+
 function buildPrint(){
   const d=data();
-  setText("pIdentity",d.identity);setText("pDate",d.date);setText("pEmotions",d.emotions);setText("pSituation",d.situation);
-  setText("pThought",`Pensamento automático: ${d.thought}\nConvicção inicial: ${d.beliefBefore}\nPadrões possíveis: ${d.distortions}\nClassificação atual: ${d.status}\nUtilidade percebida: ${d.utility}`);
-  setText("pSupporting",d.supporting);setText("pContrary",d.contrary);setText("pAlternative",`Outra explicação: ${d.alternative}\nPerspectiva externa: ${d.perspective}`);
-  setText("pValues",`Valor importante: ${d.value}\nPequena ação possível: ${d.action}\nSe o pensamento não comandasse a ação: ${d.distance}`);setText("pResponse",d.response);
-  setText("pBeliefBefore",d.beliefBefore);setText("pBeliefAfter",d.beliefAfter);setText("pBefore",d.before);setText("pAfter",d.after);setText("pState",`Estado emocional atual: ${d.stateNow}`);
+
+  setText("pIdentity",d.identity);
+  setText("pDate",d.date);
+  setText("pEmotions",d.emotions);
+  setText("pSituation",d.situation);
+
+  setText(
+    "pThought",
+    `Pensamento automático: ${d.thought}\nConvicção inicial: ${d.beliefBefore}\nPadrões possíveis: ${d.distortions}\nClassificação atual: ${d.status}\nUtilidade percebida: ${d.utility}`
+  );
+
+  setText("pSupporting",mode==="full"?d.supporting:"Não preenchido no modo essencial");
+  setText("pContrary",mode==="full"?d.contrary:"Não preenchido no modo essencial");
+  setText(
+    "pAlternative",
+    mode==="full"
+      ?`Outra explicação: ${d.alternative}\nPerspectiva externa: ${d.perspective}`
+      :"Não preenchido no modo essencial"
+  );
+
+  setText(
+    "pValues",
+    `Valor importante: ${d.value}\nPequena ação possível: ${d.action}\nSe o pensamento não comandasse a ação: ${d.distance}`
+  );
+
+  setText("pResponse",d.response);
+  setText("pBeliefBefore",d.beliefBefore);
+  setText("pBeliefAfter",d.beliefAfter);
+  setText("pBefore",d.before);
+  setText("pAfter",d.after);
+  setText("pState",`Estado emocional atual: ${d.stateNow}`);
+
   $("#pEvidenceGrid").classList.toggle("stack",(d.supporting.length+d.contrary.length)>900);
-  const now=new Date();setText("pGenerated",`Gerado em ${now.toLocaleDateString("pt-BR")} às ${now.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}`);
+
+  const now=new Date();
+  setText(
+    "pGenerated",
+    `Gerado em ${now.toLocaleDateString("pt-BR")} às ${now.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}`
+  );
 }
-function openDialog(id){const dialog=$("#"+id);if(dialog&&!dialog.open)dialog.showModal()}
-function closeDialog(dialog){if(dialog?.open)dialog.close()}
-function action(title,text,callback){pendingAction=callback;$("#actionTitle").textContent=title;$("#actionText").textContent=text;openDialog("actionDialog")}
+
+function openDialog(id){
+  const dialog=$("#"+id);
+  if(dialog && !dialog.open)dialog.showModal();
+}
+
+function closeDialog(dialog){
+  if(dialog?.open)dialog.close();
+}
+
+function action(title,text,callback){
+  pendingAction=callback;
+  $("#actionTitle").textContent=title;
+  $("#actionText").textContent=text;
+  openDialog("actionDialog");
+}
+
+function rangeOutId(id){
+  return {
+    before:"beforeOut",
+    after:"afterOut",
+    beliefBefore:"beliefBeforeOut",
+    beliefAfter:"beliefAfterOut"
+  }[id];
+}
+
+function resetRanges(){
+  for(const id of Object.keys(rangeTouched)){
+    rangeTouched[id]=false;
+
+    const input=$("#"+id);
+    if(input){
+      input.value="50";
+      input.dataset.touched="false";
+      input.setAttribute("aria-valuetext","Não avaliado");
+    }
+
+    const out=$("#"+rangeOutId(id));
+    if(out){
+      out.textContent="Não avaliado";
+      out.classList.add("is-empty");
+    }
+  }
+}
+
 function clearForm(){
-  $("#rpdForm").reset();$$('#rpdForm input[type="checkbox"]').forEach(el=>el.checked=false);$("#date").value=new Date().toISOString().slice(0,10);
-  ["before","after","beliefBefore","beliefAfter"].forEach(id=>$("#"+id).value="50");["beforeOut","afterOut","beliefBeforeOut","beliefAfterOut"].forEach(id=>$("#"+id).textContent="50/100");
-  try{sessionStorage.removeItem(DRAFT_KEY)}catch(e){}dirty=false;updateSelections();$$("textarea").forEach(el=>el.style.height="");showStep(1);
+  $("#rpdForm").reset();
+  $$('#rpdForm input[type="checkbox"]').forEach(el=>el.checked=false);
+
+  $("#date").value=localDate();
+
+  resetRanges();
+
+  try{
+    sessionStorage.removeItem(DRAFT_KEY);
+  }catch(e){}
+
+  dirty=false;
+  setMode("full",false);
+  updateSelections();
+
+  $$("textarea").forEach(el=>el.style.height="");
+  showStep(1);
 }
+
+function handleDistortionChange(target){
+  const specials=SPECIAL_DISTORTIONS.map(item=>item[0]);
+
+  if(specials.includes(target.value) && target.checked){
+    $$("input[name=\"distortion\"]").forEach(el=>{
+      if(el!==target)el.checked=false;
+    });
+  }else if(target.checked){
+    $$("input[name=\"distortion\"]").forEach(el=>{
+      if(specials.includes(el.value))el.checked=false;
+    });
+  }
+
+  updateSelections();
+}
+
 function bindEvents(){
   document.addEventListener("change",event=>{
     const target=event.target;
-    if(target.matches('input[name="emotion"]'))updateSelections();
-    if(target.matches('input[name="distortion"]')){
-      const special=["Não identifiquei um padrão","Não sei ainda"];
-      if(special.includes(target.value)&&target.checked)$$('input[name="distortion"]').forEach(el=>{if(el!==target)el.checked=false});
-      else if(target.checked)$$('input[name="distortion"]').forEach(el=>{if(special.includes(el.value))el.checked=false});
+
+    if(target.name==="mode"){
+      setMode(target.value);
+    }
+
+    if(target.matches("input[name=\"emotion\"]")){
       updateSelections();
     }
-    if(target.id==="draftToggle"){
-      if(target.checked){saveDraft();toast("Rascunho será mantido somente nesta aba.")}
-      else{try{sessionStorage.removeItem(DRAFT_KEY)}catch(e){}toast("Rascunho temporário desativado.")}
+
+    if(target.matches("input[name=\"distortion\"]")){
+      handleDistortionChange(target);
     }
-    if(target.closest("#rpdForm")){dirty=true;saveDraft()}
+
+    if(target.id==="draftToggle"){
+      if(target.checked){
+        saveDraft();
+        toast("Rascunho será mantido somente nesta aba.");
+      }else{
+        try{
+          sessionStorage.removeItem(DRAFT_KEY);
+        }catch(e){}
+        toast("Rascunho temporário desativado.");
+      }
+    }
+
+    if(target.closest("#rpdForm")){
+      dirty=true;
+      saveDraft();
+    }
   });
+
   document.addEventListener("input",event=>{
     const target=event.target;
-    if(target.matches("textarea"))autoGrow(target);
-    if(target.id==="otherEmotion")updateSelections();
-    if(target.closest("#rpdForm")){dirty=true;saveDraft()}
+
+    if(target.matches("textarea")){
+      autoGrow(target);
+    }
+
+    if(target.id==="otherEmotion"){
+      updateSelections();
+    }
+
+    if(target.closest("#rpdForm") && !target.matches("input[type=\"range\"]")){
+      dirty=true;
+      saveDraft();
+    }
   });
-  $$(".next").forEach(btn=>btn.addEventListener("click",()=>{if(validateStep())showStep(step+1)}));
-  $$(".prev").forEach(btn=>btn.addEventListener("click",()=>showStep(step-1)));
+
+  $$(".next").forEach(btn=>btn.addEventListener("click",()=>navigate(1)));
+  $$(".prev").forEach(btn=>btn.addEventListener("click",()=>navigate(-1)));
+
+  $("#skipValues")?.addEventListener("click",()=>navigate(1));
+
   document.addEventListener("click",event=>{
-    const opener=event.target.closest("[data-open-dialog]");if(opener)openDialog(opener.dataset.openDialog);
-    const closer=event.target.closest("[data-close-dialog]");if(closer)closeDialog(closer.closest("dialog"));
-    const edit=event.target.closest(".edit-step");if(edit)showStep(Number(edit.dataset.step));
+    const opener=event.target.closest("[data-open-dialog]");
+    if(opener)openDialog(opener.dataset.openDialog);
+
+    const closer=event.target.closest("[data-close-dialog]");
+    if(closer)closeDialog(closer.closest("dialog"));
+
+    const edit=event.target.closest(".edit-step");
+    if(edit){
+      const target=Number(edit.dataset.step);
+
+      if(currentSequence().includes(target)){
+        showStep(target);
+      }else{
+        toast("Esse bloco faz parte do modo completo.");
+      }
+    }
   });
+
   $("#loadVideo").addEventListener("click",()=>{
     const slot=$("#videoSlot");
     slot.className="video-wrap";
     slot.innerHTML='<iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/qp8VUlVqooI?rel=0" title="Como fazer um Registro de Pensamentos" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
   });
-  $("#shareRecord").addEventListener("click",()=>{if(fullValid())openDialog("shareDialog")});
-  $("#shareSummary").addEventListener("click",()=>{closeDialog($("#shareDialog"));openWhatsApp("summary")});
-  $("#shareFull").addEventListener("click",()=>{closeDialog($("#shareDialog"));openWhatsApp("full")});
-  $("#printPdf").addEventListener("click",()=>{if(!fullValid())return;action("Salvar ou imprimir PDF","A versão pode conter informações pessoais e emocionais. Revise o local onde será salva.",()=>{buildPrint();window.print()})});
+
+  $("#shareRecord").addEventListener("click",()=>{
+    if(journeyValid())openDialog("shareDialog");
+  });
+
+  $("#shareSummary").addEventListener("click",()=>{
+    closeDialog($("#shareDialog"));
+    openWhatsApp("summary");
+  });
+
+  $("#shareFull").addEventListener("click",()=>{
+    closeDialog($("#shareDialog"));
+    openWhatsApp("full");
+  });
+
+  $("#printPdf").addEventListener("click",()=>{
+    if(!journeyValid())return;
+
+    action(
+      "Salvar ou imprimir PDF",
+      "A versão pode conter informações pessoais e emocionais. Revise o local onde será salva.",
+      ()=>{
+        buildPrint();
+        window.print();
+      }
+    );
+  });
+
   window.addEventListener("beforeprint",buildPrint);
-  $("#newRecord").addEventListener("click",()=>action("Iniciar novo registro","Isso limpará as respostas atuais nesta aba.",clearForm));
-  $("#actionConfirm").addEventListener("click",()=>{const fn=pendingAction;pendingAction=null;closeDialog($("#actionDialog"));if(fn)fn()});
-  $("#sharePage").addEventListener("click",async()=>{const text="RPD — ferramenta psicoeducativa para organizar situação, emoções, pensamentos e próximos passos.";try{if(navigator.share)await navigator.share({title:"RPD",text,url:PAGE_URL});else if(navigator.clipboard){await navigator.clipboard.writeText(PAGE_URL);toast("Link copiado.")}else window.prompt("Copie o link:",PAGE_URL)}catch(e){}});
-  $("#contactBtn").addEventListener("click",()=>{const name=val("contactName"),msg=val("contactMessage");if(!msg){toast("Escreva uma mensagem antes de abrir o WhatsApp.");$("#contactMessage").focus();return}const text=`Olá${name?", prefiro ser chamado(a) de "+name:""}. ${msg}`;window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`,"_blank","noopener,noreferrer")});
-  $$("dialog").forEach(dialog=>dialog.addEventListener("click",event=>{if(event.target===dialog)closeDialog(dialog)}));
-  window.addEventListener("beforeunload",event=>{if(dirty&&!$("#draftToggle").checked){event.preventDefault();event.returnValue=""}});
+
+  $("#newRecord").addEventListener("click",()=>
+    action(
+      "Iniciar novo registro",
+      "Isso limpará as respostas atuais nesta aba.",
+      clearForm
+    )
+  );
+
+  $("#actionConfirm").addEventListener("click",()=>{
+    const fn=pendingAction;
+    pendingAction=null;
+    closeDialog($("#actionDialog"));
+    if(fn)fn();
+  });
+
+  $("#sharePage").addEventListener("click",async()=>{
+    const text="RPD — ferramenta psicoeducativa para organizar situação, emoções, pensamentos e próximos passos.";
+
+    try{
+      if(navigator.share){
+        await navigator.share({title:"RPD",text,url:PAGE_URL});
+      }else if(navigator.clipboard){
+        await navigator.clipboard.writeText(PAGE_URL);
+        toast("Link copiado.");
+      }else{
+        window.prompt("Copie o link:",PAGE_URL);
+      }
+    }catch(e){}
+  });
+
+  $("#contactBtn").addEventListener("click",()=>{
+    const name=val("contactName");
+    const msg=val("contactMessage");
+
+    if(!msg){
+      toast("Escreva uma mensagem antes de abrir o WhatsApp.");
+      $("#contactMessage").focus();
+      return;
+    }
+
+    const text=`Olá${name?", prefiro ser chamado(a) de "+name:""}. ${msg}`;
+
+    window.open(
+      `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  });
+
+  $$("dialog").forEach(dialog=>{
+    dialog.addEventListener("click",event=>{
+      if(event.target===dialog)closeDialog(dialog);
+    });
+  });
+
+  window.addEventListener("beforeunload",event=>{
+    if(dirty && !$("#draftToggle").checked){
+      event.preventDefault();
+      event.returnValue="";
+    }
+  });
+
+  window.addEventListener("resize",syncNavHeight);
 }
+
 function init(){
-  setupChoices();bindRange("before","beforeOut");bindRange("after","afterOut");bindRange("beliefBefore","beliefBeforeOut");bindRange("beliefAfter","beliefAfterOut");
-  $("#date").value=new Date().toISOString().slice(0,10);updateSelections();progress();bindEvents();restoreDraft();
-  $$("textarea").forEach(el=>el.addEventListener("input",()=>autoGrow(el)));
+  setupChoices();
+  syncNavHeight();
+
+  bindRange("before","beforeOut");
+  bindRange("after","afterOut");
+  bindRange("beliefBefore","beliefBeforeOut");
+  bindRange("beliefAfter","beliefAfterOut");
+
+  $("#date").value=localDate();
+
+  updateSelections();
+  setMode("full",false);
+  progress();
+  bindEvents();
+  restoreDraft();
+
+  $$("textarea").forEach(el=>{
+    el.addEventListener("input",()=>autoGrow(el));
+  });
 }
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+
+if(document.readyState==="loading"){
+  document.addEventListener("DOMContentLoaded",init);
+}else{
+  init();
+}
 })();
