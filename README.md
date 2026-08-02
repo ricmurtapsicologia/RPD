@@ -1,12 +1,35 @@
 # RPD — Registro de Pensamentos
 
-**Versão atual: v2.1.2 — 02/08/2026**
+**Versão atual: v2.2.0 — 02/08/2026**
 
 Ferramenta web psicoeducativa para organizar situações, emoções ou estados, pensamentos automáticos, evidências, convicção cognitiva, valores, respostas alternativas e próximos passos.
 
 Aplicação: https://ricmurtapsicologia.github.io/RPD/
 
 > O RPD é um recurso psicoeducativo inspirado na Terapia Cognitivo-Comportamental. Não é teste psicológico, diagnóstico, prontuário profissional ou substituto de atendimento individualizado.
+
+## v2.2.0 — ergonomia cognitiva para diferentes níveis de ativação
+
+A v2.2.0 transforma o RPD em dois percursos compatíveis entre si:
+
+- **modo essencial**: 5 passos, para momentos de maior sobrecarga ou quando o objetivo é apenas organizar o básico;
+- **modo completo**: 7 etapas, mantendo investigação, valores, nova leitura e reavaliação.
+
+Outras mudanças desta versão:
+
+- paridade de versão entre HTML, CSS/JS, JSON-LD, rodapé e README;
+- cache-busting atualizado para `?v=2.2.0`;
+- preenchimento automático da data usando a data local do dispositivo, não UTC;
+- posição sticky da barra de progresso calculada pela altura real da navegação;
+- escalas começam como **Não avaliado** e só geram número depois de interação deliberada;
+- `Não sei ainda` e `Não identifiquei um padrão` aparecem antes da lista de distorções;
+- nome e significado da distorção ficam sempre visíveis; pergunta de reconhecimento e exemplo ficam sob expansão opcional;
+- retirada da redundância de ajuda dentro da etapa 3; o guia modal permanece apenas na área psicoeducativa inicial;
+- investigação cognitiva ficou integralmente opcional e com linguagem menos judicial;
+- etapa de valores ganhou botão explícito **Pular por agora**;
+- microcopy foi reduzida para evitar excesso de instruções simultâneas;
+- resumo, PDF e compartilhamento se adaptam ao modo essencial ou completo;
+- rascunho em `sessionStorage` preserva também modo escolhido e estado real das escalas.
 
 ## v2.1.2 — correção de UX clínica e área de impressão
 
