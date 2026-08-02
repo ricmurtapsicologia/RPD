@@ -39,7 +39,6 @@ A versão 2.1.0 concentra o refinamento de **ergonomia cognitiva, UX clínica e 
 - substituição de `confirm()` por diálogos próprios;
 - HTML, CSS e JavaScript separados por responsabilidade;
 - Content Security Policy básica adicionada;
-- arquitetura reorganizada em HTML semântico + CSS/JS externos;
 - versão exibida na interface e documentada no README.
 
 ## Arquitetura clínica
@@ -104,14 +103,24 @@ Na v2.1.0, CSS e JavaScript foram separados por responsabilidade. O HTML é comp
 │   ├── v210_steps_5_7.html
 │   ├── v210_support_print.html
 │   └── v210_dialogs.html
-└── assets/
-    ├── favicon.svg
-    ├── og-card.svg
-    ├── css/
-    │   ├── app.css
-    │   └── print.css
-    └── js/
-        └── app.js
+├── assets/
+│   ├── favicon.svg
+│   ├── og-card.svg
+│   ├── css/
+│   │   ├── app.css
+│   │   └── print.css
+│   └── js/
+│       └── app.js
+└── scripts/
+    └── validate.sh
+```
+
+## Controle de qualidade
+
+O script `scripts/validate.sh` executa uma verificação sem dependências de framework: valida a sintaxe do JavaScript, confirma os sete passos na ordem correta, procura recursos críticos da versão e detecta IDs HTML duplicados.
+
+```bash
+bash scripts/validate.sh
 ```
 
 ## Acessibilidade e ergonomia cognitiva
