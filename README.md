@@ -1,6 +1,6 @@
 # RPD — Registro de Pensamentos
 
-**Versão atual: v2.1.0 — 02/08/2026**
+**Versão atual: v2.1.1 — 02/08/2026**
 
 Ferramenta web psicoeducativa para organizar situações, emoções ou estados, pensamentos automáticos, evidências, convicção cognitiva, valores, respostas alternativas e próximos passos.
 
@@ -8,38 +8,24 @@ Aplicação: https://ricmurtapsicologia.github.io/RPD/
 
 > O RPD é um recurso psicoeducativo inspirado na Terapia Cognitivo-Comportamental. Não é teste psicológico, diagnóstico, prontuário profissional ou substituto de atendimento individualizado.
 
-## O que mudou na v2.1.0
+## v2.1.1 — correção de estabilidade e renderização
 
-A versão 2.1.0 concentra o refinamento de **ergonomia cognitiva, UX clínica e arquitetura técnica**:
+A v2.1.1 é uma versão de depuração da v2.1.0. O foco foi remover regressões de mídia e layout sem perder os avanços clínicos e de UX.
 
-- entrada adaptativa: `Já sei usar` x `Primeira vez ou quero revisar`;
-- conteúdo psicoeducativo por progressive disclosure;
-- áudio mantido e servido localmente (`RPD1.mp3`);
-- vídeo mantido, em `youtube-nocookie.com`, com carregamento somente após clique;
-- guia de distorções aberto em diálogo, sem retirar o paciente da etapa 3;
-- cada distorção possui definição, exemplo e pergunta de reconhecimento;
-- seleção múltipla de emoções ou estados;
-- campo específico quando `Outra` é selecionada;
-- medida de convicção no pensamento automático antes/depois (0–100);
-- desconforto global antes/depois mantido como dimensão separada;
-- etapa de investigação com revelação progressiva;
-- evidências contrárias e explicação alternativa deixaram de ser obrigatórias;
-- valores e ação passaram a ser explicitamente uma ampliação opcional do RPD;
-- ajuda contextual para o conceito de valor;
-- textareas com crescimento automático;
-- navegação inferior sticky no mobile;
-- remoção do percentual redundante da barra de progresso;
-- campos marcados como necessários ou opcionais;
-- mensagens de erro inline, menos disruptivas;
-- rascunho opcional via `sessionStorage`, desativado por padrão e restrito à aba;
-- aviso de saída quando há conteúdo não preservado;
-- síntese agrupada por raciocínio clínico com botão `Editar` por bloco;
-- hierarquia de CTA final: PDF → compartilhar → novo registro;
-- compartilhamento em `Resumo essencial` ou `Registro completo`;
-- substituição de `confirm()` por diálogos próprios;
-- HTML, CSS e JavaScript separados por responsabilidade;
-- Content Security Policy básica adicionada;
-- versão exibida na interface e documentada no README.
+Principais correções:
+
+- `index.html` voltou a ser um documento HTML estático completo;
+- removida a dependência de composição da página por Jekyll `_includes`;
+- adicionado `.nojekyll` para servir os arquivos exatamente como estão no repositório;
+- áudio explicativo restaurado e mantido sempre visível, servido por `./RPD1.mp3`;
+- vídeo explicativo restaurado como recurso sempre visível e carregado sob demanda via `youtube-nocookie.com`;
+- guia de distorções permanece acessível por diálogo contextual;
+- CSS refeito com foco em consistência desktop/mobile, grids resilientes e prevenção de overflow;
+- navegação, cards multimídia, formulários, diálogos e síntese revisados responsivamente;
+- removida a Content Security Policy em `<meta>` da v2.1.0, que poderia interferir em estilos dinâmicos usados pela própria interface;
+- `app.js` reescrito e validado sintaticamente;
+- parâmetros de versão em CSS/JS (`?v=2.1.1`) ajudam a evitar cache de assets antigos;
+- preservadas as sete etapas, convicção cognitiva antes/depois, desconforto global, rascunho opcional por aba, síntese editável, PDF e compartilhamento seletivo.
 
 ## Arquitetura clínica
 
@@ -53,18 +39,33 @@ A trilha permanece em 7 etapas:
 6. **Nova leitura e reavaliação** — resposta alternativa + convicção + desconforto.
 7. **Síntese** — percurso organizado, edição direta, PDF e compartilhamento deliberado.
 
+## Ergonomia cognitiva e UX
+
+A interface foi desenhada para reduzir carga mental durante o autorregistro:
+
+- conteúdo principal dividido em sete etapas;
+- áudio e vídeo disponíveis sem obrigar o paciente a consumi-los;
+- guia de distorções sem sair do registro;
+- exemplos e perguntas de reconhecimento para paciente leigo;
+- progressive disclosure na investigação;
+- campos claramente marcados como necessários ou opcionais;
+- erros apresentados junto ao campo;
+- escalas com âncoras semânticas;
+- síntese agrupada por raciocínio clínico com edição direta;
+- mobile com navegação compacta e responsiva.
+
 ## Convicção x desconforto
 
-A aplicação trata separadamente:
+A aplicação separa:
 
-- **convicção cognitiva**: quanto o pensamento parece verdadeiro (0–100);
-- **desconforto global**: intensidade geral do episódio (0–100).
+- **convicção cognitiva** — quanto o pensamento parece verdadeiro (0–100);
+- **desconforto global** — intensidade geral do episódio (0–100).
 
-A mudança em qualquer uma dessas medidas é apresentada de forma descritiva. Redução não é interpretada automaticamente como sucesso, nem aumento como fracasso.
+A mudança em qualquer medida é apresentada de forma descritiva, sem usar redução como sinônimo automático de sucesso.
 
 ## Distorções cognitivas
 
-A classificação é opcional e admite múltiplas escolhas. O paciente não precisa conhecer os nomes previamente. Cada padrão contém:
+A classificação é opcional. Cada padrão inclui:
 
 - definição em linguagem simples;
 - exemplo cotidiano;
@@ -77,16 +78,15 @@ Também existem `Não identifiquei um padrão` e `Não sei ainda`.
 - sem banco de dados próprio;
 - sem analytics próprio;
 - sem `localStorage` para conteúdo clínico;
+- rascunho opcional em `sessionStorage`, restrito à aba e desligado por padrão;
 - nome ou iniciais opcionais;
-- rascunho opcional apenas em `sessionStorage` da própria aba;
-- rascunho desativado por padrão;
-- PDF montado localmente via impressão do navegador;
-- compartilhamento somente após ação explícita;
-- vídeo externo carregado apenas após clique.
+- PDF gerado pela impressão nativa do navegador;
+- compartilhamento somente após ação do usuário;
+- vídeo externo carregado somente quando solicitado.
 
 ## Arquitetura técnica
 
-Na v2.1.0, CSS e JavaScript foram separados por responsabilidade. O HTML é composto por `_includes` Jekyll semânticos por seção, evitando os antigos fragmentos arbitrários que cortavam CSS, HTML e JavaScript no meio do documento:
+Aplicação estática sem framework e sem dependências JavaScript de terceiros em tempo de execução.
 
 ```text
 /
@@ -96,13 +96,7 @@ Na v2.1.0, CSS e JavaScript foram separados por responsabilidade. O HTML é comp
 ├── robots.txt
 ├── sitemap.xml
 ├── RPD1.mp3
-├── _includes/
-│   ├── v210_head.html
-│   ├── v210_intro.html
-│   ├── v210_steps_2_4.html
-│   ├── v210_steps_5_7.html
-│   ├── v210_support_print.html
-│   └── v210_dialogs.html
+├── .nojekyll
 ├── assets/
 │   ├── favicon.svg
 │   ├── og-card.svg
@@ -115,28 +109,22 @@ Na v2.1.0, CSS e JavaScript foram separados por responsabilidade. O HTML é comp
     └── validate.sh
 ```
 
-## Controle de qualidade
+## Validação
 
-O script `scripts/validate.sh` executa uma verificação sem dependências de framework: valida a sintaxe do JavaScript, confirma os sete passos na ordem correta, procura recursos críticos da versão e detecta IDs HTML duplicados.
+A validação de regressão verifica, no mínimo:
 
-```bash
-bash scripts/validate.sh
-```
+- sintaxe JavaScript;
+- sete etapas presentes;
+- IDs HTML sem duplicação;
+- áudio `RPD1.mp3` referenciado;
+- botão de vídeo e carregamento do iframe presentes;
+- campos de convicção antes/depois;
+- emoção `Outra` com campo de especificação;
+- diálogo de distorções;
+- síntese e compartilhamento em resumo/completo.
 
-## Acessibilidade e ergonomia cognitiva
+## Autoria
 
-A interface utiliza labels associados, navegação por teclado, `aria-live`, barra de progresso, áreas de toque adequadas, `prefers-reduced-motion`, texto alinhado à esquerda, progressive disclosure, diálogos nativos, mensagens de erro inline, autoexpansão de texto e navegação sticky no mobile.
+**Richelmy Murta · Psicólogo clínico**
 
-O princípio de UX da versão é: **menos esforço para operar a ferramenta e mais energia disponível para refletir sobre a experiência**.
-
-## Histórico de versões
-
-### v2.1.0 — 02/08/2026
-Refinamento de ergonomia cognitiva, UX clínica, convicção cognitiva, progressive disclosure, rascunho de sessão, síntese editável e arquitetura modular.
-
-### v2.0.0 — 02/08/2026
-Grande refatoração de privacidade, precisão clínica, PDF editorial, identidade visual e conteúdo multimídia/psicoeducativo.
-
-## Limites
-
-O RPD não deve ser utilizado para automatizar diagnóstico ou substituir julgamento clínico. Padrões cognitivos são hipóteses psicoeducativas, não rótulos obrigatórios. Valores e ação possível representam uma ampliação contemporânea do registro cognitivo clássico.
+A identificação profissional completa deve seguir as regras aplicáveis à divulgação profissional. Não inserir número de registro sem verificação da informação.
