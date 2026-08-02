@@ -8,27 +8,25 @@ from html.parser import HTMLParser
 from pathlib import Path
 import re
 
-parts = [
-    '_includes/v210_head.html',
-    '_includes/v210_intro.html',
-    '_includes/v210_steps_2_4.html',
-    '_includes/v210_steps_5_7.html',
-    '_includes/v210_support_print.html',
-    '_includes/v210_dialogs.html',
-]
-for p in parts:
-    if not Path(p).exists():
-        raise SystemExit(f'Arquivo ausente: {p}')
-html = ''.join(Path(p).read_text(encoding='utf-8') for p in parts)
+html_path = Path('index.html')
+if not html_path.exists():
+    raise SystemExit('index.html ausente')
+html = html_path.read_text(encoding='utf-8')
+js = Path('assets/js/app.js').read_text(encoding='utf-8')
 
-required = [
-    'RPD1.mp3', 'loadVideo', 'beliefBefore', 'beliefAfter', 'otherEmotion',
-    'distortionDialog', 'draftToggle', 'shareSummary', 'shareFull',
-    'v2.1.0', 'Emoções ou estados'
+required_html = [
+    'RPD1.mp3', 'id="loadVideo"', 'id="videoSlot"', 'id="beliefBefore"',
+    'id="beliefAfter"', 'id="otherEmotion"', 'id="distortionDialog"',
+    'id="shareSummary"', 'id="shareFull"', 'v2.1.1'
 ]
-for token in required:
-    if token not in html and token not in Path('assets/js/app.js').read_text(encoding='utf-8'):
-        raise SystemExit(f'Recurso crítico ausente: {token}')
+for token in required_html:
+    if token not in html:
+        raise SystemExit(f'Recurso crítico ausente no HTML: {token}')
+
+required_js = ['youtube-nocookie.com/embed/qp8VUlVqooI', 'sessionStorage', 'renderSummary', 'buildPrint']
+for token in required_js:
+    if token not in js:
+        raise SystemExit(f'Recurso crítico ausente no JS: {token}')
 
 class Checker(HTMLParser):
     def __init__(self):
@@ -48,5 +46,8 @@ steps=re.findall(r'data-step="([1-7])"', html)
 if steps != list('1234567'):
     raise SystemExit(f'Etapas inválidas: {steps}')
 
-print('RPD v2.1.0: validação estrutural OK')
+if '{% include' in html or '---\n---' in html[:20]:
+    raise SystemExit('index.html ainda depende de composição Jekyll')
+
+print('RPD v2.1.1: validação estrutural OK')
 PY
