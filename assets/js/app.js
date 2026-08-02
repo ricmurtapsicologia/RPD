@@ -1,6 +1,6 @@
 (()=>{
 "use strict";
-const VERSION="2.1.1";
+const VERSION="2.1.2";
 const WHATSAPP="5535984640729";
 const PAGE_URL="https://ricmurtapsicologia.github.io/RPD/";
 const DRAFT_KEY=`rpd_draft_v${VERSION.replace(/\./g,"_")}`;
@@ -27,35 +27,199 @@ const val=id=>$("#"+id)?.value?.trim()||"";
 const checked=name=>$$(`input[name="${name}"]:checked`).map(el=>el.value);
 const toast=message=>{const el=$("#toast");if(!el)return;el.textContent=message;el.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove("show"),3200)};
 const setText=(id,text,empty="Não informado")=>{const el=$("#"+id);if(el)el.textContent=(text||"").trim()||empty};
+
 function setupChoices(){
   $("#emotionGrid").innerHTML=EMOTIONS.map((name,i)=>`<label class="choice"><input id="emotion_${i}" type="checkbox" name="emotion" value="${name}"><span>${name}</span></label>`).join("");
-  $("#distortionGrid").innerHTML=DISTORTIONS.map(([name,description,example],i)=>`<label class="choice" title="${description} Exemplo: ${example}"><input id="distortion_${i}" type="checkbox" name="distortion" value="${name}" aria-label="${name}: ${description}"><span>${name}</span></label>`).join("");
+  $("#distortionGrid").innerHTML=DISTORTIONS.map(([name,description,example,question],i)=>{const special=i>=9;return `<label class="distortion-option${special?" special":""}"><input id="distortion_${i}" type="checkbox" name="distortion" value="${name}" aria-label="${name}: ${description}"><span class="distortion-option-body"><span class="distortion-name">${name}</span><span class="distortion-meaning">${description}</span>${special?"":`<span class="distortion-cue"><strong>Como perceber:</strong> ${question}</span>`}<span class="distortion-example-inline"><strong>${special?"Quando usar":"Exemplo"}:</strong> ${example}</span></span></label>`}).join("");
   $("#distortionGuideCards").innerHTML=DISTORTIONS.slice(0,9).map(([name,description,example,question])=>`<article class="distortion-card"><b>${name}</b><p>${description}</p><p class="example"><strong>Exemplo:</strong> ${example}</p><p class="question"><strong>Pergunte-se:</strong> ${question}</p></article>`).join("");
 }
-function emotionLabels(){const values=checked("emotion").filter(v=>v!=="Outra");if(checked("emotion").includes("Outra")){const custom=val("otherEmotion");values.push(custom?`Outra: ${custom}`:"Outra")}return values}
-function updateSelections(){const emotions=emotionLabels();const distortions=checked("distortion");$("#selectedEmotions").textContent=`Selecionados: ${emotions.length?emotions.join(", "):"nenhum"}.`;$("#selectedDistortions").textContent=`Padrões selecionados: ${distortions.length?distortions.join(", "):"nenhum"}.`;$("#otherEmotionWrap").hidden=!checked("emotion").includes("Outra")}
-function bindRange(id,outId){const input=$("#"+id),out=$("#"+outId);const sync=()=>out.textContent=`${input.value}/100`;input.addEventListener("input",sync);sync()}
-function autoGrow(el){el.style.height="auto";el.style.height=Math.min(el.scrollHeight,360)+"px"}
-function progress(){$("#progressLabel").textContent=`Etapa ${step} de 7`;$("#progressBar").style.width=`${(step/7)*100}%`}
-function showStep(n,scroll=true){step=Math.max(1,Math.min(7,n));$$(".step").forEach(el=>el.classList.toggle("is-active",Number(el.dataset.step)===step));progress();if(step===7)renderSummary();if(scroll)$("#form-area").scrollIntoView({behavior:"smooth",block:"start"})}
-function clearErrors(root=document){$$(".has-error",root).forEach(el=>el.classList.remove("has-error"));$$(".field-error",root).forEach(el=>el.textContent="")}
-function fieldError(el,message){const field=el.closest(".field");if(field){field.classList.add("has-error");const box=$(".field-error",field);if(box)box.textContent=message}el.focus()}
-function validateStep(n=step){const active=$(`.step[data-step="${n}"]`);if(!active)return true;clearErrors(active);for(const field of $$('[required]',active)){if(!field.value.trim()){fieldError(field,"Preencha este campo para continuar.");return false}}if(n===2&&checked("emotion").length===0){toast("Selecione pelo menos uma emoção ou estado para continuar.");return false}if(n===2&&checked("emotion").includes("Outra")&&!val("otherEmotion")){fieldError($("#otherEmotion"),"Escreva qual emoção ou estado você quis acrescentar.");return false}return true}
-function formState(){const state={step,draftEnabled:$("#draftToggle").checked,fields:{},checks:{}};$$("#rpdForm input,#rpdForm textarea,#rpdForm select").forEach(el=>{if(el.type==="checkbox")state.checks[el.id]=el.checked;else state.fields[el.id]=el.value});return state}
-function saveDraft(){if(!$("#draftToggle").checked)return;try{sessionStorage.setItem(DRAFT_KEY,JSON.stringify(formState()))}catch(e){}}
-function restoreDraft(){let raw=null;try{raw=sessionStorage.getItem(DRAFT_KEY)}catch(e){}if(!raw)return;try{const data=JSON.parse(raw);if(!data.draftEnabled)return;$("#draftToggle").checked=true;Object.entries(data.fields||{}).forEach(([id,value])=>{const el=$("#"+CSS.escape(id));if(el)el.value=value});Object.entries(data.checks||{}).forEach(([id,value])=>{const el=$("#"+CSS.escape(id));if(el)el.checked=Boolean(value)});updateSelections();$$("textarea").forEach(autoGrow);showStep(data.step||1,false);toast("Rascunho desta aba restaurado.")}catch(e){try{sessionStorage.removeItem(DRAFT_KEY)}catch(_){}}}
-function data(){return{identity:val("identity")||"Não informado",date:val("date"),situation:val("situation"),emotions:emotionLabels().join(", "),before:`${$("#before").value}/100`,thought:val("thought"),beliefBefore:`${$("#beliefBefore").value}/100`,distortions:checked("distortion").join(", ")||"Não classificado",supporting:val("supporting"),contrary:val("contrary")||"Não identifiquei neste momento",alternative:val("alternative")||"Não identifiquei neste momento",perspective:val("perspective")||"Não informado",status:val("status"),utility:val("utility"),value:val("value")||"Não informado",action:val("action")||"Não informado",distance:val("distance")||"Não informado",response:val("response"),beliefAfter:`${$("#beliefAfter").value}/100`,stateNow:val("stateNow")||"Não informado",after:`${$("#after").value}/100`}}
-function makeGroup(title,editStep,items){const section=document.createElement("section");section.className="summary-group";const head=document.createElement("div");head.className="summary-group-head";const heading=document.createElement("h4");heading.textContent=title;const edit=document.createElement("button");edit.type="button";edit.className="btn btn-ghost btn-small edit-step";edit.dataset.step=String(editStep);edit.textContent="Editar";head.append(heading,edit);const list=document.createElement("div");list.className="summary-list";items.forEach(([label,value])=>{const row=document.createElement("div");row.className="summary-row";const strong=document.createElement("strong");strong.textContent=label;const span=document.createElement("span");span.textContent=value;row.append(strong,span);list.append(row)});section.append(head,list);return section}
-function renderSummary(){const d=data(),summary=$("#summary");summary.innerHTML="";summary.append(makeGroup("O que aconteceu",1,[["Situação",d.situation],["Emoções ou estados",d.emotions],["Desconforto antes",d.before]]));summary.append(makeGroup("Como interpretei",3,[["Pensamento automático",d.thought],["Convicção inicial",d.beliefBefore],["Padrões possíveis",d.distortions]]));summary.append(makeGroup("O que percebi ao investigar",4,[["Evidências que sustentam",d.supporting],["O que pode estar faltando",d.contrary],["Outra explicação",d.alternative],["Perspectiva externa",d.perspective],["Status do pensamento",d.status],["Utilidade percebida",d.utility]]));summary.append(makeGroup("Como quero responder",5,[["Valor importante",d.value],["Pequena ação possível",d.action],["Se o pensamento não comandasse minha ação",d.distance],["Resposta alternativa",d.response],["Estado atual",d.stateNow]]));$("#beliefBeforeSummary").textContent=d.beliefBefore;$("#beliefAfterSummary").textContent=d.beliefAfter;$("#beforeSummary").textContent=d.before;$("#afterSummary").textContent=d.after}
-function fullValid(){const original=step;for(let n=1;n<=6;n++){if(!validateStep(n)){showStep(n);return false}}step=original;progress();return true}
-function message(mode="full"){const d=data();if(mode==="summary")return["RPD — resumo essencial",`Data: ${d.date}`,`Situação: ${d.situation}`,`Emoções/estados: ${d.emotions}`,`Pensamento automático: ${d.thought}`,`Convicção: ${d.beliefBefore} → ${d.beliefAfter}`,`Resposta alternativa: ${d.response}`,`Próxima ação: ${d.action}`,`Desconforto: ${d.before} → ${d.after}`].join("\n");return["Registro de Pensamentos — RPD",`Nome/iniciais: ${d.identity}`,`Data: ${d.date}`,`Situação: ${d.situation}`,`Emoções/estados: ${d.emotions}`,`Desconforto antes: ${d.before}`,`Pensamento automático: ${d.thought}`,`Convicção inicial: ${d.beliefBefore}`,`Padrões possíveis: ${d.distortions}`,`Evidências que sustentam: ${d.supporting}`,`O que pode estar faltando: ${d.contrary}`,`Outra explicação possível: ${d.alternative}`,`Perspectiva externa: ${d.perspective}`,`Pensamento: ${d.status}`,`Utilidade: ${d.utility}`,`Valor importante: ${d.value}`,`Pequena ação possível: ${d.action}`,`Se o pensamento não comandasse a ação: ${d.distance}`,`Resposta alternativa: ${d.response}`,`Convicção agora: ${d.beliefAfter}`,`Estado emocional atual: ${d.stateNow}`,`Desconforto depois: ${d.after}`].join("\n")}
+function emotionLabels(){
+  const values=checked("emotion").filter(v=>v!=="Outra");
+  if(checked("emotion").includes("Outra")){const custom=val("otherEmotion");values.push(custom?`Outra: ${custom}`:"Outra")}
+  return values;
+}
+function updateSelections(){
+  const emotions=emotionLabels();
+  const distortions=checked("distortion");
+  $("#selectedEmotions").textContent=`Selecionados: ${emotions.length?emotions.join(", "):"nenhum"}.`;
+  $("#selectedDistortions").textContent=`Padrões selecionados: ${distortions.length?distortions.join(", "):"nenhum"}.`;
+  $("#otherEmotionWrap").hidden=!checked("emotion").includes("Outra");
+}
+function bindRange(id,outId){
+  const input=$("#"+id),out=$("#"+outId);
+  const sync=()=>out.textContent=`${input.value}/100`;
+  input.addEventListener("input",sync);sync();
+}
+function autoGrow(el){
+  el.style.height="auto";
+  el.style.height=Math.min(el.scrollHeight,360)+"px";
+}
+function progress(){
+  $("#progressLabel").textContent=`Etapa ${step} de 7`;
+  $("#progressBar").style.width=`${(step/7)*100}%`;
+}
+function showStep(n,scroll=true){
+  step=Math.max(1,Math.min(7,n));
+  $$(".step").forEach(el=>el.classList.toggle("is-active",Number(el.dataset.step)===step));
+  progress();
+  if(step===7)renderSummary();
+  if(scroll)$("#form-area").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function clearErrors(root=document){
+  $$(".has-error",root).forEach(el=>el.classList.remove("has-error"));
+  $$(".field-error",root).forEach(el=>el.textContent="");
+}
+function fieldError(el,message){
+  const field=el.closest(".field");
+  if(field){field.classList.add("has-error");const box=$(".field-error",field);if(box)box.textContent=message}
+  el.focus();
+}
+function validateStep(n=step){
+  const active=$(`.step[data-step="${n}"]`);
+  if(!active)return true;
+  clearErrors(active);
+  for(const field of $$('[required]',active)){
+    if(!field.value.trim()){fieldError(field,"Preencha este campo para continuar.");return false}
+  }
+  if(n===2&&checked("emotion").length===0){toast("Selecione pelo menos uma emoção ou estado para continuar.");return false}
+  if(n===2&&checked("emotion").includes("Outra")&&!val("otherEmotion")){fieldError($("#otherEmotion"),"Escreva qual emoção ou estado você quis acrescentar.");return false}
+  return true;
+}
+function formState(){
+  const state={step,draftEnabled:$("#draftToggle").checked,fields:{},checks:{}};
+  $$("#rpdForm input,#rpdForm textarea,#rpdForm select").forEach(el=>{
+    if(el.type==="checkbox")state.checks[el.id]=el.checked;
+    else state.fields[el.id]=el.value;
+  });
+  return state;
+}
+function saveDraft(){
+  if(!$("#draftToggle").checked)return;
+  try{sessionStorage.setItem(DRAFT_KEY,JSON.stringify(formState()))}catch(e){}
+}
+function restoreDraft(){
+  let raw=null;
+  try{raw=sessionStorage.getItem(DRAFT_KEY)}catch(e){}
+  if(!raw)return;
+  try{
+    const data=JSON.parse(raw);
+    if(!data.draftEnabled)return;
+    $("#draftToggle").checked=true;
+    Object.entries(data.fields||{}).forEach(([id,value])=>{const el=$("#"+CSS.escape(id));if(el)el.value=value});
+    Object.entries(data.checks||{}).forEach(([id,value])=>{const el=$("#"+CSS.escape(id));if(el)el.checked=Boolean(value)});
+    updateSelections();
+    $$("textarea").forEach(autoGrow);
+    showStep(data.step||1,false);
+    toast("Rascunho desta aba restaurado.");
+  }catch(e){try{sessionStorage.removeItem(DRAFT_KEY)}catch(_){}
+  }
+}
+function data(){
+  return{
+    identity:val("identity")||"Não informado",date:val("date"),situation:val("situation"),emotions:emotionLabels().join(", "),before:`${$("#before").value}/100`,
+    thought:val("thought"),beliefBefore:`${$("#beliefBefore").value}/100`,distortions:checked("distortion").join(", ")||"Não classificado",
+    supporting:val("supporting"),contrary:val("contrary")||"Não identifiquei neste momento",alternative:val("alternative")||"Não identifiquei neste momento",
+    perspective:val("perspective")||"Não informado",status:val("status"),utility:val("utility"),value:val("value")||"Não informado",action:val("action")||"Não informado",
+    distance:val("distance")||"Não informado",response:val("response"),beliefAfter:`${$("#beliefAfter").value}/100`,stateNow:val("stateNow")||"Não informado",after:`${$("#after").value}/100`
+  };
+}
+function makeGroup(title,editStep,items){
+  const section=document.createElement("section");section.className="summary-group";
+  const head=document.createElement("div");head.className="summary-group-head";
+  const heading=document.createElement("h4");heading.textContent=title;
+  const edit=document.createElement("button");edit.type="button";edit.className="btn btn-ghost btn-small edit-step";edit.dataset.step=String(editStep);edit.textContent="Editar";
+  head.append(heading,edit);
+  const list=document.createElement("div");list.className="summary-list";
+  items.forEach(([label,value])=>{const row=document.createElement("div");row.className="summary-row";const strong=document.createElement("strong");strong.textContent=label;const span=document.createElement("span");span.textContent=value;row.append(strong,span);list.append(row)});
+  section.append(head,list);return section;
+}
+function renderSummary(){
+  const d=data(),summary=$("#summary");summary.innerHTML="";
+  summary.append(makeGroup("O que aconteceu",1,[["Situação",d.situation],["Emoções ou estados",d.emotions],["Desconforto antes",d.before]]));
+  summary.append(makeGroup("Como interpretei",3,[["Pensamento automático",d.thought],["Convicção inicial",d.beliefBefore],["Padrões possíveis",d.distortions]]));
+  summary.append(makeGroup("O que percebi ao investigar",4,[["Evidências que sustentam",d.supporting],["O que pode estar faltando",d.contrary],["Outra explicação",d.alternative],["Perspectiva externa",d.perspective],["Status do pensamento",d.status],["Utilidade percebida",d.utility]]));
+  summary.append(makeGroup("Como quero responder",5,[["Valor importante",d.value],["Pequena ação possível",d.action],["Se o pensamento não comandasse minha ação",d.distance],["Resposta alternativa",d.response],["Estado atual",d.stateNow]]));
+  $("#beliefBeforeSummary").textContent=d.beliefBefore;$("#beliefAfterSummary").textContent=d.beliefAfter;$("#beforeSummary").textContent=d.before;$("#afterSummary").textContent=d.after;
+}
+function fullValid(){
+  const original=step;
+  for(let n=1;n<=6;n++){if(!validateStep(n)){showStep(n);return false}}
+  step=original;progress();return true;
+}
+function message(mode="full"){
+  const d=data();
+  if(mode==="summary")return["RPD — resumo essencial",`Data: ${d.date}`,`Situação: ${d.situation}`,`Emoções/estados: ${d.emotions}`,`Pensamento automático: ${d.thought}`,`Convicção: ${d.beliefBefore} → ${d.beliefAfter}`,`Resposta alternativa: ${d.response}`,`Próxima ação: ${d.action}`,`Desconforto: ${d.before} → ${d.after}`].join("\n");
+  return["Registro de Pensamentos — RPD",`Nome/iniciais: ${d.identity}`,`Data: ${d.date}`,`Situação: ${d.situation}`,`Emoções/estados: ${d.emotions}`,`Desconforto antes: ${d.before}`,`Pensamento automático: ${d.thought}`,`Convicção inicial: ${d.beliefBefore}`,`Padrões possíveis: ${d.distortions}`,`Evidências que sustentam: ${d.supporting}`,`O que pode estar faltando: ${d.contrary}`,`Outra explicação possível: ${d.alternative}`,`Perspectiva externa: ${d.perspective}`,`Pensamento: ${d.status}`,`Utilidade: ${d.utility}`,`Valor importante: ${d.value}`,`Pequena ação possível: ${d.action}`,`Se o pensamento não comandasse a ação: ${d.distance}`,`Resposta alternativa: ${d.response}`,`Convicção agora: ${d.beliefAfter}`,`Estado emocional atual: ${d.stateNow}`,`Desconforto depois: ${d.after}`].join("\n");
+}
 function openWhatsApp(mode){window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message(mode))}`,"_blank","noopener,noreferrer")}
-function buildPrint(){const d=data();setText("pIdentity",d.identity);setText("pDate",d.date);setText("pEmotions",d.emotions);setText("pSituation",d.situation);setText("pThought",`Pensamento automático: ${d.thought}\nConvicção inicial: ${d.beliefBefore}\nPadrões possíveis: ${d.distortions}\nClassificação atual: ${d.status}\nUtilidade percebida: ${d.utility}`);setText("pSupporting",d.supporting);setText("pContrary",d.contrary);setText("pAlternative",`Outra explicação: ${d.alternative}\nPerspectiva externa: ${d.perspective}`);setText("pValues",`Valor importante: ${d.value}\nPequena ação possível: ${d.action}\nSe o pensamento não comandasse a ação: ${d.distance}`);setText("pResponse",d.response);setText("pBeliefBefore",d.beliefBefore);setText("pBeliefAfter",d.beliefAfter);setText("pBefore",d.before);setText("pAfter",d.after);setText("pState",`Estado emocional atual: ${d.stateNow}`);$("#pEvidenceGrid").classList.toggle("stack",(d.supporting.length+d.contrary.length)>900);const now=new Date();setText("pGenerated",`Gerado em ${now.toLocaleDateString("pt-BR")} às ${now.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}`)}
+function buildPrint(){
+  const d=data();
+  setText("pIdentity",d.identity);setText("pDate",d.date);setText("pEmotions",d.emotions);setText("pSituation",d.situation);
+  setText("pThought",`Pensamento automático: ${d.thought}\nConvicção inicial: ${d.beliefBefore}\nPadrões possíveis: ${d.distortions}\nClassificação atual: ${d.status}\nUtilidade percebida: ${d.utility}`);
+  setText("pSupporting",d.supporting);setText("pContrary",d.contrary);setText("pAlternative",`Outra explicação: ${d.alternative}\nPerspectiva externa: ${d.perspective}`);
+  setText("pValues",`Valor importante: ${d.value}\nPequena ação possível: ${d.action}\nSe o pensamento não comandasse a ação: ${d.distance}`);setText("pResponse",d.response);
+  setText("pBeliefBefore",d.beliefBefore);setText("pBeliefAfter",d.beliefAfter);setText("pBefore",d.before);setText("pAfter",d.after);setText("pState",`Estado emocional atual: ${d.stateNow}`);
+  $("#pEvidenceGrid").classList.toggle("stack",(d.supporting.length+d.contrary.length)>900);
+  const now=new Date();setText("pGenerated",`Gerado em ${now.toLocaleDateString("pt-BR")} às ${now.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}`);
+}
 function openDialog(id){const dialog=$("#"+id);if(dialog&&!dialog.open)dialog.showModal()}
 function closeDialog(dialog){if(dialog?.open)dialog.close()}
 function action(title,text,callback){pendingAction=callback;$("#actionTitle").textContent=title;$("#actionText").textContent=text;openDialog("actionDialog")}
-function clearForm(){$("#rpdForm").reset();$$("#rpdForm input[type=\"checkbox\"]").forEach(el=>el.checked=false);$("#date").value=new Date().toISOString().slice(0,10);["before","after","beliefBefore","beliefAfter"].forEach(id=>$("#"+id).value="50");["beforeOut","afterOut","beliefBeforeOut","beliefAfterOut"].forEach(id=>$("#"+id).textContent="50/100");try{sessionStorage.removeItem(DRAFT_KEY)}catch(e){}dirty=false;updateSelections();$$("textarea").forEach(el=>el.style.height="");showStep(1)}
-function bindEvents(){document.addEventListener("change",event=>{const target=event.target;if(target.matches('input[name="emotion"]'))updateSelections();if(target.matches('input[name="distortion"]')){const special=["Não identifiquei um padrão","Não sei ainda"];if(special.includes(target.value)&&target.checked)$$('input[name="distortion"]').forEach(el=>{if(el!==target)el.checked=false});else if(target.checked)$$('input[name="distortion"]').forEach(el=>{if(special.includes(el.value))el.checked=false});updateSelections()}if(target.id==="draftToggle"){if(target.checked){saveDraft();toast("Rascunho será mantido somente nesta aba.")}else{try{sessionStorage.removeItem(DRAFT_KEY)}catch(e){}toast("Rascunho temporário desativado.")}}if(target.closest("#rpdForm")){dirty=true;saveDraft()}});document.addEventListener("input",event=>{const target=event.target;if(target.matches("textarea"))autoGrow(target);if(target.id==="otherEmotion")updateSelections();if(target.closest("#rpdForm")){dirty=true;saveDraft()}});$$(".next").forEach(btn=>btn.addEventListener("click",()=>{if(validateStep())showStep(step+1)}));$$(".prev").forEach(btn=>btn.addEventListener("click",()=>showStep(step-1)));document.addEventListener("click",event=>{const opener=event.target.closest("[data-open-dialog]");if(opener)openDialog(opener.dataset.openDialog);const closer=event.target.closest("[data-close-dialog]");if(closer)closeDialog(closer.closest("dialog"));const edit=event.target.closest(".edit-step");if(edit)showStep(Number(edit.dataset.step))});$("#loadVideo").addEventListener("click",()=>{const slot=$("#videoSlot");slot.className="video-wrap";slot.innerHTML='<iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/qp8VUlVqooI?rel=0" title="Como fazer um Registro de Pensamentos" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'});$("#shareRecord").addEventListener("click",()=>{if(fullValid())openDialog("shareDialog")});$("#shareSummary").addEventListener("click",()=>{closeDialog($("#shareDialog"));openWhatsApp("summary")});$("#shareFull").addEventListener("click",()=>{closeDialog($("#shareDialog"));openWhatsApp("full")});$("#printPdf").addEventListener("click",()=>{if(!fullValid())return;action("Salvar ou imprimir PDF","A versão pode conter informações pessoais e emocionais. Revise o local onde será salva.",()=>{buildPrint();window.print()})});window.addEventListener("beforeprint",buildPrint);$("#newRecord").addEventListener("click",()=>action("Iniciar novo registro","Isso limpará as respostas atuais nesta aba.",clearForm));$("#actionConfirm").addEventListener("click",()=>{const fn=pendingAction;pendingAction=null;closeDialog($("#actionDialog"));if(fn)fn()});$("#sharePage").addEventListener("click",async()=>{const text="RPD — ferramenta psicoeducativa para organizar situação, emoções, pensamentos e próximos passos.";try{if(navigator.share)await navigator.share({title:"RPD",text,url:PAGE_URL});else if(navigator.clipboard){await navigator.clipboard.writeText(PAGE_URL);toast("Link copiado.")}else window.prompt("Copie o link:",PAGE_URL)}catch(e){}});$("#contactBtn").addEventListener("click",()=>{const name=val("contactName"),msg=val("contactMessage");if(!msg){toast("Escreva uma mensagem antes de abrir o WhatsApp.");$("#contactMessage").focus();return}const text=`Olá${name?", prefiro ser chamado(a) de "+name:""}. ${msg}`;window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`,"_blank","noopener,noreferrer")});$$("dialog").forEach(dialog=>dialog.addEventListener("click",event=>{if(event.target===dialog)closeDialog(dialog)}));window.addEventListener("beforeunload",event=>{if(dirty&&!$("#draftToggle").checked){event.preventDefault();event.returnValue=""}})}
-function init(){setupChoices();bindRange("before","beforeOut");bindRange("after","afterOut");bindRange("beliefBefore","beliefBeforeOut");bindRange("beliefAfter","beliefAfterOut");$("#date").value=new Date().toISOString().slice(0,10);updateSelections();progress();bindEvents();restoreDraft();$$("textarea").forEach(el=>el.addEventListener("input",()=>autoGrow(el)))}
+function clearForm(){
+  $("#rpdForm").reset();$$('#rpdForm input[type="checkbox"]').forEach(el=>el.checked=false);$("#date").value=new Date().toISOString().slice(0,10);
+  ["before","after","beliefBefore","beliefAfter"].forEach(id=>$("#"+id).value="50");["beforeOut","afterOut","beliefBeforeOut","beliefAfterOut"].forEach(id=>$("#"+id).textContent="50/100");
+  try{sessionStorage.removeItem(DRAFT_KEY)}catch(e){}dirty=false;updateSelections();$$("textarea").forEach(el=>el.style.height="");showStep(1);
+}
+function bindEvents(){
+  document.addEventListener("change",event=>{
+    const target=event.target;
+    if(target.matches('input[name="emotion"]'))updateSelections();
+    if(target.matches('input[name="distortion"]')){
+      const special=["Não identifiquei um padrão","Não sei ainda"];
+      if(special.includes(target.value)&&target.checked)$$('input[name="distortion"]').forEach(el=>{if(el!==target)el.checked=false});
+      else if(target.checked)$$('input[name="distortion"]').forEach(el=>{if(special.includes(el.value))el.checked=false});
+      updateSelections();
+    }
+    if(target.id==="draftToggle"){
+      if(target.checked){saveDraft();toast("Rascunho será mantido somente nesta aba.")}
+      else{try{sessionStorage.removeItem(DRAFT_KEY)}catch(e){}toast("Rascunho temporário desativado.")}
+    }
+    if(target.closest("#rpdForm")){dirty=true;saveDraft()}
+  });
+  document.addEventListener("input",event=>{
+    const target=event.target;
+    if(target.matches("textarea"))autoGrow(target);
+    if(target.id==="otherEmotion")updateSelections();
+    if(target.closest("#rpdForm")){dirty=true;saveDraft()}
+  });
+  $$(".next").forEach(btn=>btn.addEventListener("click",()=>{if(validateStep())showStep(step+1)}));
+  $$(".prev").forEach(btn=>btn.addEventListener("click",()=>showStep(step-1)));
+  document.addEventListener("click",event=>{
+    const opener=event.target.closest("[data-open-dialog]");if(opener)openDialog(opener.dataset.openDialog);
+    const closer=event.target.closest("[data-close-dialog]");if(closer)closeDialog(closer.closest("dialog"));
+    const edit=event.target.closest(".edit-step");if(edit)showStep(Number(edit.dataset.step));
+  });
+  $("#loadVideo").addEventListener("click",()=>{
+    const slot=$("#videoSlot");
+    slot.className="video-wrap";
+    slot.innerHTML='<iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/qp8VUlVqooI?rel=0" title="Como fazer um Registro de Pensamentos" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+  });
+  $("#shareRecord").addEventListener("click",()=>{if(fullValid())openDialog("shareDialog")});
+  $("#shareSummary").addEventListener("click",()=>{closeDialog($("#shareDialog"));openWhatsApp("summary")});
+  $("#shareFull").addEventListener("click",()=>{closeDialog($("#shareDialog"));openWhatsApp("full")});
+  $("#printPdf").addEventListener("click",()=>{if(!fullValid())return;action("Salvar ou imprimir PDF","A versão pode conter informações pessoais e emocionais. Revise o local onde será salva.",()=>{buildPrint();window.print()})});
+  window.addEventListener("beforeprint",buildPrint);
+  $("#newRecord").addEventListener("click",()=>action("Iniciar novo registro","Isso limpará as respostas atuais nesta aba.",clearForm));
+  $("#actionConfirm").addEventListener("click",()=>{const fn=pendingAction;pendingAction=null;closeDialog($("#actionDialog"));if(fn)fn()});
+  $("#sharePage").addEventListener("click",async()=>{const text="RPD — ferramenta psicoeducativa para organizar situação, emoções, pensamentos e próximos passos.";try{if(navigator.share)await navigator.share({title:"RPD",text,url:PAGE_URL});else if(navigator.clipboard){await navigator.clipboard.writeText(PAGE_URL);toast("Link copiado.")}else window.prompt("Copie o link:",PAGE_URL)}catch(e){}});
+  $("#contactBtn").addEventListener("click",()=>{const name=val("contactName"),msg=val("contactMessage");if(!msg){toast("Escreva uma mensagem antes de abrir o WhatsApp.");$("#contactMessage").focus();return}const text=`Olá${name?", prefiro ser chamado(a) de "+name:""}. ${msg}`;window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`,"_blank","noopener,noreferrer")});
+  $$("dialog").forEach(dialog=>dialog.addEventListener("click",event=>{if(event.target===dialog)closeDialog(dialog)}));
+  window.addEventListener("beforeunload",event=>{if(dirty&&!$("#draftToggle").checked){event.preventDefault();event.returnValue=""}});
+}
+function init(){
+  setupChoices();bindRange("before","beforeOut");bindRange("after","afterOut");bindRange("beliefBefore","beliefBeforeOut");bindRange("beliefAfter","beliefAfterOut");
+  $("#date").value=new Date().toISOString().slice(0,10);updateSelections();progress();bindEvents();restoreDraft();
+  $$("textarea").forEach(el=>el.addEventListener("input",()=>autoGrow(el)));
+}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();
