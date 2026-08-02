@@ -1,1 +1,59 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Privacidade | RPD</title><meta name="description" content="Como o RPD trata informações preenchidas na ferramenta."><meta name="robots" content="index,follow"><link rel="canonical" href="https://ricmurtapsicologia.github.io/RPD/privacidade.html"><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><style>:root{--bg:#f4f1ea;--surface:#fff;--ink:#17312e;--muted:#5d706d;--primary:#0b5d57;--border:#d8e3df;--gold:#b9802d}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65}main{width:min(100% - 32px,820px);margin:34px auto}.card{background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:clamp(22px,5vw,38px)}a{color:var(--primary);font-weight:800}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:8px 0 12px}.kicker{color:var(--gold);font-size:.75rem;text-transform:uppercase;letter-spacing:.13em;font-weight:900}h2{margin-top:28px;font-size:1.2rem}p,li{color:var(--muted)}.notice{background:#edf6f4;border-left:4px solid var(--primary);padding:13px 15px;border-radius:13px}.back{display:inline-block;margin-bottom:20px;text-decoration:none}</style></head><body><main><a class="back" href="./">← Voltar ao RPD</a><article class="card"><span class="kicker">Transparência · v2.1.0</span><h1>Privacidade no RPD</h1><p>Atualizado em 2 de agosto de 2026.</p><div class="notice"><strong>Resumo:</strong> o RPD funciona no navegador sem banco de dados próprio ou analytics. O conteúdo clínico não é persistido por padrão.</div><h2>1. O que você pode preencher</h2><p>A ferramenta permite registrar, voluntariamente, nome ou iniciais, data, situação, emoções ou estados, pensamentos, padrões cognitivos percebidos, evidências, convicção no pensamento, valores, ações possíveis e resposta alternativa.</p><h2>2. Onde os dados ficam</h2><p>Por padrão, o conteúdo é processado apenas na memória da página. A aplicação não usa <code>localStorage</code> nem banco de dados próprio.</p><h2>3. Rascunho opcional nesta aba</h2><p>Se o usuário ativar explicitamente “Manter rascunho somente nesta aba”, o conteúdo é gravado em <code>sessionStorage</code>. Isso permite recuperar o registro após uma atualização da página na mesma aba. O recurso fica desligado por padrão e o rascunho é removido ao iniciar um novo registro ou ao encerrar a sessão da aba conforme o comportamento do navegador.</p><h2>4. PDF</h2><p>A opção de PDF utiliza a impressão nativa do navegador. O documento é montado localmente. Após salvar, a guarda do arquivo depende do dispositivo e das práticas de segurança do usuário.</p><h2>5. WhatsApp</h2><p>Ao escolher compartilhar, o RPD monta um resumo essencial ou o registro completo e abre o WhatsApp com texto pré-preenchido. O envio só ocorre se o próprio usuário confirmar no serviço externo.</p><h2>6. Áudio e vídeo</h2><p>O áudio <code>RPD1.mp3</code> é servido pelo próprio site. O vídeo utiliza <code>youtube-nocookie.com</code> e só é carregado depois que o usuário aciona o botão correspondente.</p><h2>7. Hospedagem</h2><p>O RPD é hospedado no GitHub Pages. A infraestrutura de hospedagem pode processar informações técnicas necessárias à operação e segurança conforme as políticas do GitHub.</p><h2>8. Minimização</h2><p>Nome, telefone, endereço e documentos não são necessários para concluir o registro. Recomenda-se evitar inserir dados desnecessários sobre terceiros.</p><h2>9. Finalidade e limites</h2><p>O RPD é uma ferramenta psicoeducativa inspirada na Terapia Cognitivo-Comportamental. Não é teste psicológico, prontuário profissional, diagnóstico nem substitui atendimento psicológico, médico ou de urgência.</p><p><a href="./">Voltar ao RPD</a></p></article></main></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacidade | RPD</title>
+<meta name="description" content="Como o RPD trata informações preenchidas na ferramenta.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://ricmurtapsicologia.github.io/RPD/privacidade.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#f4f1ea;--surface:#fff;--ink:#17312e;--muted:#5d706d;--primary:#0b5d57;--border:#d8e3df;--gold:#875b18}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65}main{width:min(100% - 32px,820px);margin:34px auto}.card{background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:clamp(22px,5vw,38px)}a{color:var(--primary);font-weight:800}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:8px 0 12px}.kicker{color:var(--gold);font-size:.75rem;text-transform:uppercase;letter-spacing:.13em;font-weight:900}h2{margin-top:28px;font-size:1.2rem}p,li{color:var(--muted)}.notice{background:#edf6f4;border-left:4px solid var(--primary);padding:13px 15px;border-radius:13px}.back{display:inline-block;margin-bottom:20px;text-decoration:none}code{font-size:.92em}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="./">← Voltar ao RPD</a>
+<article class="card">
+<span class="kicker">Transparência · v2.3.0</span>
+<h1>Privacidade no RPD</h1>
+<p>Atualizado em 2 de agosto de 2026.</p>
+<div class="notice"><strong>Resumo:</strong> o RPD funciona no navegador sem banco de dados próprio ou analytics. O conteúdo do registro não é persistido por padrão.</div>
+
+<h2>1. O que você pode preencher</h2>
+<p>A ferramenta permite registrar, voluntariamente, nome ou iniciais, data, situação, emoções ou estados, pensamentos, padrões cognitivos percebidos, medidas opcionais de desconforto e convicção, investigação, valores, ações possíveis e resposta alternativa. No modo essencial, parte desses campos não é solicitada.</p>
+
+<h2>2. Onde os dados ficam</h2>
+<p>Por padrão, o conteúdo é processado apenas na memória da página. A aplicação não usa <code>localStorage</code>, banco de dados próprio ou analytics para armazenar o conteúdo do registro.</p>
+
+<h2>3. Rascunho opcional nesta aba</h2>
+<p>Se o usuário ativar explicitamente “Manter rascunho somente nesta aba”, o conteúdo é gravado em <code>sessionStorage</code>. O rascunho inclui respostas, etapa atual, modo essencial/completo e quais escalas foram realmente avaliadas. O recurso fica desligado por padrão.</p>
+<p>A chave do rascunho é estável e o conteúdo possui uma versão interna de esquema para reduzir perdas em atualizações da aplicação. Alguns navegadores podem restaurar uma sessão ou aba depois de fechamento inesperado; em dispositivo compartilhado, recomenda-se desativar o rascunho e encerrar a aba ao concluir.</p>
+
+<h2>4. Escalas opcionais</h2>
+<p>As escalas de desconforto e convicção começam como “Não avaliado”. Um valor numérico só é registrado depois de interação deliberada do usuário.</p>
+
+<h2>5. PDF</h2>
+<p>A opção de PDF utiliza a impressão nativa do navegador. O documento é montado localmente. O modo essencial gera uma versão reduzida, sem seções que não foram percorridas; o modo completo inclui a investigação e a reavaliação. Após salvar, a guarda do arquivo depende do dispositivo e das práticas de segurança do usuário.</p>
+
+<h2>6. WhatsApp</h2>
+<p>Ao escolher compartilhar, o RPD monta um resumo essencial ou o registro completo e abre o WhatsApp com texto pré-preenchido. O conteúdo é adaptado ao modo utilizado. O envio só ocorre se o próprio usuário confirmar no serviço externo.</p>
+
+<h2>7. Áudio e vídeo</h2>
+<p>O áudio <code>RPD1.mp3</code> é servido pelo próprio site. O vídeo utiliza <code>youtube-nocookie.com</code> e só é carregado depois que o usuário aciona o botão correspondente.</p>
+
+<h2>8. Hospedagem</h2>
+<p>O RPD é hospedado no GitHub Pages. A infraestrutura de hospedagem pode processar informações técnicas necessárias à operação e segurança conforme as políticas do GitHub.</p>
+
+<h2>9. Minimização</h2>
+<p>Nome, telefone, endereço e documentos não são necessários para concluir o registro. Recomenda-se evitar inserir dados desnecessários sobre terceiros.</p>
+
+<h2>10. Finalidade e limites</h2>
+<p>O RPD é uma ferramenta psicoeducativa inspirada na Terapia Cognitivo-Comportamental. Não é teste psicológico, prontuário profissional, diagnóstico nem substitui atendimento psicológico, médico ou de urgência.</p>
+<p><a href="./">Voltar ao RPD</a></p>
+</article>
+</main>
+</body>
+</html>
