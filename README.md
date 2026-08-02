@@ -1,12 +1,32 @@
 # RPD — Registro de Pensamentos
 
-**Versão atual: v2.2.0 — 02/08/2026**
+**Versão atual: v2.3.0 — 02/08/2026**
 
 Ferramenta web psicoeducativa para organizar situações, emoções ou estados, pensamentos automáticos, evidências, convicção cognitiva, valores, respostas alternativas e próximos passos.
 
 Aplicação: https://ricmurtapsicologia.github.io/RPD/
 
 > O RPD é um recurso psicoeducativo inspirado na Terapia Cognitivo-Comportamental. Não é teste psicológico, diagnóstico, prontuário profissional ou substituto de atendimento individualizado.
+
+## v2.3.0 — hardening técnico, acessibilidade e consistência entre modos
+
+A v2.3.0 consolida a arquitetura da v2.2.0 e corrige pontos de robustez identificados em auditoria técnica e de UX:
+
+- troca entre modo completo e essencial passa a levar o usuário para a próxima etapa compatível, sem devolvê-lo ao início;
+- modo essencial simplifica a etapa de ação: o foco passa a ser apenas um **próximo passo pequeno e possível**;
+- edição a partir da síntese ganhou **Salvar alteração e voltar à síntese**;
+- resposta alternativa pode ser explicitamente marcada como **ainda não consigo formular neste momento**, sem bloquear a conclusão;
+- rascunho passa a usar chave estável `rpd_draft`, com `schemaVersion` e migração do rascunho legado da v2.2.0;
+- escalas só passam a ser consideradas avaliadas após mudança real por `input` ou teclado;
+- erros de formulário agora recebem `aria-invalid` e `aria-describedby`;
+- barra de progresso ganhou semântica `role=progressbar` com valores ARIA atualizados;
+- dourado de texto foi escurecido para melhorar contraste sem alterar a identidade visual;
+- em telas muito pequenas a barra de progresso deixa de ser sticky, preservando área útil;
+- PDF do modo essencial passou a esconder investigação, reavaliação e campos não percorridos;
+- PDF essencial não mostra mais status/utilidade que o paciente não respondeu;
+- política de privacidade foi sincronizada com a versão atual e com o comportamento real do `sessionStorage`;
+- validação estrutural foi ampliada e há configuração de CI para executá-la automaticamente;
+- foi adicionada suíte comportamental Playwright para fluxos críticos.
 
 ## v2.2.0 — ergonomia cognitiva para diferentes níveis de ativação
 
