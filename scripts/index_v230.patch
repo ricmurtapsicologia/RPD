@@ -1,0 +1,38 @@
+--- a/index.html
++++ b/index.html
+@@ -8,11 +8,12 @@
+ <meta name="author" content="Richelmy Murta">
+ <meta name="robots" content="index,follow,max-image-preview:large">
+ <meta name="theme-color" content="#0b5d57">
+-<meta name="application-version" content="2.2.0">
++<meta name="application-version" content="2.3.0">
+ <link rel="canonical" href="https://ricmurtapsicologia.github.io/RPD/">
+ <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+-<link rel="stylesheet" href="assets/css/app.css?v=2.2.0">
+-<link rel="stylesheet" href="assets/css/print.css?v=2.2.0" media="print">
++<link rel="stylesheet" href="assets/css/app.css?v=2.3.0">
++<link rel="stylesheet" href="assets/css/v230.css?v=2.3.0">
++<link rel="stylesheet" href="assets/css/print.css?v=2.3.0" media="print">
+ <meta property="og:type" content="website">
+ <meta property="og:locale" content="pt_BR">
+ <meta property="og:url" content="https://ricmurtapsicologia.github.io/RPD/">
+@@ -23,8 +24,8 @@
+ <meta name="twitter:title" content="RPD | Registro de Pensamentos">
+ <meta name="twitter:description" content="Ferramenta psicoeducativa inspirada na Terapia Cognitivo-Comportamental.">
+ <meta name="twitter:image" content="https://ricmurtapsicologia.github.io/RPD/assets/og-card.svg">
+-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"RPD","alternateName":"Registro de Pensamentos","url":"https://ricmurtapsicologia.github.io/RPD/","applicationCategory":"HealthApplication","operatingSystem":"Any","inLanguage":"pt-BR","softwareVersion":"2.2.0","description":"Ferramenta psicoeducativa para organizar situação, emoções, pensamentos automáticos, evidências, valores e respostas alternativas.","author":{"@type":"Person","name":"Richelmy Murta","jobTitle":"Psicólogo clínico"}}</script>
+-<script src="assets/js/app.js?v=2.2.0" defer></script>
++<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"RPD","alternateName":"Registro de Pensamentos","url":"https://ricmurtapsicologia.github.io/RPD/","applicationCategory":"HealthApplication","operatingSystem":"Any","inLanguage":"pt-BR","softwareVersion":"2.3.0","description":"Ferramenta psicoeducativa para organizar situação, emoções, pensamentos automáticos, evidências, valores e respostas alternativas.","author":{"@type":"Person","name":"Richelmy Murta","jobTitle":"Psicólogo clínico"}}</script>
++<script src="assets/js/app.js?v=2.3.0" defer></script>
+ </head>
+ <body>
+ <a class="skip" href="#inicio">Ir para o conteúdo principal</a>
+@@ -64,7 +65,7 @@
+ <section id="pdf-area" aria-hidden="true"><article id="printSheet" class="print-sheet"><header class="print-head"><div class="print-mark">RPD</div><div class="print-brand"><small>TCC · uso psicoeducativo</small><h1>Registro de Pensamentos</h1></div><div class="print-badge">Material de reflexão</div></header><div class="print-meta"><div><span class="print-label">Nome ou iniciais</span><span class="print-value" id="pIdentity">Não informado</span></div><div><span class="print-label">Data</span><span class="print-value" id="pDate">—</span></div><div><span class="print-label">Emoções ou estados</span><span class="print-value" id="pEmotions">—</span></div></div><section class="print-section"><div class="print-section-head">1 · Situação</div><div class="print-body" id="pSituation"></div></section><section class="print-section"><div class="print-section-head">2 · Pensamento automático</div><div class="print-body" id="pThought"></div></section><div class="print-two" id="pEvidenceGrid"><section class="print-section"><div class="print-section-head">3 · Evidências que sustentam</div><div class="print-body" id="pSupporting"></div></section><section class="print-section"><div class="print-section-head">4 · O que pode estar faltando</div><div class="print-body" id="pContrary"></div></section></div><section class="print-section"><div class="print-section-head">5 · Outra explicação / perspectiva</div><div class="print-body" id="pAlternative"></div></section><section class="print-section"><div class="print-section-head">6 · Valores e ação possível</div><div class="print-body" id="pValues"></div></section><section class="print-section"><div class="print-section-head">7 · Resposta alternativa</div><div class="print-body" id="pResponse"></div></section><div class="print-change"><div><span>Convicção antes</span><strong id="pBeliefBefore">—</strong></div><div class="print-arrow">→</div><div><span>Convicção depois</span><strong id="pBeliefAfter">—</strong></div></div><div class="print-change"><div><span>Desconforto antes</span><strong id="pBefore">—</strong></div><div class="print-arrow">→</div><div><span>Desconforto depois</span><strong id="pAfter">—</strong></div></div><section class="print-section"><div class="print-section-head">Observações finais</div><div class="print-body" id="pState"></div></section><footer class="print-footer"><div><strong>RPD · Richelmy Murta · Psicólogo clínico</strong><span>Ferramenta psicoeducativa. Não constitui diagnóstico, prontuário profissional ou promessa de resultado.</span></div><div id="pGenerated">Gerado em —</div></footer></article></section>
+ </main>
+ 
+-<footer><div class="footer-inner"><div>© 2026 Richelmy Murta · Psicólogo clínico · RPD <span class="version">v2.2.0</span></div><div><a href="privacidade.html">Privacidade</a> · <a href="https://ricmurtapsicologia.github.io/emocao360/">Emoção 360</a> · <a href="https://ricmurtapsicologia.github.io/Guia-de-Apoio-a-Saude-Mental/">Guia de Apoio</a></div></div></footer>
++<footer><div class="footer-inner"><div>© 2026 Richelmy Murta · Psicólogo clínico · RPD <span class="version">v2.3.0</span></div><div><a href="privacidade.html">Privacidade</a> · <a href="https://ricmurtapsicologia.github.io/emocao360/">Emoção 360</a> · <a href="https://ricmurtapsicologia.github.io/Guia-de-Apoio-a-Saude-Mental/">Guia de Apoio</a></div></div></footer>
+ <div id="toast" class="toast" role="status" aria-live="polite"></div>
+ 
+ <dialog id="distortionDialog"><div class="dialog-head"><div><span class="kicker">Guia para leigos</span><h3>Distorções cognitivas: como reconhecer</h3></div><button class="icon-btn" type="button" data-close-dialog aria-label="Fechar">×</button></div><div class="dialog-body"><p class="helper">Compare o funcionamento do seu pensamento com as descrições. Um pensamento pode se parecer com mais de um padrão e também pode não se encaixar claramente em nenhum.</p><div id="distortionGuideCards" class="distortion-cards"></div></div><div class="dialog-actions"><button class="btn btn-secondary" type="button" data-close-dialog>Voltar ao registro</button></div></dialog>
