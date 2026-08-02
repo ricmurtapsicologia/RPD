@@ -1,99 +1,93 @@
 # RPD — Registro de Pensamentos
 
-**Ferramenta web psicoeducativa para organizar situações, emoções, pensamentos automáticos, evidências, valores, respostas alternativas e próximos passos.**
+**Versão atual: v2.1.0 — 02/08/2026**
+
+Ferramenta web psicoeducativa para organizar situações, emoções ou estados, pensamentos automáticos, evidências, convicção cognitiva, valores, respostas alternativas e próximos passos.
 
 Aplicação: https://ricmurtapsicologia.github.io/RPD/
 
 > O RPD é um recurso psicoeducativo inspirado na Terapia Cognitivo-Comportamental. Não é teste psicológico, diagnóstico, prontuário profissional ou substituto de atendimento individualizado.
 
-## Objetivo
+## O que mudou na v2.1.0
 
-O RPD transforma uma experiência difícil em uma sequência observável e revisável. Em vez de exigir que o usuário “pense positivo”, a ferramenta convida a:
+A versão 2.1.0 concentra o refinamento de **ergonomia cognitiva, UX clínica e arquitetura técnica**:
 
-1. separar fatos de interpretações;
-2. nomear uma ou várias emoções;
-3. registrar o pensamento automático;
-4. identificar, de forma opcional, padrões cognitivos que talvez estejam presentes;
-5. examinar evidências que sustentam e que não sustentam completamente a interpretação;
-6. considerar explicações alternativas;
-7. conectar valores a uma ação possível;
-8. construir uma resposta alternativa mais equilibrada;
-9. observar a mudança de intensidade sem tratá-la como nota de sucesso.
+- entrada adaptativa: `Já sei usar` x `Primeira vez ou quero revisar`;
+- conteúdo psicoeducativo por progressive disclosure;
+- áudio mantido e servido localmente (`RPD1.mp3`);
+- vídeo mantido, em `youtube-nocookie.com`, com carregamento somente após clique;
+- guia de distorções aberto em diálogo, sem retirar o paciente da etapa 3;
+- cada distorção possui definição, exemplo e pergunta de reconhecimento;
+- seleção múltipla de emoções ou estados;
+- campo específico quando `Outra` é selecionada;
+- medida de convicção no pensamento automático antes/depois (0–100);
+- desconforto global antes/depois mantido como dimensão separada;
+- etapa de investigação com revelação progressiva;
+- evidências contrárias e explicação alternativa deixaram de ser obrigatórias;
+- valores e ação passaram a ser explicitamente uma ampliação opcional do RPD;
+- ajuda contextual para o conceito de valor;
+- textareas com crescimento automático;
+- navegação inferior sticky no mobile;
+- remoção do percentual redundante da barra de progresso;
+- campos marcados como necessários ou opcionais;
+- mensagens de erro inline, menos disruptivas;
+- rascunho opcional via `sessionStorage`, desativado por padrão e restrito à aba;
+- aviso de saída quando há conteúdo não preservado;
+- síntese agrupada por raciocínio clínico com botão `Editar` por bloco;
+- hierarquia de CTA final: PDF → compartilhar → novo registro;
+- compartilhamento em `Resumo essencial` ou `Registro completo`;
+- substituição de `confirm()` por diálogos próprios;
+- HTML, CSS e JavaScript separados por responsabilidade;
+- Content Security Policy básica adicionada;
+- arquitetura reorganizada em HTML semântico + CSS/JS externos;
+- versão exibida na interface e documentada no README.
 
-## Trilha em 7 etapas
+## Arquitetura clínica
 
-1. **Contexto** — data, identificação opcional e descrição objetiva da situação.
-2. **Emoções** — seleção múltipla e intensidade geral do desconforto antes da reflexão.
-3. **Pensamento automático** — registro da frase mental e padrões cognitivos opcionais.
-4. **Investigação bilateral** — evidências favoráveis, evidências contrárias/incompletas, outra explicação e perspectiva externa.
-5. **Valores e ação** — valor relevante e pequena ação possível.
-6. **Resposta alternativa** — formulação mais equilibrada e nova avaliação do desconforto.
-7. **Síntese** — revisão, compartilhamento deliberado e versão para PDF.
+A trilha permanece em 7 etapas:
 
-## Emoções múltiplas
+1. **Contexto** — episódio específico e observável.
+2. **Emoções ou estados** — seleção múltipla + desconforto global.
+3. **Pensamento automático** — frase mental + convicção + padrões cognitivos opcionais.
+4. **Investigação** — evidências que sustentam, possíveis lacunas, explicações alternativas e perspectiva.
+5. **Valores e ação possível** — módulo ampliado e opcional.
+6. **Nova leitura e reavaliação** — resposta alternativa + convicção + desconforto.
+7. **Síntese** — percurso organizado, edição direta, PDF e compartilhamento deliberado.
 
-O usuário pode marcar várias emoções simultaneamente. A aplicação não pressupõe que apenas uma emoção esteja presente.
+## Convicção x desconforto
 
-O slider não mede cada emoção separadamente. Ele representa a **intensidade geral do desconforto** no episódio, antes e depois da reflexão.
+A aplicação trata separadamente:
 
-A mudança numérica é apresentada de forma descritiva, sem interpretar automaticamente redução como sucesso ou aumento como fracasso.
+- **convicção cognitiva**: quanto o pensamento parece verdadeiro (0–100);
+- **desconforto global**: intensidade geral do episódio (0–100).
 
-## Padrões cognitivos
+A mudança em qualquer uma dessas medidas é apresentada de forma descritiva. Redução não é interpretada automaticamente como sucesso, nem aumento como fracasso.
 
-A classificação de padrões de pensamento é opcional e admite múltiplas escolhas. A interface inclui um **guia para leigos** com definição e exemplo de cada padrão, além de um CTA na etapa 3 para consultar essas explicações antes de marcar qualquer opção.
+## Distorções cognitivas
 
-Os padrões apresentados são: catastrofização, supergeneralização, leitura mental, personalização, tudo ou nada, desqualificação do positivo, raciocínio emocional, rotulação e filtro mental.
+A classificação é opcional e admite múltiplas escolhas. O paciente não precisa conhecer os nomes previamente. Cada padrão contém:
 
-Também estão disponíveis:
+- definição em linguagem simples;
+- exemplo cotidiano;
+- pergunta de reconhecimento.
 
-- `Não identifiquei um padrão`
-- `Não sei ainda`
-
-Reconhecer um padrão não significa que o pensamento seja necessariamente falso. O objetivo é investigar se a leitura está completa, proporcional e suficientemente sustentada.
+Também existem `Não identifiquei um padrão` e `Não sei ainda`.
 
 ## Privacidade por desenho
 
+- sem banco de dados próprio;
 - sem analytics próprio;
-- sem banco de dados;
-- sem armazenamento persistente do conteúdo preenchido;
-- sem `localStorage` para registros clínicos;
-- nome ou iniciais são opcionais;
-- telefone não é solicitado;
-- PDF é montado localmente e usa a impressão nativa do navegador;
-- compartilhamento só ocorre após ação e confirmação do usuário;
-- política de privacidade disponível em `privacidade.html`.
+- sem `localStorage` para conteúdo clínico;
+- nome ou iniciais opcionais;
+- rascunho opcional apenas em `sessionStorage` da própria aba;
+- rascunho desativado por padrão;
+- PDF montado localmente via impressão do navegador;
+- compartilhamento somente após ação explícita;
+- vídeo externo carregado apenas após clique.
 
-## Conteúdo multimídia
+## Arquitetura técnica
 
-A página preserva dois recursos de apoio ao aprendizado:
-
-- **áudio explicativo** (`RPD1.mp3`), hospedado no próprio repositório e carregado apenas quando o usuário decide reproduzi-lo;
-- **vídeo explicativo**, incorporado com o modo de privacidade aprimorada do YouTube (`youtube-nocookie.com`) e carregamento adiado (`loading="lazy"`).
-
-Ambos aparecem antes da trilha principal com CTAs para retornar diretamente ao registro após o conteúdo.
-
-## PDF
-
-A versão de impressão foi criada especificamente para A4 e organiza o conteúdo em blocos editoriais:
-
-- identificação opcional, data e emoções;
-- situação;
-- pensamento automático e padrões percebidos;
-- evidências que sustentam;
-- evidências que não sustentam completamente;
-- outra explicação possível;
-- valores e ação;
-- resposta alternativa;
-- comparação descritiva do desconforto antes/depois;
-- observações finais.
-
-A aplicação não depende de jsPDF.
-
-## Arquitetura
-
-Aplicação estática, sem framework e sem dependências JavaScript externas de execução. O conteúdo principal funciona sem bibliotecas de terceiros; áudio e vídeo são recursos de mídia opcionais.
-
-Principais arquivos:
+Na v2.1.0, CSS e JavaScript foram separados por responsabilidade. O HTML é composto por `_includes` Jekyll semânticos por seção, evitando os antigos fragmentos arbitrários que cortavam CSS, HTML e JavaScript no meio do documento:
 
 ```text
 /
@@ -103,42 +97,37 @@ Principais arquivos:
 ├── robots.txt
 ├── sitemap.xml
 ├── RPD1.mp3
+├── _includes/
+│   ├── v210_head.html
+│   ├── v210_intro.html
+│   ├── v210_steps_2_4.html
+│   ├── v210_steps_5_7.html
+│   ├── v210_support_print.html
+│   └── v210_dialogs.html
 └── assets/
     ├── favicon.svg
-    └── og-card.svg
+    ├── og-card.svg
+    ├── css/
+    │   ├── app.css
+    │   └── print.css
+    └── js/
+        └── app.js
 ```
 
-## Acessibilidade
+## Acessibilidade e ergonomia cognitiva
 
-A interface utiliza:
+A interface utiliza labels associados, navegação por teclado, `aria-live`, barra de progresso, áreas de toque adequadas, `prefers-reduced-motion`, texto alinhado à esquerda, progressive disclosure, diálogos nativos, mensagens de erro inline, autoexpansão de texto e navegação sticky no mobile.
 
-- labels associados aos campos;
-- navegação por teclado;
-- `aria-live` para estados dinâmicos;
-- feedback de progresso;
-- foco em campos inválidos;
-- botões com áreas de toque adequadas;
-- `prefers-reduced-motion`;
-- texto alinhado à esquerda;
-- layout responsivo.
+O princípio de UX da versão é: **menos esforço para operar a ferramenta e mais energia disponível para refletir sobre a experiência**.
 
-## Ecossistema
+## Histórico de versões
 
-O RPD integra o mesmo ecossistema visual e funcional de:
+### v2.1.0 — 02/08/2026
+Refinamento de ergonomia cognitiva, UX clínica, convicção cognitiva, progressive disclosure, rascunho de sessão, síntese editável e arquitetura modular.
 
-- Guia de Apoio à Saúde Mental
-- Emoção 360
+### v2.0.0 — 02/08/2026
+Grande refatoração de privacidade, precisão clínica, PDF editorial, identidade visual e conteúdo multimídia/psicoeducativo.
 
-## Segurança e apoio
+## Limites
 
-A página inclui acesso a recursos externos de apoio para situações de sofrimento intenso. O RPD não deve ser usado como único recurso em uma emergência.
-
-## Autoria
-
-**Richelmy Murta · Psicólogo clínico**
-
-A identificação profissional completa deve seguir as regras aplicáveis à divulgação profissional. Não inserir número de registro sem verificação da informação.
-
-## Licença e uso
-
-Antes de reutilizar conteúdo, identidade visual ou materiais clínicos, verifique autoria, finalidade e eventuais requisitos éticos ou profissionais aplicáveis.
+O RPD não deve ser utilizado para automatizar diagnóstico ou substituir julgamento clínico. Padrões cognitivos são hipóteses psicoeducativas, não rótulos obrigatórios. Valores e ação possível representam uma ampliação contemporânea do registro cognitivo clássico.
