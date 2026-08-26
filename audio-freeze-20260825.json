@@ -1,0 +1,11 @@
+{
+  "frozen_at": "2026-08-25",
+  "reason": "Congelamento anterior à remasterização Sono em Dia / Ampulheta N2",
+  "legacy_audio": {
+    "path": "RPD1.mp3",
+    "sha": "d7ce9376a03abd37cc292344bf95db752567020f",
+    "size": 877346
+  },
+  "rule": "O MP3 original permanece preservado e serve como fonte de verdade para a transcrição congelada.",
+  "target": "audio/rpd1-n2.mp3 — pt-BR-AntonioNeural, perfil Sono em Dia / Ampulheta N2"
+}
