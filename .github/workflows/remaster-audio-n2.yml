@@ -1,0 +1,81 @@
+name: Remasterizar audio RPD N2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/remaster_rpd_n2.py'
+      - 'assets/js/audio-n2.js'
+      - '.github/workflows/remaster-audio-n2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rpd-audio-n2
+  cancel-in-progress: true
+
+jobs:
+  remaster:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar dependencias
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          python -m pip install --upgrade pip
+          pip install edge-tts pydub faster-whisper
+      - name: Transcrever, congelar e remasterizar
+        run: python scripts/remaster_rpd_n2.py
+      - name: Atualizar player publico
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old='<source src="./RPD1.mp3" type="audio/mpeg">'
+          new='<source src="./audio/rpd1-n2.mp3?v=n2-20260825" type="audio/mpeg">'
+          if old in s:
+              s=s.replace(old,new)
+          elif './audio/rpd1-n2.mp3' not in s:
+              raise SystemExit('Fonte de áudio RPD não localizada')
+          if 'assets/js/audio-n2.js' not in s:
+              s=s.replace('</body>','<script src="assets/js/audio-n2.js?v=n2-20260825"></script>\n</body>')
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Validar
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          p=Path('audio/rpd1-n2.mp3')
+          assert p.exists() and p.stat().st_size>1000
+          info=json.loads(subprocess.check_output(['ffprobe','-v','error','-select_streams','a:0','-show_entries','stream=channels,sample_rate,duration','-of','json',str(p)],text=True))['streams'][0]
+          assert int(info['channels'])==1
+          assert int(info['sample_rate'])==44100
+          assert float(info['duration'])>0
+          assert Path('roteiros/RPD1-frozen.txt').exists()
+          idx=Path('index.html').read_text(encoding='utf-8')
+          assert './audio/rpd1-n2.mp3' in idx
+          assert 'assets/js/audio-n2.js' in idx
+          print('RPD validado no padrão N2.')
+          PY
+      - name: Commitar remasterizacao
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audio roteiros/RPD1-frozen.txt index.html
+          if git diff --cached --quiet; then
+            echo "Sem alterações"
+            exit 0
+          fi
+          git commit -m "build: publicar audio RPD no padrao Sono em Dia N2"
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
