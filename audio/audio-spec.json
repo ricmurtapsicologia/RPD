@@ -1,0 +1,14 @@
+{
+  "voice": "pt-BR-AntonioNeural",
+  "profile": "Padrão Sonoro Clínico Richelmy Murta — Sono em Dia / Ampulheta N2",
+  "version": "n2-20260825",
+  "source": "RPD1.mp3",
+  "frozen_transcript": "roteiros/RPD1-frozen.txt",
+  "text_integrity": "transcrição congelada sem reescrita editorial",
+  "opening_silence_ms": 130,
+  "ending_silence_ms": 240,
+  "target_dbfs": -18.0,
+  "peak_ceiling_dbfs": -1.2,
+  "format": "MP3 128 kbps, mono, 44.1 kHz",
+  "duration_seconds": 63.2
+}
