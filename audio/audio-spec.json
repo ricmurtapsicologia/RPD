@@ -1,14 +1,18 @@
 {
+  "version": "n3-20260831",
   "voice": "pt-BR-AntonioNeural",
-  "profile": "Padrão Sonoro Clínico Richelmy Murta — Sono em Dia / Ampulheta N2",
-  "version": "n2-20260825",
-  "source": "RPD1.mp3",
-  "frozen_transcript": "roteiros/RPD1-frozen.txt",
-  "text_integrity": "transcrição congelada sem reescrita editorial",
-  "opening_silence_ms": 130,
-  "ending_silence_ms": 240,
+  "profile": "N3-C Natural — RPD",
+  "source": "roteiros/RPD1-frozen.txt",
+  "text_integrity": 1.0,
+  "ambient_audio": false,
+  "prosody": "semantic-intent + respiratory-units + deterministic-content-jitter",
+  "intents": [
+    "explain",
+    "question"
+  ],
+  "turns": 11,
   "target_dbfs": -18.0,
   "peak_ceiling_dbfs": -1.2,
   "format": "MP3 128 kbps, mono, 44.1 kHz",
-  "duration_seconds": 63.2
+  "duration_seconds": 70.4
 }
