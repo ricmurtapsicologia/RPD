@@ -1,0 +1,72 @@
+name: Remasterizar audio RPD N3
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/remaster_rpd_n3.py'
+      - 'roteiros/RPD1-frozen.txt'
+      - 'assets/js/audio-n3.js'
+      - 'AUDIO_N3_STANDARD.md'
+      - '.github/workflows/remaster-audio-n3.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rpd-audio-n3
+  cancel-in-progress: true
+
+jobs:
+  remaster:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dependencias
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          python -m pip install --upgrade pip
+          pip install edge-tts pydub
+      - name: Remasterizar a partir da transcricao congelada
+        run: python scripts/remaster_rpd_n3.py
+      - name: Promover player publico N3
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html');s=p.read_text(encoding='utf-8')
+          s=s.replace('./audio/rpd1-n2.mp3?v=n2-20260825','./audio/rpd1-n3.mp3?v=n3-20260831')
+          if './audio/rpd1-n3.mp3?v=n3-20260831' not in s:
+              s=s.replace('<source src="./RPD1.mp3" type="audio/mpeg">','<source src="./audio/rpd1-n3.mp3?v=n3-20260831" type="audio/mpeg">')
+          s=s.replace('assets/js/audio-n2.js?v=n2-20260825','assets/js/audio-n3.js?v=n3-20260831')
+          if 'assets/js/audio-n3.js' not in s:
+              s=s.replace('</body>','<script src="assets/js/audio-n3.js?v=n3-20260831"></script>\n</body>')
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Smoke test N3
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          p=Path('audio/rpd1-n3.mp3');assert p.exists() and p.stat().st_size>1000
+          info=json.loads(subprocess.check_output(['ffprobe','-v','error','-select_streams','a:0','-show_entries','stream=channels,sample_rate,duration','-of','json',str(p)],text=True))['streams'][0]
+          assert int(info['channels'])==1 and int(info['sample_rate'])==44100 and float(info['duration'])>0
+          spec=json.loads(Path('audio/audio-spec.json').read_text(encoding='utf-8'));assert spec['version']=='n3-20260831' and spec['text_integrity']==1.0
+          idx=Path('index.html').read_text(encoding='utf-8');assert './audio/rpd1-n3.mp3' in idx and 'assets/js/audio-n3.js' in idx and './audio/rpd1-n2.mp3' not in idx
+          print('PASS: RPD N3-C publicado.')
+          PY
+      - name: Commitar remasterizacao
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audio/rpd1-n3.mp3 audio/audio-spec.json index.html
+          if git diff --cached --quiet; then echo "Sem alteracoes"; exit 0; fi
+          git commit -m "build: publicar RPD no N3 Natural"
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
