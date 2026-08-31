@@ -4,6 +4,7 @@
   "profile": "N3-C Natural — RPD",
   "source": "roteiros/RPD1-frozen.txt",
   "text_integrity": 1.0,
+  "pronunciation_dictionary": true,
   "ambient_audio": false,
   "prosody": "semantic-intent + respiratory-units + deterministic-content-jitter",
   "intents": [
