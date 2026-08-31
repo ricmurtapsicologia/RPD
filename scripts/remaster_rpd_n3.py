@@ -11,9 +11,14 @@ SOFT={'mas','porém','porem','contudo','entretanto','porque','quando','enquanto'
 INSTR=('observe','imagine','pense','perceba','note','considere','guarde','faça','faca','tente')
 REFL=('talvez','por enquanto','agora','às vezes','as vezes','vale lembrar','repare','uma possibilidade','isso pode')
 CONC=('em resumo','para concluir','por fim','em síntese','em sintese','o ponto principal')
+PRON={r'\bRPD\b':'R P D',r'\bTCC-I\b':'T C C I',r'\bTCC\b':'T C C',r'\bACT\b':'A C T',r'\bPSP\b':'P S P',r'\bATS\b':'A T S',r'\bCBMMG\b':'C B M M G',r'\bOMS\b':'O M S'}
 
 def norm(t):return re.sub(r'\s+',' ',t or '').strip()
 def tok(t):return re.findall(r'[\wÀ-ÿ]+',t.lower(),flags=re.UNICODE)
+def speakable(t):
+ out=t
+ for pat,repl in PRON.items():out=re.sub(pat,repl,out,flags=re.I)
+ return norm(out)
 def stable(t,lo,hi,s):
  h=hashlib.sha256((s+'|'+norm(t)).encode()).digest();u=int.from_bytes(h[:4],'big')/0xffffffff;return lo+int(round(u*(hi-lo)))
 def intent(t):
@@ -56,7 +61,7 @@ async def synth(text,rate,pitch,path,sem):
  async with sem:
   for attempt in range(1,4):
    try:
-    c=edge_tts.Communicate(text=text,voice=VOICE,rate=rate,pitch=pitch,volume='+0%');await asyncio.wait_for(c.save(str(path)),timeout=55);return
+    c=edge_tts.Communicate(text=speakable(text),voice=VOICE,rate=rate,pitch=pitch,volume='+0%');await asyncio.wait_for(c.save(str(path)),timeout=55);return
    except Exception:
     if attempt==3:raise
     await asyncio.sleep(.9*attempt)
@@ -72,6 +77,6 @@ async def main():
  if a.dBFS!=float('-inf'):a=a.apply_gain(TARGET-a.dBFS)
  if a.max_dBFS>-1.2:a=a.apply_gain(-1.2-a.max_dBFS)
  target=OUT/'rpd1-n3.mp3';a.export(target,format='mp3',bitrate='128k',parameters=['-ac','1','-ar','44100'])
- spec={'version':VERSION,'voice':VOICE,'profile':'N3-C Natural — RPD','source':'roteiros/RPD1-frozen.txt','text_integrity':1.0,'ambient_audio':False,'prosody':'semantic-intent + respiratory-units + deterministic-content-jitter','intents':sorted(set(intents)),'turns':len(turns),'target_dbfs':TARGET,'peak_ceiling_dbfs':-1.2,'format':'MP3 128 kbps, mono, 44.1 kHz','duration_seconds':round(len(a)/1000,1)}
+ spec={'version':VERSION,'voice':VOICE,'profile':'N3-C Natural — RPD','source':'roteiros/RPD1-frozen.txt','text_integrity':1.0,'pronunciation_dictionary':True,'ambient_audio':False,'prosody':'semantic-intent + respiratory-units + deterministic-content-jitter','intents':sorted(set(intents)),'turns':len(turns),'target_dbfs':TARGET,'peak_ceiling_dbfs':-1.2,'format':'MP3 128 kbps, mono, 44.1 kHz','duration_seconds':round(len(a)/1000,1)}
  (OUT/'audio-spec.json').write_text(json.dumps(spec,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');shutil.rmtree(TMP,ignore_errors=True);print(f'RPD N3 gerado: {spec["duration_seconds"]}s')
 if __name__=='__main__':asyncio.run(main())
