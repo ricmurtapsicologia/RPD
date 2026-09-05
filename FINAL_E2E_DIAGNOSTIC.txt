@@ -1,0 +1,239 @@
+
+> rpd-registro-de-pensamentos@2.3.1 test:e2e
+> playwright test
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:35] "GET / HTTP/1.1" 200 -
+
+Running 25 tests using 2 workers
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:36] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+··[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:37] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:37] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:37] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:37] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:37] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:37] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:38] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:39] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:39] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:39] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:39] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:39] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:39] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+×[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:41] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:41] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:41] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:41] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:41] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:41] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+F[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:43] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:43] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:43] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:43] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:43] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:43] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:46] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:46] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:46] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:46] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:46] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:46] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:49] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:49] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:49] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:49] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:49] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:49] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:54] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:54] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:54] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:54] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:54] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:54] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:54] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:54] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:54] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:54] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:54] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:34:54] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:00] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:00] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:00] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:00] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:00] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:00] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:00] "GET /privacidade.html HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:01] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:02] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:03] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:03] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:03] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:03] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:03] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:03] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:03] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:03] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:03] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:03] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:03] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:35:03] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+·
+
+  1) tests/rpd.spec.js:81:1 › opções de não classificação são exclusivas com distorções específicas 
+
+    Error: locator.check: Clicking the checkbox did not change its state
+    Call log:
+      - waiting for locator('#distortion_0')
+        - locator resolved to <input type="checkbox" id="distortion_0" name="distortion" value="Catastrofização" aria-label="Catastrofização: Imaginar um desfecho muito ruim como se fosse provável ou inevitável, mesmo quando existem outros resultados possíveis."/>
+      - attempting click action
+        - scrolling into view if needed
+        - done scrolling
+        - forcing action
+        - performing click action
+        - click action done
+        - waiting for scheduled navigations to finish
+        - navigations have finished
+
+
+      82 |   await reachStep3(page);
+      83 |   await page.locator('#distortion_special_0').check({ force: true });
+    > 84 |   await page.locator('#distortion_0').check({ force: true });
+         |                                       ^
+      85 |   await expect(page.locator('#distortion_0')).toBeChecked();
+      86 |   await expect(page.locator('#distortion_special_0')).not.toBeChecked();
+      87 | });
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:84:39
+
+    Error Context: test-results/rpd-opções-de-não-classifi-21eff--com-distorções-específicas/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-opções-de-não-classifi-21eff--com-distorções-específicas/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-opções-de-não-classifi-21eff--com-distorções-específicas/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: locator.check: Clicking the checkbox did not change its state
+    Call log:
+      - waiting for locator('#distortion_special_0')
+        - locator resolved to <input type="checkbox" name="distortion" value="Não sei ainda" id="distortion_special_0"/>
+      - attempting click action
+        - scrolling into view if needed
+        - done scrolling
+        - forcing action
+        - performing click action
+        - click action done
+        - waiting for scheduled navigations to finish
+        - navigations have finished
+
+
+      81 | test('opções de não classificação são exclusivas com distorções específicas', async ({ page }) => {
+      82 |   await reachStep3(page);
+    > 83 |   await page.locator('#distortion_special_0').check({ force: true });
+         |                                               ^
+      84 |   await page.locator('#distortion_0').check({ force: true });
+      85 |   await expect(page.locator('#distortion_0')).toBeChecked();
+      86 |   await expect(page.locator('#distortion_special_0')).not.toBeChecked();
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:83:47
+
+    Error Context: test-results/rpd-opções-de-não-classifi-21eff--com-distorções-específicas-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-opções-de-não-classifi-21eff--com-distorções-específicas-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-opções-de-não-classifi-21eff--com-distorções-específicas-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/rpd.spec.js:81:1 › opções de não classificação são exclusivas com distorções específicas ─
+  24 passed (28.5s)

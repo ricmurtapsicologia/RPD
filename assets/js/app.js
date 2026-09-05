@@ -101,7 +101,7 @@ function enhanceMarkup(){
     bar.className="edit-return-bar";
     bar.hidden=true;
     bar.innerHTML='<span>Você está editando um bloco da síntese.</span><button id="returnSummary" class="btn btn-secondary btn-small" type="button">Salvar alteração e voltar à síntese</button>';
-    form.before(bar);
+    form.parentNode.insertBefore(bar,form);
   }
 
   const step5=$(".step[data-step=\"5\"]");
