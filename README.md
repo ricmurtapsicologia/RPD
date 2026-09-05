@@ -1,156 +1,87 @@
 # RPD — Registro de Pensamentos
 
-**Versão atual: v2.3.0 — 02/08/2026**
+**Versão canônica: v2.3.1 — 05/09/2026**
 
-Ferramenta web psicoeducativa para organizar situações, emoções ou estados, pensamentos automáticos, evidências, convicção cognitiva, valores, respostas alternativas e próximos passos.
+Ferramenta web psicoeducativa para organizar situação, emoções ou estados, pensamentos automáticos, evidências, convicção cognitiva, valores, respostas alternativas e próximos passos.
 
 Aplicação: https://ricmurtapsicologia.github.io/RPD/
 
 > O RPD é um recurso psicoeducativo inspirado na Terapia Cognitivo-Comportamental. Não é teste psicológico, diagnóstico, prontuário profissional ou substituto de atendimento individualizado.
 
-## v2.3.0 — hardening técnico, acessibilidade e consistência entre modos
+## v2.3.1 — hardening, conformidade e consolidação
 
-A v2.3.0 consolida a arquitetura da v2.2.0 e corrige pontos de robustez identificados em auditoria técnica e de UX:
+Release de saneamento que elimina o drift entre documentação, assets e runtime e incorpora os reparos técnicos, clínicos e de acessibilidade da linha v2.3.x.
 
-- troca entre modo completo e essencial passa a levar o usuário para a próxima etapa compatível, sem devolvê-lo ao início;
-- modo essencial simplifica a etapa de ação: o foco passa a ser apenas um **próximo passo pequeno e possível**;
-- edição a partir da síntese ganhou **Salvar alteração e voltar à síntese**;
-- resposta alternativa pode ser explicitamente marcada como **ainda não consigo formular neste momento**, sem bloquear a conclusão;
-- rascunho passa a usar chave estável `rpd_draft`, com `schemaVersion` e migração do rascunho legado da v2.2.0;
-- escalas só passam a ser consideradas avaliadas após mudança real por `input` ou teclado;
-- erros de formulário agora recebem `aria-invalid` e `aria-describedby`;
-- barra de progresso ganhou semântica `role=progressbar` com valores ARIA atualizados;
-- dourado de texto foi escurecido para melhorar contraste sem alterar a identidade visual;
-- em telas muito pequenas a barra de progresso deixa de ser sticky, preservando área útil;
-- PDF do modo essencial passou a esconder investigação, reavaliação e campos não percorridos;
-- PDF essencial não mostra mais status/utilidade que o paciente não respondeu;
-- política de privacidade foi sincronizada com a versão atual e com o comportamento real do `sessionStorage`;
-- validação estrutural foi ampliada e há configuração de CI para executá-la automaticamente;
-- foi adicionada suíte comportamental Playwright para fluxos críticos.
-
-## v2.2.0 — ergonomia cognitiva para diferentes níveis de ativação
-
-A v2.2.0 transforma o RPD em dois percursos compatíveis entre si:
-
-- **modo essencial**: 5 passos, para momentos de maior sobrecarga ou quando o objetivo é apenas organizar o básico;
-- **modo completo**: 7 etapas, mantendo investigação, valores, nova leitura e reavaliação.
-
-Outras mudanças desta versão:
-
-- paridade de versão entre HTML, CSS/JS, JSON-LD, rodapé e README;
-- cache-busting atualizado para `?v=2.2.0`;
-- preenchimento automático da data usando a data local do dispositivo, não UTC;
-- posição sticky da barra de progresso calculada pela altura real da navegação;
-- escalas começam como **Não avaliado** e só geram número depois de interação deliberada;
-- `Não sei ainda` e `Não identifiquei um padrão` aparecem antes da lista de distorções;
-- nome e significado da distorção ficam sempre visíveis; pergunta de reconhecimento e exemplo ficam sob expansão opcional;
-- retirada da redundância de ajuda dentro da etapa 3; o guia modal permanece apenas na área psicoeducativa inicial;
-- investigação cognitiva ficou integralmente opcional e com linguagem menos judicial;
-- etapa de valores ganhou botão explícito **Pular por agora**;
-- microcopy foi reduzida para evitar excesso de instruções simultâneas;
-- resumo, PDF e compartilhamento se adaptam ao modo essencial ou completo;
-- rascunho em `sessionStorage` preserva também modo escolhido e estado real das escalas.
-
-## v2.1.2 — correção de UX clínica e área de impressão
-
-A v2.1.2 corrige dois pontos observados em uso real:
-
-- a área técnica usada para gerar o PDF passou a ficar totalmente oculta na tela e só é exibida em modo de impressão;
-- as distorções cognitivas passaram a ser explicadas **no próprio ponto de escolha**, sem exigir que o paciente abra outro guia para compreender o significado;
-- cada cartão mostra nome, significado curto, pergunta de reconhecimento e exemplo cotidiano;
-- `Não identifiquei um padrão` e `Não sei ainda` permanecem disponíveis como escolhas legítimas;
-- os cartões foram reorganizados para leitura em uma coluna em telas menores, reduzindo carga visual durante ativação emocional;
-- a microcopy reforça que o paciente não precisa saber nomes técnicos nem “acertar” uma classificação.
-
-## v2.1.1 — correção de estabilidade e renderização
-
-A v2.1.1 é uma versão de depuração da v2.1.0. O foco foi remover regressões de mídia e layout sem perder os avanços clínicos e de UX.
-
-Principais correções:
-
-- `index.html` voltou a ser um documento HTML estático completo;
-- removida a dependência de composição da página por Jekyll `_includes`;
-- adicionado `.nojekyll` para servir os arquivos exatamente como estão no repositório;
-- áudio explicativo restaurado e mantido sempre visível, servido por `./RPD1.mp3`;
-- vídeo explicativo restaurado como recurso sempre visível e carregado sob demanda via `youtube-nocookie.com`;
-- guia de distorções permanece acessível por diálogo contextual;
-- CSS refeito com foco em consistência desktop/mobile, grids resilientes e prevenção de overflow;
-- navegação, cards multimídia, formulários, diálogos e síntese revisados responsivamente;
-- removida a Content Security Policy em `<meta>` da v2.1.0, que poderia interferir em estilos dinâmicos usados pela própria interface;
-- `app.js` reescrito e validado sintaticamente;
-- parâmetros de versão em CSS/JS (`?v=2.1.1`) ajudam a evitar cache de assets antigos;
-- preservadas as sete etapas, convicção cognitiva antes/depois, desconforto global, rascunho opcional por aba, síntese editável, PDF e compartilhamento seletivo.
+- identificação profissional pública: `Richelmy Murta Pinto · Psicólogo clínico · CRP 04/54.383`;
+- versão sincronizada entre HTML, JavaScript, package, README, privacidade e JSON-LD;
+- CVV com ligação pelo tridígito nacional `188`;
+- política de privacidade sincronizada ao comportamento real do runtime;
+- rascunho clínico opt-in em `sessionStorage`, chave estável `rpd_draft`, versão de esquema e migração do legado;
+- progresso semântico, erros ARIA, foco, contraste, reduced motion e correções para telas pequenas;
+- modos essencial (5 passos) e completo (7 etapas) testados independentemente;
+- áudio N3 canônico e vídeo externo somente sob ação explícita;
+- PDF/print adaptado ao percurso utilizado;
+- validação estrutural derivada do `package.json`;
+- suíte Playwright cobrindo fluxos clínicos, privacidade, mídia, acessibilidade, responsividade e impressão;
+- CI em `main`, branches de release e pull requests;
+- artefatos temporários de migração/diagnóstico removidos da árvore final;
+- baseline anterior preservada em branch de rollback.
 
 ## Arquitetura clínica
 
-A trilha permanece em 7 etapas:
+Modo completo:
 
 1. **Contexto** — episódio específico e observável.
-2. **Emoções ou estados** — seleção múltipla + desconforto global.
-3. **Pensamento automático** — frase mental + convicção + padrões cognitivos opcionais.
-4. **Investigação** — evidências que sustentam, possíveis lacunas, explicações alternativas e perspectiva.
-5. **Valores e ação possível** — módulo ampliado e opcional.
-6. **Nova leitura e reavaliação** — resposta alternativa + convicção + desconforto.
-7. **Síntese** — percurso organizado, edição direta, PDF e compartilhamento deliberado.
+2. **Emoções ou estados** — seleção múltipla e desconforto global opcional.
+3. **Pensamento automático** — frase mental, convicção opcional e padrões cognitivos opcionais.
+4. **Investigação** — evidências, lacunas, explicações alternativas e perspectiva.
+5. **Valores e ação possível** — módulo opcional.
+6. **Nova leitura e reavaliação** — resposta alternativa, convicção e desconforto.
+7. **Síntese** — revisão, edição, PDF e compartilhamento deliberado.
 
-## Ergonomia cognitiva e UX
+O modo essencial percorre `1 → 2 → 3 → 5 → 7`, reduzindo decisões sem apagar o registro já realizado.
 
-A interface foi desenhada para reduzir carga mental durante o autorregistro:
+## Fundamentação
 
-- conteúdo principal dividido em sete etapas;
-- áudio e vídeo disponíveis sem obrigar o paciente a consumi-los;
-- guia de distorções sem sair do registro;
-- exemplos e perguntas de reconhecimento para paciente leigo;
-- progressive disclosure na investigação;
-- campos claramente marcados como necessários ou opcionais;
-- erros apresentados junto ao campo;
-- escalas com âncoras semânticas;
-- síntese agrupada por raciocínio clínico com edição direta;
-- mobile com navegação compacta e responsiva.
+A arquitetura dialoga com o registro de pensamentos usado em Terapia Cognitivo-Comportamental. As referências públicas utilizadas para transparência conceitual são:
 
-## Convicção x desconforto
+- NHS Every Mind Matters — Thought record: https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/thought-record/
+- NHS Every Mind Matters — Reframing unhelpful thoughts: https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/reframing-unhelpful-thoughts/
+- Sistema Conselhos de Psicologia — publicidade profissional: https://transparencia.cfp.org.br/crp10/pergunta-frequente/publicidade-profissional/
 
-A aplicação separa:
-
-- **convicção cognitiva** — quanto o pensamento parece verdadeiro (0–100);
-- **desconforto global** — intensidade geral do episódio (0–100).
-
-A mudança em qualquer medida é apresentada de forma descritiva, sem usar redução como sinônimo automático de sucesso.
-
-## Distorções cognitivas
-
-A classificação é opcional. Cada padrão inclui:
-
-- definição em linguagem simples;
-- exemplo cotidiano;
-- pergunta de reconhecimento.
-
-Também existem `Não identifiquei um padrão` e `Não sei ainda`.
+O RPD inclui adaptações próprias de linguagem, ergonomia, modo essencial, valores/ação, síntese, privacidade e compartilhamento. As instituições citadas não endossam o produto.
 
 ## Privacidade por desenho
 
 - sem banco de dados próprio;
 - sem analytics próprio;
 - sem `localStorage` para conteúdo clínico;
-- rascunho opcional em `sessionStorage`, restrito à aba e desligado por padrão;
+- rascunho clínico somente por opt-in em `sessionStorage` e restrito à aba;
+- o player de áudio pode guardar apenas o identificador do áudio e o segundo de reprodução em `localStorage` (`rpd.audioProgress.n3`), sem conteúdo clínico;
 - nome ou iniciais opcionais;
-- PDF gerado pela impressão nativa do navegador;
-- compartilhamento somente após ação do usuário;
-- vídeo externo carregado somente quando solicitado.
+- PDF montado localmente pela impressão nativa do navegador;
+- compartilhamento somente após ação deliberada do usuário;
+- vídeo via `youtube-nocookie.com` somente quando solicitado.
+
+A política detalhada está em `privacidade.html`.
 
 ## Arquitetura técnica
 
-Aplicação estática sem framework e sem dependências JavaScript de terceiros em tempo de execução.
+Aplicação estática, sem framework e sem dependências JavaScript de terceiros em tempo de execução.
 
 ```text
 /
 ├── index.html
 ├── privacidade.html
 ├── README.md
+├── RELEASE_v2.3.1.md
 ├── robots.txt
 ├── sitemap.xml
-├── RPD1.mp3
-├── .nojekyll
+├── package.json
+├── package-lock.json
+├── playwright.config.js
+├── audio/
+│   └── rpd1-n3.mp3
 ├── assets/
 │   ├── favicon.svg
 │   ├── og-card.svg
@@ -158,27 +89,30 @@ Aplicação estática sem framework e sem dependências JavaScript de terceiros 
 │   │   ├── app.css
 │   │   └── print.css
 │   └── js/
-│       └── app.js
-└── scripts/
-    └── validate.sh
+│       ├── app.js
+│       └── audio-n3.js
+├── scripts/
+│   ├── validate.py
+│   └── remaster_rpd_n3.py
+├── tests/
+│   ├── rpd.spec.js
+│   └── runtime.spec.js
+└── .github/workflows/
+    ├── ci.yml
+    └── remaster-audio-n3.yml
 ```
 
 ## Validação
 
-A validação de regressão deve verificar, no mínimo:
+```bash
+npm ci
+npm run validate
+npx playwright install chromium
+npm run test:e2e
+```
 
-- sintaxe JavaScript;
-- sete etapas presentes;
-- IDs HTML sem duplicação;
-- áudio `RPD1.mp3` presente;
-- botão de vídeo e carregamento do iframe presentes;
-- campos de convicção antes/depois;
-- emoção `Outra` com campo de especificação;
-- diálogo de distorções;
-- síntese e compartilhamento em resumo/completo.
+O gate de release exige validação estrutural verde, runtime sem exceções JavaScript e regressão Playwright integralmente verde antes de promoção para `main`.
 
-## Autoria
+## Autoria e responsabilidade profissional
 
-**Richelmy Murta · Psicólogo clínico**
-
-A identificação profissional completa deve seguir as regras aplicáveis à divulgação profissional. Não inserir número de registro sem verificação da informação.
+**Richelmy Murta Pinto · Psicólogo clínico · CRP 04/54.383**
