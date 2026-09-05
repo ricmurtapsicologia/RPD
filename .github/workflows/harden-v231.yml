@@ -22,6 +22,20 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Repair migration bootstrap
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('scripts/harden_v231.py')
+          s = path.read_text(encoding='utf-8')
+          start = s.index('def apply_v230_if_needed():')
+          end = s.index('\n\ndef harden_index():', start)
+          replacement = '''def apply_v230_if_needed():\n    js = read("assets/js/app.js")\n    if 'const VERSION="2.2.0"' in js:\n        subprocess.run(["git", "apply", "scripts/js_v230.patch"], cwd=ROOT, check=True)\n'''
+          s = s[:start] + replacement + s[end:]
+          s = s.replace('s = read("index.html").replace("2.3.0", VERSION)', 's = read("index.html").replace("2.2.0", VERSION).replace("2.3.0", VERSION)')
+          path.write_text(s, encoding='utf-8')
+          PY
+
       - name: Apply v2.3.1 hardening
         run: python3 scripts/harden_v231.py
 
@@ -44,6 +58,8 @@ jobs:
         run: |
           rm -f scripts/harden_v231.py
           rm -f .github/workflows/harden-v231.yml
+          rm -f .github/workflows/diagnose-v230-patches.yml
+          rm -f PATCH_DIAGNOSTIC.txt
 
       - name: Commit validated release candidate
         run: |
