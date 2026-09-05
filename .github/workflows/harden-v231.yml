@@ -51,20 +51,18 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Browser regression gate
-        run: npm run test:e2e
-
-      - name: Remove one-time migration machinery
+      - name: Capture browser regression
         run: |
-          rm -f scripts/harden_v231.py
-          rm -f .github/workflows/harden-v231.yml
-          rm -f .github/workflows/diagnose-v230-patches.yml
-          rm -f PATCH_DIAGNOSTIC.txt
+          set +e
+          npx playwright test --workers=1 --timeout=8000 --reporter=line > E2E_DIAGNOSTIC.txt 2>&1
+          CODE=$?
+          echo "$CODE" > E2E_EXIT.txt
+          exit 0
 
-      - name: Commit validated release candidate
+      - name: Commit candidate and diagnostic
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "release: RPD v2.3.1 hardening, conformidade e consolidação"
+          git commit -m "test: materializar candidata v2.3.1 e diagnóstico E2E"
           git push origin HEAD:release/rpd-v2.3.1-work-final
