@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Privacidade | RPD</title>
-<meta name="description" content="Como o RPD trata informações preenchidas na ferramenta.">
+<title>Privacidade e fundamentação | RPD</title>
+<meta name="description" content="Como o RPD trata informações preenchidas e quais referências sustentam sua arquitetura psicoeducativa.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://ricmurtapsicologia.github.io/RPD/privacidade.html">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <style>
 :root{--bg:#f4f1ea;--surface:#fff;--ink:#17312e;--muted:#5d706d;--primary:#0b5d57;--border:#d8e3df;--gold:#875b18}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65}main{width:min(100% - 32px,820px);margin:34px auto}.card{background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:clamp(22px,5vw,38px)}a{color:var(--primary);font-weight:800}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:8px 0 12px}.kicker{color:var(--gold);font-size:.75rem;text-transform:uppercase;letter-spacing:.13em;font-weight:900}h2{margin-top:28px;font-size:1.2rem}p,li{color:var(--muted)}.notice{background:#edf6f4;border-left:4px solid var(--primary);padding:13px 15px;border-radius:13px}.back{display:inline-block;margin-bottom:20px;text-decoration:none}code{font-size:.92em}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65}main{width:min(100% - 32px,820px);margin:34px auto}.card{background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:clamp(22px,5vw,38px)}a{color:var(--primary);font-weight:800}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin:8px 0 12px}.kicker{color:var(--gold);font-size:.75rem;text-transform:uppercase;letter-spacing:.13em;font-weight:900}h2{margin-top:28px;font-size:1.2rem}p,li{color:var(--muted)}.notice{background:#edf6f4;border-left:4px solid var(--primary);padding:13px 15px;border-radius:13px}.back{display:inline-block;margin-bottom:20px;text-decoration:none}code{font-size:.92em}.refs li{margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -18,15 +18,15 @@
 <a class="back" href="./">← Voltar ao RPD</a>
 <article class="card">
 <span class="kicker">Transparência · v2.3.1</span>
-<h1>Privacidade no RPD</h1>
+<h1>Privacidade e fundamentação do RPD</h1>
 <p>Atualizado em 5 de setembro de 2026.</p>
-<div class="notice"><strong>Resumo:</strong> o RPD funciona no navegador sem banco de dados próprio ou analytics. O conteúdo do registro não é persistido por padrão.</div>
+<div class="notice"><strong>Resumo:</strong> o RPD funciona no navegador sem banco de dados próprio ou analytics. O conteúdo clínico do registro não é persistido por padrão.</div>
 
 <h2>1. O que você pode preencher</h2>
 <p>A ferramenta permite registrar, voluntariamente, nome ou iniciais, data, situação, emoções ou estados, pensamentos, padrões cognitivos percebidos, medidas opcionais de desconforto e convicção, investigação, valores, ações possíveis e resposta alternativa. No modo essencial, parte desses campos não é solicitada.</p>
 
-<h2>2. Onde os dados ficam</h2>
-<p>Por padrão, o conteúdo é processado apenas na memória da página. A aplicação não usa <code>localStorage</code>, banco de dados próprio ou analytics para armazenar o conteúdo do registro.</p>
+<h2>2. Onde os dados do registro ficam</h2>
+<p>Por padrão, o conteúdo do registro é processado apenas na memória da página. A aplicação não usa <code>localStorage</code>, banco de dados próprio ou analytics para armazenar o conteúdo clínico do registro.</p>
 
 <h2>3. Rascunho opcional nesta aba</h2>
 <p>Se o usuário ativar explicitamente “Manter rascunho somente nesta aba”, o conteúdo é gravado em <code>sessionStorage</code>. O rascunho inclui respostas, etapa atual, modo essencial/completo e quais escalas foram realmente avaliadas. O recurso fica desligado por padrão.</p>
@@ -42,7 +42,8 @@
 <p>Ao escolher compartilhar, o RPD monta um resumo essencial ou o registro completo e abre o WhatsApp com texto pré-preenchido. O conteúdo é adaptado ao modo utilizado. O envio só ocorre se o próprio usuário confirmar no serviço externo.</p>
 
 <h2>7. Áudio e vídeo</h2>
-<p>O áudio <code>audio/rpd1-n3.mp3</code> é servido pelo próprio site. O vídeo utiliza <code>youtube-nocookie.com</code> e só é carregado depois que o usuário aciona o botão correspondente.</p>
+<p>O áudio <code>audio/rpd1-n3.mp3</code> é servido pelo próprio site. Para permitir que o player retome aproximadamente do ponto em que a reprodução parou, o controle de áudio pode guardar em <code>localStorage</code> apenas o identificador do áudio e o segundo de reprodução, sob a chave <code>rpd.audioProgress.n3</code>. Esse dado não contém respostas, emoções, pensamentos, nome, data ou qualquer conteúdo clínico do RPD.</p>
+<p>O vídeo utiliza <code>youtube-nocookie.com</code> e só é carregado depois que o usuário aciona o botão correspondente.</p>
 
 <h2>8. Hospedagem</h2>
 <p>O RPD é hospedado no GitHub Pages. A infraestrutura de hospedagem pode processar informações técnicas necessárias à operação e segurança conforme as políticas do GitHub.</p>
@@ -52,7 +53,17 @@
 
 <h2>10. Finalidade e limites</h2>
 <p>O RPD é uma ferramenta psicoeducativa inspirada na Terapia Cognitivo-Comportamental. Não é teste psicológico, prontuário profissional, diagnóstico nem substitui atendimento psicológico, médico ou de urgência.</p>
-<h2>11. Responsável profissional</h2>
+
+<h2>11. Fundamentação e adaptações</h2>
+<p>A arquitetura do modo completo dialoga com o registro de pensamentos utilizado em Terapia Cognitivo-Comportamental: situação, sentimentos/emoções, pensamentos automáticos, exame de evidências, formulação alternativa e reavaliação. O RPD não reproduz literalmente um formulário de terceiros; inclui adaptações próprias de linguagem, ergonomia, modo essencial, valores/ação possível, síntese, privacidade e compartilhamento deliberado.</p>
+<ul class="refs">
+<li><a href="https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/thought-record/" target="_blank" rel="noopener noreferrer">NHS · Every Mind Matters — Thought record</a>: referência pública para a estrutura de registro de pensamentos em sete prompts.</li>
+<li><a href="https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/reframing-unhelpful-thoughts/" target="_blank" rel="noopener noreferrer">NHS · Every Mind Matters — Reframing unhelpful thoughts</a>: referência para exame de evidências, explicações alternativas e formulação mais flexível, inclusive quando a mudança do pensamento não é possível naquele momento.</li>
+<li><a href="https://transparencia.cfp.org.br/crp10/pergunta-frequente/publicidade-profissional/" target="_blank" rel="noopener noreferrer">Sistema Conselhos de Psicologia — publicidade profissional</a>: referência pública para identificação profissional em divulgação de serviços de Psicologia.</li>
+</ul>
+<p>Essas referências dão transparência à base conceitual e às obrigações profissionais; não significam endosso institucional do RPD pelas organizações citadas.</p>
+
+<h2>12. Responsável profissional</h2>
 <p>Richelmy Murta Pinto · Psicólogo clínico · CRP 04/54.383.</p>
 <p>Esta identificação se refere à responsabilidade profissional pela ferramenta psicoeducativa e não transforma o RPD em prontuário, teste psicológico ou serviço de urgência.</p>
 <p><a href="./">Voltar ao RPD</a></p>
