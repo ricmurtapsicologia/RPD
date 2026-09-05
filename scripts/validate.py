@@ -11,6 +11,7 @@ css = (ROOT / "assets/css/app.css").read_text(encoding="utf-8")
 privacy = (ROOT / "privacidade.html").read_text(encoding="utf-8")
 readme = (ROOT / "README.md").read_text(encoding="utf-8")
 sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+audio_js = (ROOT / "assets/js/audio-n3.js").read_text(encoding="utf-8")
 
 required_html = [
     f'content="{version}"', f'app.css?v={version}', f'print.css?v={version}', f'app.js?v={version}',
@@ -51,12 +52,25 @@ for token in required_css:
     if token not in css:
         raise SystemExit(f"CSS crítico ausente/inconsistente: {token}")
 
-if f'Transparência · v{version}' not in privacy:
-    raise SystemExit('Política de privacidade com versão divergente')
-if 'CRP 04/54.383' not in privacy:
-    raise SystemExit('Identificação profissional ausente na política de privacidade')
-if f'Versão atual: v{version}' not in readme:
+required_privacy = [
+    f'Transparência · v{version}', 'CRP 04/54.383', 'sessionStorage', 'rpd.audioProgress.n3',
+    'identificador do áudio e o segundo de reprodução',
+    'https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/thought-record/',
+    'https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/reframing-unhelpful-thoughts/',
+    'https://transparencia.cfp.org.br/crp10/pergunta-frequente/publicidade-profissional/'
+]
+for token in required_privacy:
+    if token not in privacy:
+        raise SystemExit(f'Política/fundamentação incompleta: {token}')
+
+if 'rpd.audioProgress.n3' not in audio_js:
+    raise SystemExit('Chave de progresso do áudio divergente da política de privacidade')
+if f'Versão canônica: v{version}' not in readme:
     raise SystemExit('README com versão divergente')
+if 'scripts/validate.py' not in readme or 'scripts/validate.sh' in readme:
+    raise SystemExit('README com arquitetura de validação desatualizada')
+if 'rpd.audioProgress.n3' not in readme:
+    raise SystemExit('README não documenta persistência técnica do player de áudio')
 if '<lastmod>2026-09-05</lastmod>' not in sitemap:
     raise SystemExit('Sitemap sem lastmod da release')
 
@@ -84,10 +98,13 @@ obsolete = [
     'audio/rpd1-n2.mp3', 'assets/js/audio-n2.js', 'css/variables.css',
     'scripts/index_v230.patch', 'scripts/js_v230.patch', 'scripts/validate_v230.patch',
     'scripts/validate.sh', '.github/workflows/apply-v230.yml', '.github/workflows/issue-trigger-v230.yml',
-    '.github/workflows/remaster-audio-n2.yml'
+    '.github/workflows/remaster-audio-n2.yml', '.github/workflows/diagnose-v230-patches.yml',
+    '.github/workflows/harden-v231.yml', 'scripts/harden_v231.py',
+    'E2E_DIAGNOSTIC.txt', 'E2E_EXIT.txt', 'FINAL_E2E_DIAGNOSTIC.txt', 'FINAL_E2E_EXIT.txt',
+    'PATCH_DIAGNOSTIC.txt', 'RUNTIME_DIAGNOSTIC.txt', 'RUNTIME_EXIT.txt'
 ]
 for rel in obsolete:
     if (ROOT / rel).exists():
-        raise SystemExit(f'Legado ainda presente na árvore canônica: {rel}')
+        raise SystemExit(f'Legado/diagnóstico ainda presente na árvore canônica: {rel}')
 
 print(f'RPD v{version}: validação estrutural OK')
