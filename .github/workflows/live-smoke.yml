@@ -1,0 +1,43 @@
+name: RPD Live Smoke
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for GitHub Pages propagation and validate public release
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://ricmurtapsicologia.github.io/RPD"
+          SHA="${GITHUB_SHA}"
+          ok=0
+          for i in $(seq 1 36); do
+            echo "Public smoke attempt $i/36"
+            HTML="$(curl -fsSL --retry 2 --connect-timeout 10 -H 'Cache-Control: no-cache' "${BASE}/?revision=${SHA}&attempt=${i}" || true)"
+            PRIV="$(curl -fsSL --retry 2 --connect-timeout 10 -H 'Cache-Control: no-cache' "${BASE}/privacidade.html?revision=${SHA}&attempt=${i}" || true)"
+            JS="$(curl -fsSL --retry 2 --connect-timeout 10 -H 'Cache-Control: no-cache' "${BASE}/assets/js/app.js?v=2.3.1&revision=${SHA}&attempt=${i}" || true)"
+            if grep -Fq 'content="2.3.1"' <<<"$HTML" \
+              && grep -Fq 'Richelmy Murta Pinto · Psicólogo clínico · CRP 04/54.383' <<<"$HTML" \
+              && grep -Fq 'href="tel:188"' <<<"$HTML" \
+              && ! grep -Fq 'tel:+55188' <<<"$HTML" \
+              && grep -Fq 'Transparência · v2.3.1' <<<"$PRIV" \
+              && grep -Fq 'rpd.audioProgress.n3' <<<"$PRIV" \
+              && grep -Fq 'const VERSION="2.3.1"' <<<"$JS"; then
+              ok=1
+              break
+            fi
+            sleep 10
+          done
+          if [[ "$ok" != "1" ]]; then
+            echo 'Public GitHub Pages did not converge to RPD v2.3.1 within the smoke window.' >&2
+            exit 1
+          fi
+          echo 'RPD v2.3.1 public smoke: OK'
