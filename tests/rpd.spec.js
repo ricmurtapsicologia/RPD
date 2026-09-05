@@ -80,8 +80,9 @@ test('troca do modo completo para essencial não volta ao início', async ({ pag
 
 test('opções de não classificação são exclusivas com distorções específicas', async ({ page }) => {
   await reachStep3(page);
-  await page.locator('#distortion_special_0').check({ force: true });
-  await page.locator('#distortion_0').check({ force: true });
+  await page.locator('.quick-choice').filter({ hasText: 'Não sei ainda' }).click();
+  await expect(page.locator('#distortion_special_0')).toBeChecked();
+  await page.locator('.distortion-select').filter({ hasText: 'Catastrofização' }).click();
   await expect(page.locator('#distortion_0')).toBeChecked();
   await expect(page.locator('#distortion_special_0')).not.toBeChecked();
 });
