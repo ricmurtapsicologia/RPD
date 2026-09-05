@@ -82,6 +82,8 @@ test('opções de não classificação são exclusivas com distorções específ
   await reachStep3(page);
   await page.locator('.quick-choice').filter({ hasText: 'Não sei ainda' }).click();
   await expect(page.locator('#distortion_special_0')).toBeChecked();
+  await page.locator('.distortion-explore > summary').click();
+  await expect(page.locator('.distortion-explore')).toHaveAttribute('open', '');
   await page.locator('.distortion-select').filter({ hasText: 'Catastrofização' }).click();
   await expect(page.locator('#distortion_0')).toBeChecked();
   await expect(page.locator('#distortion_special_0')).not.toBeChecked();
