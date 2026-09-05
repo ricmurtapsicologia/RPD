@@ -1,12 +1,29 @@
 # RPD — Registro de Pensamentos
 
-**Versão atual: v2.3.0 — 02/08/2026**
+**Versão atual: v2.3.1 — 05/09/2026**
 
 Ferramenta web psicoeducativa para organizar situações, emoções ou estados, pensamentos automáticos, evidências, convicção cognitiva, valores, respostas alternativas e próximos passos.
 
 Aplicação: https://ricmurtapsicologia.github.io/RPD/
 
 > O RPD é um recurso psicoeducativo inspirado na Terapia Cognitivo-Comportamental. Não é teste psicológico, diagnóstico, prontuário profissional ou substituto de atendimento individualizado.
+
+## v2.3.1 — hardening, conformidade e consolidação
+
+Release canônica de saneamento. Consolida a v2.3.x como uma única implementação executável e elimina o drift entre documentação, assets e runtime.
+
+- identificação profissional pública padronizada como `Richelmy Murta Pinto · Psicólogo clínico · CRP 04/54.383`;
+- versão sincronizada entre HTML, JavaScript, package, README, privacidade, JSON-LD e assets;
+- botão do CVV corrigido para o tridígito nacional `188`;
+- política de privacidade sincronizada ao comportamento real do `sessionStorage`;
+- chave de rascunho estável `rpd_draft`, com versão de esquema e migração do legado;
+- melhorias de acessibilidade da v2.3 incorporadas ao runtime: progressbar semântica, erros ARIA, contraste, foco e reduced motion;
+- comportamento em telas muito pequenas corrigido;
+- modo essencial e modo completo novamente testados como fluxos independentes;
+- suíte Playwright ampliada para segurança, privacidade, acessibilidade, responsividade, PDF/print e mídia;
+- validação estrutural passa a derivar a versão do `package.json`, impedindo novo drift;
+- CI obrigatório em `main` e branches de release;
+- arquivos legados e patches transitórios removidos da árvore de produção, preservados na branch de rollback.
 
 ## v2.3.0 — hardening técnico, acessibilidade e consistência entre modos
 
@@ -71,7 +88,7 @@ Principais correções:
 - `index.html` voltou a ser um documento HTML estático completo;
 - removida a dependência de composição da página por Jekyll `_includes`;
 - adicionado `.nojekyll` para servir os arquivos exatamente como estão no repositório;
-- áudio explicativo restaurado e mantido sempre visível, servido por `./RPD1.mp3`;
+- áudio explicativo restaurado e mantido sempre visível, servido por `./audio/rpd1-n3.mp3`;
 - vídeo explicativo restaurado como recurso sempre visível e carregado sob demanda via `youtube-nocookie.com`;
 - guia de distorções permanece acessível por diálogo contextual;
 - CSS refeito com foco em consistência desktop/mobile, grids resilientes e prevenção de overflow;
@@ -149,7 +166,7 @@ Aplicação estática sem framework e sem dependências JavaScript de terceiros 
 ├── README.md
 ├── robots.txt
 ├── sitemap.xml
-├── RPD1.mp3
+├── audio/rpd1-n3.mp3
 ├── .nojekyll
 ├── assets/
 │   ├── favicon.svg
@@ -170,7 +187,7 @@ A validação de regressão deve verificar, no mínimo:
 - sintaxe JavaScript;
 - sete etapas presentes;
 - IDs HTML sem duplicação;
-- áudio `RPD1.mp3` presente;
+- áudio `audio/rpd1-n3.mp3` presente;
 - botão de vídeo e carregamento do iframe presentes;
 - campos de convicção antes/depois;
 - emoção `Outra` com campo de especificação;
@@ -179,6 +196,6 @@ A validação de regressão deve verificar, no mínimo:
 
 ## Autoria
 
-**Richelmy Murta · Psicólogo clínico**
+**Richelmy Murta Pinto · Psicólogo clínico · CRP 04/54.383**
 
 A identificação profissional completa deve seguir as regras aplicáveis à divulgação profissional. Não inserir número de registro sem verificação da informação.

@@ -1,9 +1,11 @@
 (()=>{
 "use strict";
-const VERSION="2.2.0";
+const VERSION="2.3.1";
 const WHATSAPP="5535984640729";
 const PAGE_URL="https://ricmurtapsicologia.github.io/RPD/";
-const DRAFT_KEY=`rpd_draft_v${VERSION.replace(/\./g,"_")}`;
+const DRAFT_KEY="rpd_draft";
+const DRAFT_SCHEMA=1;
+const LEGACY_DRAFT_KEYS=["rpd_draft_v2_2_0","rpd_draft_v2_3_0"];
 
 const EMOTIONS=["Ansiedade","Tristeza","Raiva","Culpa","Medo","Vergonha","Frustração","Insegurança","Desânimo","Solidão","Confusão","Alívio","Alegria","Outra"];
 
@@ -33,6 +35,7 @@ let step=1;
 let mode="full";
 let dirty=false;
 let pendingAction=null;
+let editingFromSummary=false;
 
 const rangeTouched={
   before:false,
@@ -76,6 +79,75 @@ function escapeAttr(text){
     .replace(/"/g,"&quot;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;");
+}
+
+
+function enhanceMarkup(){
+  const progressCard=$(".progress-card");
+  if(progressCard){
+    progressCard.id="progressCard";
+    progressCard.setAttribute("role","progressbar");
+    progressCard.setAttribute("aria-valuemin","1");
+    progressCard.setAttribute("aria-valuemax","7");
+    progressCard.setAttribute("aria-valuenow","1");
+    progressCard.setAttribute("aria-valuetext","Etapa 1 de 7 · modo completo");
+    $(".progress-track",progressCard)?.setAttribute("aria-hidden","true");
+  }
+
+  const form=$("#rpdForm");
+  if(form && !$("#editReturnBar")){
+    const bar=document.createElement("div");
+    bar.id="editReturnBar";
+    bar.className="edit-return-bar";
+    bar.hidden=true;
+    bar.innerHTML='<span>Você está editando um bloco da síntese.</span><button id="returnSummary" class="btn btn-secondary btn-small" type="button">Salvar alteração e voltar à síntese</button>';
+    form.before(bar);
+  }
+
+  const step5=$(".step[data-step=\"5\"]");
+  if(step5){
+    const title=$("h3",step5);
+    if(title)title.id="step5Title";
+    const intent=$(".stage-intent",step5);
+    if(intent)intent.id="step5Intent";
+    $(".inline-help",step5)?.classList.add("full-mode-only");
+    $("#value")?.closest(".field")?.classList.add("full-mode-only");
+    $("#distance")?.closest(".field")?.classList.add("full-mode-only");
+    const actionLabel=$("label[for=\"action\"]",step5);
+    if(actionLabel)actionLabel.id="actionLabel";
+  }
+
+  const response=$("#response");
+  if(response){
+    response.removeAttribute("required");
+    const field=response.closest(".field");
+    if(field && !$("#responsePending")){
+      const pending=document.createElement("label");
+      pending.className="response-pending";
+      pending.innerHTML='<input id="responsePending" type="checkbox"> Ainda não consigo formular uma resposta alternativa neste momento.';
+      response.after(pending);
+    }
+  }
+
+  const badge=$(".print-badge");
+  if(badge)badge.id="pModeBadge";
+  const valuesHead=$("#pValues")?.previousElementSibling;
+  if(valuesHead)valuesHead.id="pValuesHead";
+  const thoughtSection=$("#pThought")?.closest(".print-section");
+  if(thoughtSection && !$("#pInitialMeasures")){
+    const section=document.createElement("section");
+    section.className="print-section print-essential-only";
+    section.hidden=true;
+    section.innerHTML='<div class="print-section-head">3 · Medidas iniciais</div><div class="print-body" id="pInitialMeasures"></div>';
+    thoughtSection.after(section);
+  }
+  [
+    $("#pEvidenceGrid"),
+    $("#pAlternative")?.closest(".print-section"),
+    $("#pResponse")?.closest(".print-section"),
+    ...$$(".print-change"),
+    $("#pState")?.closest(".print-section")
+  ].filter(Boolean).forEach(el=>el.classList.add("print-full-only"));
 }
 
 function setupChoices(){
@@ -156,9 +228,6 @@ function bindRange(id,outId){
     }
   });
 
-  input.addEventListener("pointerdown",()=>{
-    if(!rangeTouched[id])markRange(id,outId);
-  });
 
   if(!rangeTouched[id]){
     out.textContent="Não avaliado";
@@ -189,10 +258,15 @@ function progress(){
   const total=seq.length;
   const pos=Math.max(0,index)+1;
 
-  $("#progressLabel").textContent=
-    `${mode==="full"?"Etapa":"Passo"} ${pos} de ${total} · modo ${mode==="full"?"completo":"essencial"}`;
-
+  const progressText=`${mode==="full"?"Etapa":"Passo"} ${pos} de ${total} · modo ${mode==="full"?"completo":"essencial"}`;
+  $("#progressLabel").textContent=progressText;
   $("#progressBar").style.width=`${(pos/total)*100}%`;
+  const progressCard=$("#progressCard");
+  if(progressCard){
+    progressCard.setAttribute("aria-valuemax",String(total));
+    progressCard.setAttribute("aria-valuenow",String(pos));
+    progressCard.setAttribute("aria-valuetext",progressText);
+  }
 
   $$(".step").forEach(el=>{
     const stepNumber=Number(el.dataset.step);
@@ -214,7 +288,11 @@ function showStep(n,scroll=true){
 
   progress();
 
-  if(step===7)renderSummary();
+  if(step===7){
+    renderSummary();
+    editingFromSummary=false;
+    $("#editReturnBar").hidden=true;
+  }
 
   if(scroll){
     $("#form-area").scrollIntoView({behavior:"smooth",block:"start"});
@@ -232,21 +310,44 @@ function navigate(delta){
   showStep(next);
 }
 
+function syncModeUi(){
+  const essential=mode==="essential";
+  $$(".full-mode-only").forEach(el=>el.hidden=essential);
+  const title=$("#step5Title");
+  const intent=$("#step5Intent");
+  const actionLabel=$("#actionLabel");
+  if(title)title.textContent=essential?"Próximo passo":"Valores e ação possível";
+  if(intent)intent.textContent=essential
+    ?"Escolha apenas um próximo passo pequeno e possível. Se não houver um agora, pode pular."
+    :"Se fizer sentido, escolha uma direção de ação. Você pode pular esta parte.";
+  if(actionLabel)actionLabel.innerHTML=essential
+    ?'Qual pequeno próximo passo é possível agora? <span class="field-meta">opcional</span>'
+    :'Qual pequena ação seria coerente com esse valor? <span class="field-meta">opcional</span>';
+  const action=$("#action");
+  if(action)action.placeholder=essential
+    ?"Escolha algo pequeno, concreto e possível para agora."
+    :"Escolha algo concreto, proporcional e possível.";
+}
+
+function mappedStepForMode(current,nextMode){
+  const seq=SEQUENCES[nextMode];
+  if(seq.includes(current))return current;
+  return seq.find(n=>n>current) ?? seq[seq.length-1];
+}
+
 function setMode(nextMode,announce=true){
   if(!SEQUENCES[nextMode])return;
-
+  const previousStep=step;
   mode=nextMode;
-
   const radio=$(nextMode==="full"?"#modeFull":"#modeEssential");
   if(radio)radio.checked=true;
-
-  if(!currentSequence().includes(step)){
-    step=1;
-    showStep(1,false);
+  syncModeUi();
+  const mapped=mappedStepForMode(previousStep,nextMode);
+  if(mapped!==previousStep){
+    showStep(mapped,false);
   }else{
     progress();
   }
-
   if(announce){
     toast(
       mode==="essential"
@@ -254,24 +355,31 @@ function setMode(nextMode,announce=true){
         :"Modo completo: sete etapas do RPD."
     );
   }
-
   saveDraft();
 }
 
 function clearErrors(root=document){
   $$(".has-error",root).forEach(el=>el.classList.remove("has-error"));
   $$(".field-error",root).forEach(el=>el.textContent="");
+  $$("[aria-invalid=\"true\"]",root).forEach(el=>{
+    el.removeAttribute("aria-invalid");
+    const described=el.getAttribute("aria-describedby");
+    if(described && described.endsWith("-error"))el.removeAttribute("aria-describedby");
+  });
 }
 
 function fieldError(el,message){
   const field=el.closest(".field");
-
   if(field){
     field.classList.add("has-error");
     const box=$(".field-error",field);
-    if(box)box.textContent=message;
+    if(box){
+      if(!box.id)box.id=`${el.id||"field"}-error`;
+      box.textContent=message;
+      el.setAttribute("aria-describedby",box.id);
+    }
   }
-
+  el.setAttribute("aria-invalid","true");
   el.focus();
 }
 
@@ -298,11 +406,18 @@ function validateStep(n=step){
     return false;
   }
 
+  if(n===6 && mode==="full" && !val("response") && !$("#responsePending")?.checked){
+    fieldError($("#response"),"Escreva uma resposta alternativa ou marque que ainda não consegue formulá-la.");
+    return false;
+  }
+
   return true;
 }
 
 function formState(){
   const state={
+    schemaVersion:DRAFT_SCHEMA,
+    appVersion:VERSION,
     step,
     mode,
     draftEnabled:$("#draftToggle").checked,
@@ -339,37 +454,60 @@ function rangeOutId(id){
   }[id];
 }
 
-function restoreDraft(){
-  let raw=null;
-
+function readDraftRaw(){
   try{
-    raw=sessionStorage.getItem(DRAFT_KEY);
+    const current=sessionStorage.getItem(DRAFT_KEY);
+    if(current)return current;
+    for(const key of LEGACY_DRAFT_KEYS){
+      const legacy=sessionStorage.getItem(key);
+      if(legacy){
+        sessionStorage.setItem(DRAFT_KEY,legacy);
+        sessionStorage.removeItem(key);
+        return legacy;
+      }
+    }
   }catch(e){}
+  return null;
+}
 
+function removeDraft(){
+  try{
+    sessionStorage.removeItem(DRAFT_KEY);
+    LEGACY_DRAFT_KEYS.forEach(key=>sessionStorage.removeItem(key));
+  }catch(e){}
+}
+
+function syncResponsePending(){
+  const pending=$("#responsePending");
+  const response=$("#response");
+  if(!pending || !response)return;
+  response.disabled=pending.checked;
+  response.setAttribute("aria-disabled",String(pending.checked));
+}
+
+function restoreDraft(){
+  const raw=readDraftRaw();
   if(!raw)return;
-
   try{
     const data=JSON.parse(raw);
     if(!data.draftEnabled)return;
-
+    if(data.schemaVersion && data.schemaVersion>DRAFT_SCHEMA){
+      removeDraft();
+      return;
+    }
     $("#draftToggle").checked=true;
-
     Object.entries(data.fields||{}).forEach(([id,value])=>{
       const el=$("#"+CSS.escape(id));
       if(el)el.value=value;
     });
-
     Object.entries(data.checks||{}).forEach(([id,value])=>{
       const el=$("#"+CSS.escape(id));
       if(el)el.checked=Boolean(value);
     });
-
     Object.assign(rangeTouched,data.rangeTouched||{});
-
     for(const [id,touched] of Object.entries(rangeTouched)){
       const input=$("#"+id);
       const out=$("#"+rangeOutId(id));
-
       if(input && out && touched){
         input.dataset.touched="true";
         out.textContent=`${input.value}/100`;
@@ -377,16 +515,14 @@ function restoreDraft(){
         input.setAttribute("aria-valuetext",`${input.value} de 100`);
       }
     }
-
     setMode(data.mode||"full",false);
     updateSelections();
+    syncResponsePending();
     $$("textarea").forEach(autoGrow);
     showStep(currentSequence().includes(data.step)?data.step:1,false);
     toast("Rascunho desta aba restaurado.");
   }catch(e){
-    try{
-      sessionStorage.removeItem(DRAFT_KEY);
-    }catch(_){}
+    removeDraft();
   }
 }
 
@@ -406,10 +542,12 @@ function data(){
     perspective:val("perspective")||"Não informado",
     status:val("status"),
     utility:val("utility"),
-    value:val("value")||"Não informado",
+    value:mode==="essential"?"Não se aplica no modo essencial":val("value")||"Não informado",
     action:val("action")||"Não informado",
-    distance:val("distance")||"Não informado",
-    response:mode==="essential"?"Não preenchida no modo essencial":val("response"),
+    distance:mode==="essential"?"Não se aplica no modo essencial":val("distance")||"Não informado",
+    response:mode==="essential"
+      ?"Não preenchida no modo essencial"
+      :($("#responsePending")?.checked?"Ainda não consigo formular uma resposta alternativa neste momento.":val("response")),
     beliefAfter:mode==="essential"?"Não avaliado":rangeText("beliefAfter"),
     stateNow:mode==="essential"?"Não avaliado":val("stateNow")||"Não informado",
     after:mode==="essential"?"Não avaliado":rangeText("after")
@@ -490,11 +628,11 @@ function renderSummary(){
   }
 
   summary.append(
-    makeGroup(mode==="full"?"Como quero responder":"O que posso fazer agora",5,[
-      ["Valor importante",d.value],
-      ["Pequena ação possível",d.action],
-      ["Se o pensamento não comandasse minha ação",d.distance]
-    ])
+    makeGroup(mode==="full"?"Como quero responder":"O que posso fazer agora",5,
+      mode==="full"
+        ?[["Valor importante",d.value],["Pequena ação possível",d.action],["Se o pensamento não comandasse minha ação",d.distance]]
+        :[["Próximo passo",d.action]]
+    )
   );
 
   if(mode==="full"){
@@ -556,9 +694,9 @@ function message(kind="full"){
     mode==="full"?`O que pode estar faltando: ${d.contrary}`:null,
     mode==="full"?`Outra explicação possível: ${d.alternative}`:null,
     mode==="full"?`Perspectiva externa: ${d.perspective}`:null,
-    `Valor importante: ${d.value}`,
-    `Pequena ação possível: ${d.action}`,
-    `Se o pensamento não comandasse a ação: ${d.distance}`,
+    mode==="full"?`Valor importante: ${d.value}`:null,
+    `${mode==="full"?"Pequena ação possível":"Próximo passo"}: ${d.action}`,
+    mode==="full"?`Se o pensamento não comandasse a ação: ${d.distance}`:null,
     mode==="full"?`Resposta alternativa: ${d.response}`:null,
     mode==="full"?`Convicção agora: ${d.beliefAfter}`:null,
     mode==="full"?`Estado emocional atual: ${d.stateNow}`:null,
@@ -576,40 +714,38 @@ function openWhatsApp(kind){
 
 function buildPrint(){
   const d=data();
-
+  const essential=mode==="essential";
+  $$(".print-full-only").forEach(el=>el.hidden=essential);
+  $$(".print-essential-only").forEach(el=>el.hidden=!essential);
+  setText("pModeBadge",essential?"Modo essencial":"Modo completo");
   setText("pIdentity",d.identity);
   setText("pDate",d.date);
   setText("pEmotions",d.emotions);
   setText("pSituation",d.situation);
-
   setText(
     "pThought",
-    `Pensamento automático: ${d.thought}\nConvicção inicial: ${d.beliefBefore}\nPadrões possíveis: ${d.distortions}\nClassificação atual: ${d.status}\nUtilidade percebida: ${d.utility}`
+    essential
+      ?`Pensamento automático: ${d.thought}\nConvicção inicial: ${d.beliefBefore}\nPadrões possíveis: ${d.distortions}`
+      :`Pensamento automático: ${d.thought}\nConvicção inicial: ${d.beliefBefore}\nPadrões possíveis: ${d.distortions}\nClassificação atual: ${d.status}\nUtilidade percebida: ${d.utility}`
   );
-
-  setText("pSupporting",mode==="full"?d.supporting:"Não preenchido no modo essencial");
-  setText("pContrary",mode==="full"?d.contrary:"Não preenchido no modo essencial");
-  setText(
-    "pAlternative",
-    mode==="full"
-      ?`Outra explicação: ${d.alternative}\nPerspectiva externa: ${d.perspective}`
-      :"Não preenchido no modo essencial"
-  );
-
+  setText("pInitialMeasures",`Desconforto inicial: ${d.before}\nConvicção inicial: ${d.beliefBefore}`);
+  setText("pSupporting",d.supporting);
+  setText("pContrary",d.contrary);
+  setText("pAlternative",`Outra explicação: ${d.alternative}\nPerspectiva externa: ${d.perspective}`);
+  setText("pValuesHead",essential?"4 · Próximo passo":"6 · Valores e ação possível");
   setText(
     "pValues",
-    `Valor importante: ${d.value}\nPequena ação possível: ${d.action}\nSe o pensamento não comandasse a ação: ${d.distance}`
+    essential
+      ?`Próximo passo: ${d.action}`
+      :`Valor importante: ${d.value}\nPequena ação possível: ${d.action}\nSe o pensamento não comandasse a ação: ${d.distance}`
   );
-
   setText("pResponse",d.response);
   setText("pBeliefBefore",d.beliefBefore);
   setText("pBeliefAfter",d.beliefAfter);
   setText("pBefore",d.before);
   setText("pAfter",d.after);
   setText("pState",`Estado emocional atual: ${d.stateNow}`);
-
   $("#pEvidenceGrid").classList.toggle("stack",(d.supporting.length+d.contrary.length)>900);
-
   const now=new Date();
   setText(
     "pGenerated",
@@ -669,9 +805,10 @@ function clearForm(){
 
   resetRanges();
 
-  try{
-    sessionStorage.removeItem(DRAFT_KEY);
-  }catch(e){}
+  removeDraft();
+  editingFromSummary=false;
+  $("#editReturnBar").hidden=true;
+  syncResponsePending();
 
   dirty=false;
   setMode("full",false);
@@ -713,14 +850,17 @@ function bindEvents(){
       handleDistortionChange(target);
     }
 
+    if(target.id==="responsePending"){
+      syncResponsePending();
+      clearErrors(target.closest(".field")||document);
+    }
+
     if(target.id==="draftToggle"){
       if(target.checked){
         saveDraft();
         toast("Rascunho será mantido somente nesta aba.");
       }else{
-        try{
-          sessionStorage.removeItem(DRAFT_KEY);
-        }catch(e){}
+        removeDraft();
         toast("Rascunho temporário desativado.");
       }
     }
@@ -752,6 +892,13 @@ function bindEvents(){
   $$(".prev").forEach(btn=>btn.addEventListener("click",()=>navigate(-1)));
 
   $("#skipValues")?.addEventListener("click",()=>navigate(1));
+  $("#returnSummary")?.addEventListener("click",()=>{
+    if(!editingFromSummary)return;
+    if(!validateStep(step))return;
+    editingFromSummary=false;
+    $("#editReturnBar").hidden=true;
+    showStep(7);
+  });
 
   document.addEventListener("click",event=>{
     const opener=event.target.closest("[data-open-dialog]");
@@ -763,8 +910,9 @@ function bindEvents(){
     const edit=event.target.closest(".edit-step");
     if(edit){
       const target=Number(edit.dataset.step);
-
       if(currentSequence().includes(target)){
+        editingFromSummary=true;
+        $("#editReturnBar").hidden=false;
         showStep(target);
       }else{
         toast("Esse bloco faz parte do modo completo.");
@@ -873,6 +1021,7 @@ function bindEvents(){
 }
 
 function init(){
+  enhanceMarkup();
   setupChoices();
   syncNavHeight();
 
@@ -884,6 +1033,7 @@ function init(){
   $("#date").value=localDate();
 
   updateSelections();
+  syncResponsePending();
   setMode("full",false);
   progress();
   bindEvents();

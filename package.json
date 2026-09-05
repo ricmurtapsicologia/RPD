@@ -1,9 +1,9 @@
 {
   "name": "rpd-registro-de-pensamentos",
   "private": true,
-  "version": "2.3.0",
+  "version": "2.3.1",
   "scripts": {
-    "validate": "bash scripts/validate.sh",
+    "validate": "python3 scripts/validate.py",
     "test:e2e": "playwright test"
   },
   "devDependencies": {

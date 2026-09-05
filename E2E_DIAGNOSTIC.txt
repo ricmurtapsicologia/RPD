@@ -1,0 +1,1144 @@
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:15] "GET / HTTP/1.1" 200 -
+
+
+Running 24 tests using 1 worker
+
+[1/24] tests/rpd.spec.js:34:1 › release, identificação profissional e links críticos estão coerentes
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:15] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:15] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:15] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:15] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:15] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:15] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[2/24] tests/rpd.spec.js:41:1 › áudio N3 e carregador de vídeo permanecem disponíveis e vídeo é opt-in
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:16] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:16] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:16] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:16] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:16] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:16] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[3/24] (retries) tests/rpd.spec.js:41:1 › áudio N3 e carregador de vídeo permanecem disponíveis e vídeo é opt-in (retry #1)
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:21] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:21] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:21] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:21] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:21] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:21] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+  1) tests/rpd.spec.js:41:1 › áudio N3 e carregador de vídeo permanecem disponíveis e vídeo é opt-in 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('#videoSlot iframe')
+    Expected pattern: /youtube-nocookie\.com/
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" locator('#videoSlot iframe') with timeout 5000ms
+      - waiting for locator('#videoSlot iframe')
+
+
+      43 |   await expect(page.locator('#videoSlot iframe')).toHaveCount(0);
+      44 |   await page.locator('#loadVideo').click();
+    > 45 |   await expect(page.locator('#videoSlot iframe')).toHaveAttribute('src', /youtube-nocookie\.com/);
+         |                                                   ^
+      46 | });
+      47 |
+      48 | test('sliders começam como não avaliados e só mudam após interação deliberada', async ({ page }) => {
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:45:51
+
+    Error Context: test-results/rpd-áudio-N3-e-carregador--cc575-isponíveis-e-vídeo-é-opt-in/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-áudio-N3-e-carregador--cc575-isponíveis-e-vídeo-é-opt-in/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-áudio-N3-e-carregador--cc575-isponíveis-e-vídeo-é-opt-in/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('#videoSlot iframe')
+    Expected pattern: /youtube-nocookie\.com/
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" locator('#videoSlot iframe') with timeout 5000ms
+      - waiting for locator('#videoSlot iframe')
+
+
+      43 |   await expect(page.locator('#videoSlot iframe')).toHaveCount(0);
+      44 |   await page.locator('#loadVideo').click();
+    > 45 |   await expect(page.locator('#videoSlot iframe')).toHaveAttribute('src', /youtube-nocookie\.com/);
+         |                                                   ^
+      46 | });
+      47 |
+      48 | test('sliders começam como não avaliados e só mudam após interação deliberada', async ({ page }) => {
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:45:51
+
+    Error Context: test-results/rpd-áudio-N3-e-carregador--cc575-isponíveis-e-vídeo-é-opt-in-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-áudio-N3-e-carregador--cc575-isponíveis-e-vídeo-é-opt-in-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-áudio-N3-e-carregador--cc575-isponíveis-e-vídeo-é-opt-in-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[4/24] tests/rpd.spec.js:48:1 › sliders começam como não avaliados e só mudam após interação deliberada
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:27] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:27] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:27] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:27] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:27] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:27] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[5/24] (retries) tests/rpd.spec.js:48:1 › sliders começam como não avaliados e só mudam após interação deliberada (retry #1)
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:34] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:34] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:34] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:34] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:34] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:34] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+  2) tests/rpd.spec.js:48:1 › sliders começam como não avaliados e só mudam após interação deliberada 
+
+    Error: expect(locator).not.toHaveText(expected) failed
+
+    Locator:  locator('#beforeOut')
+    Expected: not "Não avaliado"
+    Received: "Não avaliado"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "not toHaveText" locator('#beforeOut') with timeout 5000ms
+      - waiting for locator('#beforeOut')
+        14 × locator resolved to <output id="beforeOut" class="output is-empty">Não avaliado</output>
+           - unexpected value "Não avaliado"
+
+
+      52 |   await page.locator('#before').focus();
+      53 |   await page.keyboard.press('ArrowRight');
+    > 54 |   await expect(page.locator('#beforeOut')).not.toHaveText('Não avaliado');
+         |                                                ^
+      55 | });
+      56 |
+      57 | test('erros obrigatórios expõem estado ARIA e descrição associada', async ({ page }) => {
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:54:48
+
+    Error Context: test-results/rpd-sliders-começam-como-n-670de-m-após-interação-deliberada/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-sliders-começam-como-n-670de-m-após-interação-deliberada/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-sliders-começam-como-n-670de-m-após-interação-deliberada/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).not.toHaveText(expected) failed
+
+    Locator:  locator('#beforeOut')
+    Expected: not "Não avaliado"
+    Received: "Não avaliado"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "not toHaveText" locator('#beforeOut') with timeout 5000ms
+      - waiting for locator('#beforeOut')
+        14 × locator resolved to <output id="beforeOut" class="output is-empty">Não avaliado</output>
+           - unexpected value "Não avaliado"
+
+
+      52 |   await page.locator('#before').focus();
+      53 |   await page.keyboard.press('ArrowRight');
+    > 54 |   await expect(page.locator('#beforeOut')).not.toHaveText('Não avaliado');
+         |                                                ^
+      55 | });
+      56 |
+      57 | test('erros obrigatórios expõem estado ARIA e descrição associada', async ({ page }) => {
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:54:48
+
+    Error Context: test-results/rpd-sliders-começam-como-n-670de-m-após-interação-deliberada-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-sliders-começam-como-n-670de-m-após-interação-deliberada-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-sliders-começam-como-n-670de-m-após-interação-deliberada-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[6/24] tests/rpd.spec.js:57:1 › erros obrigatórios expõem estado ARIA e descrição associada
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:41] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:41] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:41] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:41] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:41] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:41] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[7/24] (retries) tests/rpd.spec.js:57:1 › erros obrigatórios expõem estado ARIA e descrição associada (retry #1)
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:47] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:47] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:47] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:47] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:47] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:47] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+  3) tests/rpd.spec.js:57:1 › erros obrigatórios expõem estado ARIA e descrição associada ──────────
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('#situation')
+    Expected: "true"
+    Received: ""
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('#situation') with timeout 5000ms
+      - waiting for locator('#situation')
+        14 × locator resolved to <textarea required="" id="situation" placeholder="Descreva o episódio de forma concreta."></textarea>
+           - unexpected value "null"
+
+
+      57 | test('erros obrigatórios expõem estado ARIA e descrição associada', async ({ page }) => {
+      58 |   await page.locator('.step[data-step="1"] .next').click();
+    > 59 |   await expect(page.locator('#situation')).toHaveAttribute('aria-invalid', 'true');
+         |                                            ^
+      60 |   await expect(page.locator('#situation')).toHaveAttribute('aria-describedby', 'situation-error');
+      61 |   await expect(page.locator('#situation-error')).not.toBeEmpty();
+      62 | });
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:59:44
+
+    Error Context: test-results/rpd-erros-obrigatórios-exp-09789--ARIA-e-descrição-associada/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-erros-obrigatórios-exp-09789--ARIA-e-descrição-associada/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-erros-obrigatórios-exp-09789--ARIA-e-descrição-associada/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('#situation')
+    Expected: "true"
+    Received: ""
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('#situation') with timeout 5000ms
+      - waiting for locator('#situation')
+        14 × locator resolved to <textarea required="" id="situation" placeholder="Descreva o episódio de forma concreta."></textarea>
+           - unexpected value "null"
+
+
+      57 | test('erros obrigatórios expõem estado ARIA e descrição associada', async ({ page }) => {
+      58 |   await page.locator('.step[data-step="1"] .next').click();
+    > 59 |   await expect(page.locator('#situation')).toHaveAttribute('aria-invalid', 'true');
+         |                                            ^
+      60 |   await expect(page.locator('#situation')).toHaveAttribute('aria-describedby', 'situation-error');
+      61 |   await expect(page.locator('#situation-error')).not.toBeEmpty();
+      62 | });
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:59:44
+
+    Error Context: test-results/rpd-erros-obrigatórios-exp-09789--ARIA-e-descrição-associada-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-erros-obrigatórios-exp-09789--ARIA-e-descrição-associada-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-erros-obrigatórios-exp-09789--ARIA-e-descrição-associada-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[8/24] tests/rpd.spec.js:64:1 › barra de progresso tem semântica e acompanha modo essencial
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:53] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:53] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:53] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:53] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:53] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:53] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[9/24] (retries) tests/rpd.spec.js:64:1 › barra de progresso tem semântica e acompanha modo essencial (retry #1)
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:59] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:59] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:59] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:59] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:59] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:26:59] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+  4) tests/rpd.spec.js:64:1 › barra de progresso tem semântica e acompanha modo essencial ──────────
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('#progressCard')
+    Expected: "5"
+    Received: "7"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('#progressCard') with timeout 5000ms
+      - waiting for locator('#progressCard')
+        14 × locator resolved to <div id="progressCard" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1" role="progressbar" class="progress-card" aria-label="Progresso da trilha" aria-valuetext="Etapa 1 de 7 · modo completo">…</div>
+           - unexpected value "7"
+
+
+      66 |   await expect(page.locator('#progressCard')).toHaveAttribute('aria-valuemax', '7');
+      67 |   await page.locator('#modeEssential').check({ force: true });
+    > 68 |   await expect(page.locator('#progressCard')).toHaveAttribute('aria-valuemax', '5');
+         |                                               ^
+      69 |   await expect(page.locator('#progressLabel')).toContainText('Passo 1 de 5');
+      70 | });
+      71 |
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:68:47
+
+    Error Context: test-results/rpd-barra-de-progresso-tem-bf775--e-acompanha-modo-essencial/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-barra-de-progresso-tem-bf775--e-acompanha-modo-essencial/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-barra-de-progresso-tem-bf775--e-acompanha-modo-essencial/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('#progressCard')
+    Expected: "5"
+    Received: "7"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('#progressCard') with timeout 5000ms
+      - waiting for locator('#progressCard')
+        14 × locator resolved to <div id="progressCard" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1" role="progressbar" class="progress-card" aria-label="Progresso da trilha" aria-valuetext="Etapa 1 de 7 · modo completo">…</div>
+           - unexpected value "7"
+
+
+      66 |   await expect(page.locator('#progressCard')).toHaveAttribute('aria-valuemax', '7');
+      67 |   await page.locator('#modeEssential').check({ force: true });
+    > 68 |   await expect(page.locator('#progressCard')).toHaveAttribute('aria-valuemax', '5');
+         |                                               ^
+      69 |   await expect(page.locator('#progressLabel')).toContainText('Passo 1 de 5');
+      70 | });
+      71 |
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:68:47
+
+    Error Context: test-results/rpd-barra-de-progresso-tem-bf775--e-acompanha-modo-essencial-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-barra-de-progresso-tem-bf775--e-acompanha-modo-essencial-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-barra-de-progresso-tem-bf775--e-acompanha-modo-essencial-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[10/24] tests/rpd.spec.js:72:1 › troca do modo completo para essencial não volta ao início
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:04] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:04] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:04] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:04] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:04] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:04] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[11/24] (retries) tests/rpd.spec.js:72:1 › troca do modo completo para essencial não volta ao início (retry #1)
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:13] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:13] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:13] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:13] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:13] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:13] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+  5) tests/rpd.spec.js:72:1 › troca do modo completo para essencial não volta ao início ────────────
+
+    Test timeout of 8000ms exceeded.
+
+    Error: locator.check: Test timeout of 8000ms exceeded.
+    Call log:
+      - waiting for locator('#emotion_0')
+
+
+      4 |   await page.locator('#situation').fill('Recebi uma mensagem curta e fiquei em dúvida sobre o significado.');
+      5 |   await page.locator('.step[data-step="1"] .next').click();
+    > 6 |   await page.locator('#emotion_0').check({ force: true });
+        |                                    ^
+      7 |   await page.locator('.step[data-step="2"] .next').click();
+      8 |   await page.locator('#thought').fill('A pessoa deve estar chateada comigo.');
+      9 | }
+        at reachStep3 (/home/runner/work/RPD/RPD/tests/rpd.spec.js:6:36)
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:73:3
+
+    Error Context: test-results/rpd-troca-do-modo-completo-4085b-sencial-não-volta-ao-início/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-troca-do-modo-completo-4085b-sencial-não-volta-ao-início/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-troca-do-modo-completo-4085b-sencial-não-volta-ao-início/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Test timeout of 8000ms exceeded.
+
+    Error: locator.check: Test timeout of 8000ms exceeded.
+    Call log:
+      - waiting for locator('#emotion_0')
+
+
+      4 |   await page.locator('#situation').fill('Recebi uma mensagem curta e fiquei em dúvida sobre o significado.');
+      5 |   await page.locator('.step[data-step="1"] .next').click();
+    > 6 |   await page.locator('#emotion_0').check({ force: true });
+        |                                    ^
+      7 |   await page.locator('.step[data-step="2"] .next').click();
+      8 |   await page.locator('#thought').fill('A pessoa deve estar chateada comigo.');
+      9 | }
+        at reachStep3 (/home/runner/work/RPD/RPD/tests/rpd.spec.js:6:36)
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:73:3
+
+    Error Context: test-results/rpd-troca-do-modo-completo-4085b-sencial-não-volta-ao-início-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-troca-do-modo-completo-4085b-sencial-não-volta-ao-início-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-troca-do-modo-completo-4085b-sencial-não-volta-ao-início-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[12/24] tests/rpd.spec.js:81:1 › opções de não classificação são exclusivas com distorções específicas
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:22] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:22] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:22] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:22] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:22] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:22] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[13/24] (retries) tests/rpd.spec.js:81:1 › opções de não classificação são exclusivas com distorções específicas (retry #1)
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:31] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:31] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:31] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:31] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:31] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:31] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+  6) tests/rpd.spec.js:81:1 › opções de não classificação são exclusivas com distorções específicas 
+
+    Test timeout of 8000ms exceeded.
+
+    Error: locator.check: Test timeout of 8000ms exceeded.
+    Call log:
+      - waiting for locator('#emotion_0')
+
+
+      4 |   await page.locator('#situation').fill('Recebi uma mensagem curta e fiquei em dúvida sobre o significado.');
+      5 |   await page.locator('.step[data-step="1"] .next').click();
+    > 6 |   await page.locator('#emotion_0').check({ force: true });
+        |                                    ^
+      7 |   await page.locator('.step[data-step="2"] .next').click();
+      8 |   await page.locator('#thought').fill('A pessoa deve estar chateada comigo.');
+      9 | }
+        at reachStep3 (/home/runner/work/RPD/RPD/tests/rpd.spec.js:6:36)
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:82:3
+
+    Error Context: test-results/rpd-opções-de-não-classifi-21eff--com-distorções-específicas/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-opções-de-não-classifi-21eff--com-distorções-específicas/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-opções-de-não-classifi-21eff--com-distorções-específicas/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Test timeout of 8000ms exceeded.
+
+    Error: locator.check: Test timeout of 8000ms exceeded.
+    Call log:
+      - waiting for locator('#emotion_0')
+
+
+      4 |   await page.locator('#situation').fill('Recebi uma mensagem curta e fiquei em dúvida sobre o significado.');
+      5 |   await page.locator('.step[data-step="1"] .next').click();
+    > 6 |   await page.locator('#emotion_0').check({ force: true });
+        |                                    ^
+      7 |   await page.locator('.step[data-step="2"] .next').click();
+      8 |   await page.locator('#thought').fill('A pessoa deve estar chateada comigo.');
+      9 | }
+        at reachStep3 (/home/runner/work/RPD/RPD/tests/rpd.spec.js:6:36)
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:82:3
+
+    Error Context: test-results/rpd-opções-de-não-classifi-21eff--com-distorções-específicas-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-opções-de-não-classifi-21eff--com-distorções-específicas-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-opções-de-não-classifi-21eff--com-distorções-específicas-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[14/24] tests/rpd.spec.js:89:1 › modo essencial mostra apenas próximo passo na etapa de ação
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:40] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:40] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:40] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:40] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:40] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:40] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[15/24] (retries) tests/rpd.spec.js:89:1 › modo essencial mostra apenas próximo passo na etapa de ação (retry #1)
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:48] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:48] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:48] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:48] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:48] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:48] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+  7) tests/rpd.spec.js:89:1 › modo essencial mostra apenas próximo passo na etapa de ação ──────────
+
+    Test timeout of 8000ms exceeded.
+
+    Error: locator.check: Test timeout of 8000ms exceeded.
+    Call log:
+      - waiting for locator('#emotion_0')
+
+
+      91 |   await page.locator('#situation').fill('Situação breve.');
+      92 |   await page.locator('.step[data-step="1"] .next').click();
+    > 93 |   await page.locator('#emotion_0').check({ force: true });
+         |                                    ^
+      94 |   await page.locator('.step[data-step="2"] .next').click();
+      95 |   await page.locator('#thought').fill('Algo vai dar errado.');
+      96 |   await page.locator('.step[data-step="3"] .next').click();
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:93:36
+
+    Error Context: test-results/rpd-modo-essencial-mostra--3f2bd-ximo-passo-na-etapa-de-ação/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-modo-essencial-mostra--3f2bd-ximo-passo-na-etapa-de-ação/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-modo-essencial-mostra--3f2bd-ximo-passo-na-etapa-de-ação/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Test timeout of 8000ms exceeded.
+
+    Error: locator.check: Test timeout of 8000ms exceeded.
+    Call log:
+      - waiting for locator('#emotion_0')
+
+
+      91 |   await page.locator('#situation').fill('Situação breve.');
+      92 |   await page.locator('.step[data-step="1"] .next').click();
+    > 93 |   await page.locator('#emotion_0').check({ force: true });
+         |                                    ^
+      94 |   await page.locator('.step[data-step="2"] .next').click();
+      95 |   await page.locator('#thought').fill('Algo vai dar errado.');
+      96 |   await page.locator('.step[data-step="3"] .next').click();
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:93:36
+
+    Error Context: test-results/rpd-modo-essencial-mostra--3f2bd-ximo-passo-na-etapa-de-ação-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-modo-essencial-mostra--3f2bd-ximo-passo-na-etapa-de-ação-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-modo-essencial-mostra--3f2bd-ximo-passo-na-etapa-de-ação-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[16/24] tests/rpd.spec.js:102:1 › resposta alternativa pode ser explicitamente adiada sem bloquear conclusão
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:57] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:57] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:57] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:57] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:57] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:27:57] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[17/24] (retries) tests/rpd.spec.js:102:1 › resposta alternativa pode ser explicitamente adiada sem bloquear conclusão (retry #1)
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:06] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:06] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:06] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:06] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:06] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:06] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+  8) tests/rpd.spec.js:102:1 › resposta alternativa pode ser explicitamente adiada sem bloquear conclusão 
+
+    Test timeout of 8000ms exceeded.
+
+    Error: locator.check: Test timeout of 8000ms exceeded.
+    Call log:
+      - waiting for locator('#emotion_0')
+
+
+      4 |   await page.locator('#situation').fill('Recebi uma mensagem curta e fiquei em dúvida sobre o significado.');
+      5 |   await page.locator('.step[data-step="1"] .next').click();
+    > 6 |   await page.locator('#emotion_0').check({ force: true });
+        |                                    ^
+      7 |   await page.locator('.step[data-step="2"] .next').click();
+      8 |   await page.locator('#thought').fill('A pessoa deve estar chateada comigo.');
+      9 | }
+        at reachStep3 (/home/runner/work/RPD/RPD/tests/rpd.spec.js:6:36)
+        at reachFullStep6 (/home/runner/work/RPD/RPD/tests/rpd.spec.js:24:3)
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:103:3
+
+    Error Context: test-results/rpd-resposta-alternativa-p-825ff-iada-sem-bloquear-conclusão/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-resposta-alternativa-p-825ff-iada-sem-bloquear-conclusão/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-resposta-alternativa-p-825ff-iada-sem-bloquear-conclusão/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Test timeout of 8000ms exceeded.
+
+    Error: locator.check: Test timeout of 8000ms exceeded.
+    Call log:
+      - waiting for locator('#emotion_0')
+
+
+      4 |   await page.locator('#situation').fill('Recebi uma mensagem curta e fiquei em dúvida sobre o significado.');
+      5 |   await page.locator('.step[data-step="1"] .next').click();
+    > 6 |   await page.locator('#emotion_0').check({ force: true });
+        |                                    ^
+      7 |   await page.locator('.step[data-step="2"] .next').click();
+      8 |   await page.locator('#thought').fill('A pessoa deve estar chateada comigo.');
+      9 | }
+        at reachStep3 (/home/runner/work/RPD/RPD/tests/rpd.spec.js:6:36)
+        at reachFullStep6 (/home/runner/work/RPD/RPD/tests/rpd.spec.js:24:3)
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:103:3
+
+    Error Context: test-results/rpd-resposta-alternativa-p-825ff-iada-sem-bloquear-conclusão-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-resposta-alternativa-p-825ff-iada-sem-bloquear-conclusão-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-resposta-alternativa-p-825ff-iada-sem-bloquear-conclusão-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[18/24] tests/rpd.spec.js:113:1 › edição pela síntese volta diretamente à síntese
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:14] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:14] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:14] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:14] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:14] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:14] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[19/24] (retries) tests/rpd.spec.js:113:1 › edição pela síntese volta diretamente à síntese (retry #1)
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:23] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:23] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:23] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:23] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:23] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:23] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+  9) tests/rpd.spec.js:113:1 › edição pela síntese volta diretamente à síntese ─────────────────────
+
+    Test timeout of 8000ms exceeded.
+
+    Error: locator.check: Test timeout of 8000ms exceeded.
+    Call log:
+      - waiting for locator('#emotion_0')
+
+
+      13 |   await page.locator('#situation').fill('Recebi uma mensagem curta.');
+      14 |   await page.locator('.step[data-step="1"] .next').click();
+    > 15 |   await page.locator('#emotion_0').check({ force: true });
+         |                                    ^
+      16 |   await page.locator('.step[data-step="2"] .next').click();
+      17 |   await page.locator('#thought').fill('Fiz algo errado.');
+      18 |   await page.locator('.step[data-step="3"] .next').click();
+        at reachEssentialSummary (/home/runner/work/RPD/RPD/tests/rpd.spec.js:15:36)
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:114:3
+
+    Error Context: test-results/rpd-edição-pela-síntese-volta-diretamente-à-síntese/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-edição-pela-síntese-volta-diretamente-à-síntese/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-edição-pela-síntese-volta-diretamente-à-síntese/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Test timeout of 8000ms exceeded.
+
+    Error: locator.check: Test timeout of 8000ms exceeded.
+    Call log:
+      - waiting for locator('#emotion_0')
+
+
+      13 |   await page.locator('#situation').fill('Recebi uma mensagem curta.');
+      14 |   await page.locator('.step[data-step="1"] .next').click();
+    > 15 |   await page.locator('#emotion_0').check({ force: true });
+         |                                    ^
+      16 |   await page.locator('.step[data-step="2"] .next').click();
+      17 |   await page.locator('#thought').fill('Fiz algo errado.');
+      18 |   await page.locator('.step[data-step="3"] .next').click();
+        at reachEssentialSummary (/home/runner/work/RPD/RPD/tests/rpd.spec.js:15:36)
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:114:3
+
+    Error Context: test-results/rpd-edição-pela-síntese-volta-diretamente-à-síntese-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-edição-pela-síntese-volta-diretamente-à-síntese-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-edição-pela-síntese-volta-diretamente-à-síntese-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[20/24] tests/rpd.spec.js:123:1 › rascunho é opt-in, usa chave estável e permanece restrito ao sessionStorage
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:32] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:32] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:32] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:32] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:32] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:32] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[21/24] (retries) tests/rpd.spec.js:123:1 › rascunho é opt-in, usa chave estável e permanece restrito ao sessionStorage (retry #1)
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:38] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:38] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:38] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:38] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:38] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:38] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+  10) tests/rpd.spec.js:123:1 › rascunho é opt-in, usa chave estável e permanece restrito ao sessionStorage 
+
+    Error: expect(received).not.toBeNull()
+
+    Received: null
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      125 |   await page.locator('#draftToggle').check();
+      126 |   await page.locator('#situation').fill('Rascunho deliberado.');
+    > 127 |   await expect.poll(() => page.evaluate(() => sessionStorage.getItem('rpd_draft'))).not.toBeNull();
+          |                                                                                         ^
+      128 |   await expect.poll(() => page.evaluate(() => localStorage.length)).toBe(0);
+      129 | });
+      130 |
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:127:89
+
+    Error Context: test-results/rpd-rascunho-é-opt-in-usa--5e154--restrito-ao-sessionStorage/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-rascunho-é-opt-in-usa--5e154--restrito-ao-sessionStorage/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-rascunho-é-opt-in-usa--5e154--restrito-ao-sessionStorage/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(received).not.toBeNull()
+
+    Received: null
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      125 |   await page.locator('#draftToggle').check();
+      126 |   await page.locator('#situation').fill('Rascunho deliberado.');
+    > 127 |   await expect.poll(() => page.evaluate(() => sessionStorage.getItem('rpd_draft'))).not.toBeNull();
+          |                                                                                         ^
+      128 |   await expect.poll(() => page.evaluate(() => localStorage.length)).toBe(0);
+      129 | });
+      130 |
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:127:89
+
+    Error Context: test-results/rpd-rascunho-é-opt-in-usa--5e154--restrito-ao-sessionStorage-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-rascunho-é-opt-in-usa--5e154--restrito-ao-sessionStorage-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-rascunho-é-opt-in-usa--5e154--restrito-ao-sessionStorage-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[22/24] tests/rpd.spec.js:131:1 › PDF/print essencial oculta seções do modo completo
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:44] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:44] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:44] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:44] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:44] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:44] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[23/24] (retries) tests/rpd.spec.js:131:1 › PDF/print essencial oculta seções do modo completo (retry #1)
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:52] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:52] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:52] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:52] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:52] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:28:52] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+  11) tests/rpd.spec.js:131:1 › PDF/print essencial oculta seções do modo completo ─────────────────
+
+    Test timeout of 8000ms exceeded.
+
+    Error: locator.check: Test timeout of 8000ms exceeded.
+    Call log:
+      - waiting for locator('#emotion_0')
+
+
+      13 |   await page.locator('#situation').fill('Recebi uma mensagem curta.');
+      14 |   await page.locator('.step[data-step="1"] .next').click();
+    > 15 |   await page.locator('#emotion_0').check({ force: true });
+         |                                    ^
+      16 |   await page.locator('.step[data-step="2"] .next').click();
+      17 |   await page.locator('#thought').fill('Fiz algo errado.');
+      18 |   await page.locator('.step[data-step="3"] .next').click();
+        at reachEssentialSummary (/home/runner/work/RPD/RPD/tests/rpd.spec.js:15:36)
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:133:3
+
+    Error Context: test-results/rpd-PDF-print-essencial-oculta-seções-do-modo-completo/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-PDF-print-essencial-oculta-seções-do-modo-completo/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-PDF-print-essencial-oculta-seções-do-modo-completo/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Test timeout of 8000ms exceeded.
+
+    Error: locator.check: Test timeout of 8000ms exceeded.
+    Call log:
+      - waiting for locator('#emotion_0')
+
+
+      13 |   await page.locator('#situation').fill('Recebi uma mensagem curta.');
+      14 |   await page.locator('.step[data-step="1"] .next').click();
+    > 15 |   await page.locator('#emotion_0').check({ force: true });
+         |                                    ^
+      16 |   await page.locator('.step[data-step="2"] .next').click();
+      17 |   await page.locator('#thought').fill('Fiz algo errado.');
+      18 |   await page.locator('.step[data-step="3"] .next').click();
+        at reachEssentialSummary (/home/runner/work/RPD/RPD/tests/rpd.spec.js:15:36)
+        at /home/runner/work/RPD/RPD/tests/rpd.spec.js:133:3
+
+    Error Context: test-results/rpd-PDF-print-essencial-oculta-seções-do-modo-completo-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rpd-PDF-print-essencial-oculta-seções-do-modo-completo-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/rpd-PDF-print-essencial-oculta-seções-do-modo-completo-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[24/24] tests/rpd.spec.js:142:1 › política de privacidade corresponde à release e identifica o responsável
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /privacidade.html HTTP/1.1" 200 -
+
+[25/24] tests/rpd.spec.js:150:3 › sem overflow horizontal em 320px
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[26/24] tests/rpd.spec.js:150:3 › sem overflow horizontal em 360px
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:01] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[27/24] tests/rpd.spec.js:150:3 › sem overflow horizontal em 390px
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[28/24] tests/rpd.spec.js:150:3 › sem overflow horizontal em 430px
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[29/24] tests/rpd.spec.js:150:3 › sem overflow horizontal em 768px
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[30/24] tests/rpd.spec.js:150:3 › sem overflow horizontal em 1024px
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[31/24] tests/rpd.spec.js:150:3 › sem overflow horizontal em 1366px
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[32/24] tests/rpd.spec.js:150:3 › sem overflow horizontal em 1440px
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:02] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[33/24] tests/rpd.spec.js:150:3 › sem overflow horizontal em 1920px
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[34/24] tests/rpd.spec.js:158:1 › em 390px a barra de progresso deixa de ser sticky
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+[35/24] tests/rpd.spec.js:164:1 › primeiro Tab expõe o link de salto para navegação por teclado
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /assets/css/app.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /assets/js/audio-n3.js?v=n3-20260831 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /assets/js/app.js?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /assets/css/print.css?v=2.3.1 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [05/Sep/2026 04:29:03] "GET /audio/rpd1-n3.mp3?v=n3-20260831 HTTP/1.1" 200 -
+
+  11 failed
+    tests/rpd.spec.js:41:1 › áudio N3 e carregador de vídeo permanecem disponíveis e vídeo é opt-in 
+    tests/rpd.spec.js:48:1 › sliders começam como não avaliados e só mudam após interação deliberada 
+    tests/rpd.spec.js:57:1 › erros obrigatórios expõem estado ARIA e descrição associada ───────────
+    tests/rpd.spec.js:64:1 › barra de progresso tem semântica e acompanha modo essencial ───────────
+    tests/rpd.spec.js:72:1 › troca do modo completo para essencial não volta ao início ─────────────
+    tests/rpd.spec.js:81:1 › opções de não classificação são exclusivas com distorções específicas ─
+    tests/rpd.spec.js:89:1 › modo essencial mostra apenas próximo passo na etapa de ação ───────────
+    tests/rpd.spec.js:102:1 › resposta alternativa pode ser explicitamente adiada sem bloquear conclusão 
+    tests/rpd.spec.js:113:1 › edição pela síntese volta diretamente à síntese ──────────────────────
+    tests/rpd.spec.js:123:1 › rascunho é opt-in, usa chave estável e permanece restrito ao sessionStorage 
+    tests/rpd.spec.js:131:1 › PDF/print essencial oculta seções do modo completo ───────────────────
+  13 passed (2.8m)

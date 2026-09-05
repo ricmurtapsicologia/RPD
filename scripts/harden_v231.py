@@ -26,15 +26,13 @@ def write(rel, content):
 
 
 def apply_v230_if_needed():
-    index = read("index.html")
-    if 'application-version" content="2.2.0"' not in index:
-        return
-    for patch in ["scripts/index_v230.patch", "scripts/js_v230.patch", "scripts/validate_v230.patch"]:
-        subprocess.run(["git", "apply", patch], cwd=ROOT, check=True)
+    js = read("assets/js/app.js")
+    if 'const VERSION="2.2.0"' in js:
+        subprocess.run(["git", "apply", "scripts/js_v230.patch"], cwd=ROOT, check=True)
 
 
 def harden_index():
-    s = read("index.html").replace("2.3.0", VERSION)
+    s = read("index.html").replace("2.2.0", VERSION).replace("2.3.0", VERSION)
     s = s.replace('<meta name="author" content="Richelmy Murta">', '<meta name="author" content="Richelmy Murta Pinto">')
     s = s.replace('"name":"Richelmy Murta","jobTitle":"Psicólogo clínico"', '"name":"Richelmy Murta Pinto","jobTitle":"Psicólogo clínico","identifier":"CRP 04/54.383"')
     s = s.replace("Richelmy Murta · Psicólogo clínico", PRO)
