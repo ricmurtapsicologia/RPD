@@ -67,7 +67,7 @@ if 'rpd.audioProgress.n3' not in audio_js:
     raise SystemExit('Chave de progresso do áudio divergente da política de privacidade')
 if f'Versão canônica: v{version}' not in readme:
     raise SystemExit('README com versão divergente')
-if 'scripts/validate.py' not in readme or 'scripts/validate.sh' in readme:
+if 'validate.py' not in readme or 'validate.sh' in readme:
     raise SystemExit('README com arquitetura de validação desatualizada')
 if 'rpd.audioProgress.n3' not in readme:
     raise SystemExit('README não documenta persistência técnica do player de áudio')
