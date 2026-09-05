@@ -1,0 +1,54 @@
+name: Harden RPD v2.3.1
+
+on:
+  push:
+    branches: ['release/rpd-v2.3.1-work-final']
+    paths: ['.github/workflows/harden-v231.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  harden:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: release/rpd-v2.3.1-work-final
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Apply v2.3.1 hardening
+        run: python3 scripts/harden_v231.py
+
+      - name: Create deterministic npm lock
+        run: npm install --package-lock-only
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Structural gate
+        run: npm run validate
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser regression gate
+        run: npm run test:e2e
+
+      - name: Remove one-time migration machinery
+        run: |
+          rm -f scripts/harden_v231.py
+          rm -f .github/workflows/harden-v231.yml
+
+      - name: Commit validated release candidate
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "release: RPD v2.3.1 hardening, conformidade e consolidação"
+          git push origin HEAD:release/rpd-v2.3.1-work-final
