@@ -43,133 +43,79 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
 
-          # Structural validator: dynamic emotion lives in JS and progress semantics move to a non-interactive child.
           p=Path('scripts/validate.py')
           s=p.read_text(encoding='utf-8')
-          s=s.replace("'Content-Security-Policy', 'assets/og-card.png', 'Não sei/não consigo nomear agora',",
-                      "'Content-Security-Policy', 'assets/og-card.png',")
-          s=s.replace("'renderSummary', 'buildPrint'\n]",
-                      "'renderSummary', 'buildPrint', 'Não sei/não consigo nomear agora'\n]")
-          s=s.replace('progressCard.setAttribute("role","progressbar")',
-                      'progressTrack.setAttribute("role","progressbar")')
+          s=s.replace("'Content-Security-Policy', 'assets/og-card.png', 'Não sei/não consigo nomear agora',", "'Content-Security-Policy', 'assets/og-card.png',")
+          s=s.replace("'renderSummary', 'buildPrint'\n]", "'renderSummary', 'buildPrint', 'Não sei/não consigo nomear agora'\n]")
+          s=s.replace('progressCard.setAttribute("role","progressbar")', 'progressTrack.setAttribute("role","progressbar")')
           s=s.replace("<lastmod>2026-09-05</lastmod>", "<lastmod>2026-09-07</lastmod>")
           p.write_text(s, encoding='utf-8')
 
           p=Path('README.md')
           s=p.read_text(encoding='utf-8')
-          s=s.replace("**Versão candidata: v2.3.2 — 2026-09-07**",
-                      "**Versão canônica: v2.3.2 — 07/09/2026**")
+          s=s.replace("**Versão candidata: v2.3.2 — 2026-09-07**", "**Versão canônica: v2.3.2 — 07/09/2026**")
           p.write_text(s, encoding='utf-8')
 
           p=Path('privacidade.html')
           s=p.read_text(encoding='utf-8')
-          s=s.replace('somente o identificador do áudio e o segundo aproximado de reprodução',
-                      'somente o identificador do áudio e o segundo de reprodução')
+          s=s.replace('somente o identificador do áudio e o segundo aproximado de reprodução', 'somente o identificador do áudio e o segundo de reprodução')
           p.write_text(s, encoding='utf-8')
 
-          # Axe: o container de progresso contém controles interativos; o role progressbar pertence à trilha visual.
           p=Path('assets/js/app.js')
           s=p.read_text(encoding='utf-8')
-          old='''    progressCard.setAttribute("role","progressbar");
-    progressCard.setAttribute("aria-valuemin","1");
-    progressCard.setAttribute("aria-valuemax","7");
-    progressCard.setAttribute("aria-valuenow","1");
-    progressCard.setAttribute("aria-valuetext","Etapa 1 de 7 · modo completo");
-    $(".progress-track",progressCard)?.setAttribute("aria-hidden","true");'''
-          new='''    const progressTrack=$(".progress-track",progressCard);
-    if(progressTrack){
-      progressTrack.setAttribute("role","progressbar");
-      progressTrack.setAttribute("aria-valuemin","1");
-      progressTrack.setAttribute("aria-valuemax","7");
-      progressTrack.setAttribute("aria-valuenow","1");
-      progressTrack.setAttribute("aria-valuetext","Etapa 1 de 7 · modo completo");
-    }'''
-          if old not in s:
-              raise SystemExit('bloco inicial de progresso não encontrado')
+          old='    progressCard.setAttribute("role","progressbar");\n    progressCard.setAttribute("aria-valuemin","1");\n    progressCard.setAttribute("aria-valuemax","7");\n    progressCard.setAttribute("aria-valuenow","1");\n    progressCard.setAttribute("aria-valuetext","Etapa 1 de 7 · modo completo");\n    $(".progress-track",progressCard)?.setAttribute("aria-hidden","true");'
+          new='    const progressTrack=$(".progress-track",progressCard);\n    if(progressTrack){\n      progressTrack.setAttribute("role","progressbar");\n      progressTrack.setAttribute("aria-valuemin","1");\n      progressTrack.setAttribute("aria-valuemax","7");\n      progressTrack.setAttribute("aria-valuenow","1");\n      progressTrack.setAttribute("aria-valuetext","Etapa 1 de 7 · modo completo");\n    }'
+          if old not in s: raise SystemExit('bloco inicial de progresso não encontrado')
           s=s.replace(old,new,1)
-          old='''  const progressCard=$("#progressCard");
-  if(progressCard){
-    progressCard.setAttribute("aria-valuemax",String(total));
-    progressCard.setAttribute("aria-valuenow",String(pos));
-    progressCard.setAttribute("aria-valuetext",progressText);
-  }'''
-          new='''  const progressTrack=$("#progressCard .progress-track");
-  if(progressTrack){
-    progressTrack.setAttribute("aria-valuemax",String(total));
-    progressTrack.setAttribute("aria-valuenow",String(pos));
-    progressTrack.setAttribute("aria-valuetext",progressText);
-  }'''
-          if old not in s:
-              raise SystemExit('bloco dinâmico de progresso não encontrado')
+          old='  const progressCard=$("#progressCard");\n  if(progressCard){\n    progressCard.setAttribute("aria-valuemax",String(total));\n    progressCard.setAttribute("aria-valuenow",String(pos));\n    progressCard.setAttribute("aria-valuetext",progressText);\n  }'
+          new='  const progressTrack=$("#progressCard .progress-track");\n  if(progressTrack){\n    progressTrack.setAttribute("aria-valuemax",String(total));\n    progressTrack.setAttribute("aria-valuenow",String(pos));\n    progressTrack.setAttribute("aria-valuetext",progressText);\n  }'
+          if old not in s: raise SystemExit('bloco dinâmico de progresso não encontrado')
           s=s.replace(old,new,1)
           p.write_text(s, encoding='utf-8')
 
-          # Axe: aria-label em div sem semântica é inválido; este é de fato um grupo de opções relacionadas.
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
           old='<div id="distortionQuick" class="distortion-quick" aria-label="Opções rápidas de classificação"></div>'
           new='<div id="distortionQuick" class="distortion-quick" role="group" aria-label="Opções rápidas de classificação"></div>'
-          if old not in s:
-              raise SystemExit('grupo rápido de distorções não encontrado')
+          if old not in s: raise SystemExit('grupo rápido de distorções não encontrado')
           s=s.replace(old,new,1)
           p.write_text(s, encoding='utf-8')
 
-          # Tests: current release assertions + semantic target for progressbar.
           p=Path('tests/rpd.spec.js')
           s=p.read_text(encoding='utf-8').replace('2.3.1','2.3.2')
-          s=s.replace("page.locator('#progressCard')).toHaveAttribute('role', 'progressbar')",
-                      "page.locator('#progressCard .progress-track')).toHaveAttribute('role', 'progressbar')")
-          s=s.replace("page.locator('#progressCard')).toHaveAttribute('aria-valuemax', '7')",
-                      "page.locator('#progressCard .progress-track')).toHaveAttribute('aria-valuemax', '7')")
-          s=s.replace("page.locator('#progressCard')).toHaveAttribute('aria-valuemax', '5')",
-                      "page.locator('#progressCard .progress-track')).toHaveAttribute('aria-valuemax', '5')")
+          s=s.replace("page.locator('#progressCard')).toHaveAttribute('role', 'progressbar')", "page.locator('#progressCard .progress-track')).toHaveAttribute('role', 'progressbar')")
+          s=s.replace("page.locator('#progressCard')).toHaveAttribute('aria-valuemax', '7')", "page.locator('#progressCard .progress-track')).toHaveAttribute('aria-valuemax', '7')")
+          s=s.replace("page.locator('#progressCard')).toHaveAttribute('aria-valuemax', '5')", "page.locator('#progressCard .progress-track')).toHaveAttribute('aria-valuemax', '5')")
           p.write_text(s, encoding='utf-8')
 
           p=Path('tests/runtime.spec.js')
           s=p.read_text(encoding='utf-8')
-          s=s.replace("page.locator('#progressCard')).toHaveAttribute('role', 'progressbar')",
-                      "page.locator('#progressCard .progress-track')).toHaveAttribute('role', 'progressbar')")
+          s=s.replace("page.locator('#progressCard')).toHaveAttribute('role', 'progressbar')", "page.locator('#progressCard .progress-track')).toHaveAttribute('role', 'progressbar')")
           p.write_text(s, encoding='utf-8')
 
-          # Cross-browser interaction: exercise the visible label rather than force-clicking visually hidden inputs.
           for rel in ['tests/rpd.spec.js','tests/hardening.spec.js']:
               p=Path(rel)
               s=p.read_text(encoding='utf-8')
-              s=s.replace("await page.locator('#emotion_0').check({ force: true });",
-                          "await page.locator('label.choice').first().click();\n  await expect(page.locator('#emotion_0')).toBeChecked();")
-              s=s.replace("await page.locator('#modeEssential').check({ force: true });",
-                          "await page.locator('label.mode-card').filter({ hasText: 'Essencial' }).click();\n  await expect(page.locator('#modeEssential')).toBeChecked();")
+              s=s.replace("await page.locator('#emotion_0').check({ force: true });", "await page.locator('label.choice').first().click();\n  await expect(page.locator('#emotion_0')).toBeChecked();")
+              s=s.replace("await page.locator('#modeEssential').check({ force: true });", "await page.locator('label.mode-card').filter({ hasText: 'Essencial' }).click();\n  await expect(page.locator('#modeEssential')).toBeChecked();")
               p.write_text(s, encoding='utf-8')
 
-          # New-record control is intentionally exposed at the summary; test the user-visible flow.
           p=Path('tests/hardening.spec.js')
           s=p.read_text(encoding='utf-8')
-          old='''test('novo registro elimina rascunho e respostas', async ({ page }) => {
-  await page.locator('#draftToggle').check();
-  await page.locator('#situation').fill('Conteúdo temporário.');
-  await page.locator('#newRecord').click();'''
-          new='''test('novo registro elimina rascunho e respostas', async ({ page }) => {
-  await page.locator('#draftToggle').check();
-  await reachEssentialSummary(page);
-  await expect(page.locator('#newRecord')).toBeVisible();
-  await page.locator('#newRecord').click();'''
-          if old not in s:
-              raise SystemExit('teste de novo registro não encontrado')
+          old="test('novo registro elimina rascunho e respostas', async ({ page }) => {\n  await page.locator('#draftToggle').check();\n  await page.locator('#situation').fill('Conteúdo temporário.');\n  await page.locator('#newRecord').click();"
+          new="test('novo registro elimina rascunho e respostas', async ({ page }) => {\n  await page.locator('#draftToggle').check();\n  await reachEssentialSummary(page);\n  await expect(page.locator('#newRecord')).toBeVisible();\n  await page.locator('#newRecord').click();"
+          if old not in s: raise SystemExit('teste de novo registro não encontrado')
           s=s.replace(old,new,1)
           p.write_text(s, encoding='utf-8')
 
-          # 400% reflow: 320 CSS px already represents 1280 px at 400%; CSS zoom=4 double-counted the zoom.
           p=Path('tests/a11y.spec.js')
           s=p.read_text(encoding='utf-8')
-          s=s.replace("test('reflow continua funcional em zoom equivalente a 400%', async ({ page }) => {\n  await page.setViewportSize({ width: 320, height: 800 });\n  await page.goto('/');\n  await page.evaluate(() => { document.documentElement.style.zoom = '4'; });",
-                      "test('reflow continua funcional em zoom equivalente a 400%', async ({ page }) => {\n  await page.setViewportSize({ width: 320, height: 800 });\n  await page.goto('/');")
+          s=s.replace("  await page.evaluate(() => { document.documentElement.style.zoom = '4'; });\n", "")
           p.write_text(s, encoding='utf-8')
 
-          # Visual snapshots have one canonical engine; functional/a11y compatibility remains cross-browser.
           p=Path('tests/visual.spec.js')
           s=p.read_text(encoding='utf-8')
-          s=s.replace("async ({ page }) => {\n    await page.setViewportSize",
-                      "async ({ page, browserName }) => {\n    test.skip(browserName !== 'chromium', 'baseline visual canônica em Chromium');\n    await page.setViewportSize")
+          s=s.replace("async ({ page }) => {\n    await page.setViewportSize", "async ({ page, browserName }) => {\n    test.skip(browserName !== 'chromium', 'baseline visual canônica em Chromium');\n    await page.setViewportSize")
           p.write_text(s, encoding='utf-8')
 
           p=Path('playwright.config.js')
