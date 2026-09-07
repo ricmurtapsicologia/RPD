@@ -26,6 +26,16 @@ jobs:
           python-version: '3.13'
       - name: Prepare image dependency
         run: python3 -m pip install --disable-pip-version-check Pillow
+      - name: Repair helper syntax and compile
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('scripts/apply_v232.py')
+          lines=p.read_text(encoding='utf-8').splitlines()
+          lines=[line for line in lines if not line.strip().startswith('readme = readme.replace("softwareVersion":')]
+          p.write_text('\n'.join(lines)+'\n', encoding='utf-8')
+          PY
+          python3 -m py_compile scripts/apply_v232.py
       - name: Apply v2.3.2 patch
         run: python3 scripts/apply_v232.py
       - name: Install accessibility dependency and refresh lockfile
