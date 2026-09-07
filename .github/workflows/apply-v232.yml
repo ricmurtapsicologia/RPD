@@ -38,6 +38,28 @@ jobs:
           python3 -m py_compile scripts/apply_v232.py
       - name: Apply v2.3.2 patch
         run: python3 scripts/apply_v232.py
+      - name: Normalize generated candidate and validation gates
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          # O novo rótulo de emoção nasce dinamicamente no JS, não no HTML estático.
+          p=Path('scripts/validate.py')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace("'Content-Security-Policy', 'assets/og-card.png', 'Não sei/não consigo nomear agora',",
+                      "'Content-Security-Policy', 'assets/og-card.png',")
+          s=s.replace("'renderSummary', 'buildPrint'\n]",
+                      "'renderSummary', 'buildPrint', 'Não sei/não consigo nomear agora'\n]")
+          s=s.replace("<lastmod>2026-09-05</lastmod>", "<lastmod>2026-09-07</lastmod>")
+          p.write_text(s, encoding='utf-8')
+
+          # A candidata validada é merge-ready e passa a canônica quando promovida.
+          p=Path('README.md')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace("**Versão candidata: v2.3.2 — 2026-09-07**",
+                      "**Versão canônica: v2.3.2 — 07/09/2026**")
+          p.write_text(s, encoding='utf-8')
+          PY
       - name: Install accessibility dependency and refresh lockfile
         run: npm install --save-dev @axe-core/playwright@latest
       - name: Install Playwright browsers
