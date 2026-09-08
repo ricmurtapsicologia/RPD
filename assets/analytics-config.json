@@ -1,0 +1,6 @@
+{
+  "enabled": false,
+  "endpoint": "",
+  "policy": "fail-closed",
+  "note": "Analytics permanece desativado ate existir endpoint proprio, gratuito e sem cobranca automatica."
+}
