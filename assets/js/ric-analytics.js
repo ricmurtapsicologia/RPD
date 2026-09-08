@@ -22,10 +22,12 @@
     try { return crypto.randomUUID(); } catch (_) { return `${Date.now()}-${Math.random().toString(36).slice(2)}`; }
   };
   let sessionId = '';
-  try {
-    sessionId = sessionStorage.getItem('ric_a_sid') || randomId();
-    sessionStorage.setItem('ric_a_sid', sessionId);
-  } catch (_) { sessionId = randomId(); }
+  if (PRIVACY === 'public') {
+    try {
+      sessionId = sessionStorage.getItem('ric_a_sid') || randomId();
+      sessionStorage.setItem('ric_a_sid', sessionId);
+    } catch (_) { sessionId = randomId(); }
+  }
 
   const configPromise = (async () => {
     if (navigator.doNotTrack === '1') return null;
@@ -50,10 +52,10 @@
       v: VERSION,
       ts: Date.now(),
       page: safe(PAGE_ID),
-      path: location.pathname.slice(0, 160),
+      path: PRIVACY === 'public' ? location.pathname.slice(0, 160) : '',
       event,
       privacy: safe(PRIVACY),
-      session: sessionId,
+      session: PRIVACY === 'public' ? sessionId : '',
       meta: safeMeta(details)
     };
     try {
@@ -94,7 +96,7 @@
       const step = el.closest?.('[data-step]')?.getAttribute('data-step');
       if (el.matches('.next,[data-next]')) track('funnel_step', {step: step || 'next'});
       if (el.id === 'loadVideo' || el.matches('[data-load-video]')) track('media_load', {media: 'video'});
-      if (el.matches('a[download]')) track('download', {target: el.getAttribute('href') || 'file'});
+      if (el.matches('a[download]')) track('download', {target: 'file'});
       const explicit = el.getAttribute('data-ric-event');
       if (explicit && allowedEvents.has(explicit)) track(explicit, {target: el.getAttribute('data-ric-target') || el.id || 'cta'});
     }, {passive: true});
