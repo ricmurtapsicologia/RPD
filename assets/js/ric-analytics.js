@@ -3,8 +3,12 @@
   const VERSION = '1.0.0';
   const CONFIG_URL = 'https://ricmurtapsicologia.github.io/RPD/assets/analytics-config.json';
   const meta = (name) => document.querySelector(`meta[name="${name}"]`)?.content || '';
-  const PAGE_ID = meta('ric-analytics-page') || location.pathname.replace(/^\/+|\/+$/g, '') || 'home';
+  let PAGE_ID = meta('ric-analytics-page') || location.pathname.replace(/^\/+|\/+$/g, '') || 'home';
   const PRIVACY = meta('ric-analytics-privacy') || 'health';
+  if (PAGE_ID === 'monitoramento') {
+    const instrument = new URLSearchParams(location.search).get('instrument') || '';
+    if (new Set(['humor','ansiedade','autoestima']).has(instrument)) PAGE_ID = `monitoramento-${instrument}`;
+  }
   const allowedEvents = new Set([
     'page_view','engaged_30s','cta_click','download','media_load','media_start',
     'funnel_start','funnel_step','funnel_complete','technical_error'
