@@ -1,0 +1,21 @@
+{
+  "version": "2026-09-09",
+  "ga4_measurement_id": "G-N1GEBDNZ8B",
+  "policies": {
+    "public": "GA4 only after visitor consent; no name, CPF, numero BM, form answers or clinical content.",
+    "health": "No GA4. Private collector may aggregate structural events only when a zero-cost private backend is active.",
+    "clinical": "No usage analytics; technical errors only when private collector is active."
+  },
+  "pages": [
+    {"id":"curso-ats","repo":"Curso-ATS","privacy":"public","ric_analytics":true,"ga4_via_core":true},
+    {"id":"cats-pouso-alegre","repo":"CATS.pousoalegre","privacy":"public","ric_analytics":true,"ga4_via_core":true},
+    {"id":"podcast-ats","repo":"Podcast-ATS-CBMMG","privacy":"public","ric_analytics":true,"ga4_direct_legacy":true,"ga4_via_core_events":true},
+    {"id":"rpd","repo":"RPD","privacy":"health","ric_analytics":true,"ga4_via_core":false},
+    {"id":"jornada-terapeutica","repo":"Inicio-de-Jornada-Terapeutica","privacy":"health","ric_analytics":true,"ga4_via_core":false},
+    {"id":"monitoramento","repo":"Inicio-de-Jornada-Terapeutica","privacy":"health","ric_analytics":true,"ga4_via_core":false},
+    {"id":"escala-codependencia","repo":"Escala-de-Co-Depenpencia-Emocional","privacy":"health","ric_analytics":true,"ga4_via_core":false},
+    {"id":"rastreio-borderline","repo":"Inventario-de-Tracos-Borderline","privacy":"health","ric_analytics":true,"ga4_via_core":false},
+    {"id":"guia-saude-mental","repo":"Guia-de-Apoio-a-Saude-Mental","privacy":"health","ric_analytics":true,"ga4_via_core":false},
+    {"id":"dai2","repo":"efetivoDAI2","privacy":"public","ric_analytics":false,"ga4_via_core":false,"status":"pending instrumentation"}
+  ]
+}
