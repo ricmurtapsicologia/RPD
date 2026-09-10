@@ -2,5 +2,11 @@
   "enabled": false,
   "endpoint": "",
   "policy": "fail-closed",
-  "note": "Analytics permanece desativado ate existir endpoint proprio, gratuito e sem cobranca automatica."
+  "public_ga4": {
+    "enabled_by_script": true,
+    "measurement_id": "G-N1GEBDNZ8B",
+    "consent_required": true,
+    "no_pii": true
+  },
+  "note": "O coletor proprio permanece desativado ate existir endpoint privado, gratuito e sem cobranca automatica. Em paginas classificadas como public, o RIC Analytics 1.1.1 pode usar GA4 somente apos consentimento; paginas health/clinical nao sao enviadas ao GA4."
 }
