@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const VERSION = '1.1.1';
+  const VERSION = '1.1.2';
   const CONFIG_URL = 'https://ricmurtapsicologia.github.io/RPD/assets/analytics-config.json';
   const DEFAULT_GA_ID = 'G-N1GEBDNZ8B';
   const CONSENT_KEY = 'ric_analytics_consent';
@@ -106,7 +106,7 @@
 
   function showConsent() {
     if (PRIVACY !== 'public' || DNT || consent() !== 'unknown' || document.getElementById('ric-analytics-consent')) return;
-    const box = document.createElement('aside');
+    const box = document.createElement('div');
     box.id = 'ric-analytics-consent';
     box.setAttribute('role', 'dialog');
     box.setAttribute('aria-label', 'Preferência de estatísticas de uso');
