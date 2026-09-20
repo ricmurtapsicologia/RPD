@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const VERSION = '1.1.2';
+  const VERSION = '1.1.3';
   const CONFIG_URL = 'https://ricmurtapsicologia.github.io/RPD/assets/analytics-config.json';
   const DEFAULT_GA_ID = 'G-N1GEBDNZ8B';
   const CONSENT_KEY = 'ric_analytics_consent';
@@ -19,10 +19,10 @@
   }
 
   const allowedEvents = new Set([
-    'page_view', 'engaged_30s', 'cta_click', 'download', 'media_load', 'media_start',
+    'page_view', 'engaged_30s', 'cta_click', 'download', 'media_load', 'media_start', 'share',
     'funnel_start', 'funnel_step', 'funnel_complete', 'auth_success', 'technical_error'
   ]);
-  const safeKeys = new Set(['action', 'target', 'step', 'media', 'status']);
+  const safeKeys = new Set(['action', 'target', 'step', 'media', 'status', 'method', 'content_type', 'item_id']);
   const safeMeta = (input = {}) => {
     const out = {};
     for (const [key, value] of Object.entries(input)) {
@@ -64,6 +64,12 @@
     window[`ga-disable-${GA_ID}`] = false;
     window.dataLayer = window.dataLayer || [];
     window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    window.gtag('consent', 'update', {
+      analytics_storage: 'granted',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
 
     if (!externalGaScript) {
       const script = document.createElement('script');
@@ -121,7 +127,7 @@
       box.remove();
       if (grant) {
         initGa4();
-        if (gaPageViewOwned) gaEvent('page_view');
+        gaEvent('page_view');
         reportAuthenticatedSession();
       } else {
         window[`ga-disable-${GA_ID}`] = true;
@@ -166,9 +172,9 @@
   async function track(event, details = {}) {
     if (!allowedEvents.has(event)) return false;
     if (PRIVACY === 'clinical' && event !== 'technical_error') return false;
-    const own = ownCollector(event, details);
-    gaEvent(event, details);
-    return own;
+    const ga = gaEvent(event, details);
+    const own = await ownCollector(event, details);
+    return Boolean(ga || own);
   }
 
   function validAuthSession(key) {
@@ -180,7 +186,7 @@
 
   function reportAuthenticatedSession() {
     if (PRIVACY !== 'public' || consent() !== 'granted') return;
-    const keys = PAGE_ID === 'cats-pouso-alegre' ? ['cats_pa_auth_v1'] : ['curso_ats_auth_v3'];
+    const keys = PAGE_ID === 'cats-pouso-alegre' || PAGE_ID === 'cats-precurso' ? ['cats_pa_auth_v1', 'curso_ats_auth_v3'] : ['curso_ats_auth_v3'];
     if (!keys.some(validAuthSession)) return;
     const onceKey = `ric_auth_${PAGE_ID}`;
     try {
@@ -188,6 +194,22 @@
       sessionStorage.setItem(onceKey, '1');
     } catch (_) {}
     track('auth_success', {status: 'authenticated'});
+  }
+
+  function linkTarget(el) {
+    const semantic = el.getAttribute('data-ric-target') || el.getAttribute('data-telemetry-id');
+    if (semantic) return safe(semantic);
+    const href = el.getAttribute('href') || '';
+    if (!href) return safe(el.id || 'cta');
+    try {
+      const url = new URL(href, location.href);
+      if (url.hostname === 'docs.google.com') return 'google-docs';
+      if (url.hostname === 'drive.google.com') return 'google-drive';
+      if (url.hostname.includes('youtube.com') || url.hostname === 'youtu.be') return 'youtube';
+      if (url.hostname === 'wa.me' || url.hostname.endsWith('whatsapp.com')) return 'whatsapp';
+      if (url.origin !== location.origin) return 'external-link';
+      return safe(url.pathname || 'internal-link');
+    } catch (_) { return safe(el.id || 'cta'); }
   }
 
   window.RICAnalytics = Object.freeze({track, version: VERSION, page: PAGE_ID, privacy: PRIVACY});
@@ -218,9 +240,29 @@
       const step = el.closest?.('[data-step]')?.getAttribute('data-step');
       if (el.matches('.next,[data-next]')) track('funnel_step', {step: step || 'next'});
       if (el.id === 'loadVideo' || el.matches('[data-load-video]')) track('media_load', {media: 'video'});
-      if (el.matches('a[download]')) track('download', {target: 'file'});
       const explicit = el.getAttribute('data-ric-event');
-      if (explicit && allowedEvents.has(explicit)) track(explicit, {target: el.getAttribute('data-ric-target') || el.id || 'cta'});
+      if (explicit && allowedEvents.has(explicit)) {
+        const details = {target: linkTarget(el)};
+        if (explicit === 'share') {
+          details.method = el.getAttribute('data-ric-method') || 'button';
+          details.content_type = el.getAttribute('data-ric-content-type') || 'page';
+          details.item_id = el.getAttribute('data-ric-item-id') || PAGE_ID;
+        }
+        track(explicit, details);
+        return;
+      }
+      if (el.matches('a[download]')) {
+        track('download', {target: linkTarget(el)});
+        return;
+      }
+      if (el.hasAttribute('data-telemetry-id')) {
+        track('cta_click', {target: linkTarget(el)});
+        return;
+      }
+      if (el.matches('a[href]')) {
+        const target = linkTarget(el);
+        if (['google-docs','google-drive','youtube','whatsapp','external-link'].includes(target)) track('cta_click', {target});
+      }
     }, {passive: true});
 
     document.addEventListener('play', (event) => {
