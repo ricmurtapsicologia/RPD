@@ -8,5 +8,5 @@
     "consent_required": true,
     "no_pii": true
   },
-  "note": "O coletor proprio permanece desativado ate existir endpoint privado, gratuito e sem cobranca automatica. Em paginas classificadas como public, o RIC Analytics 1.1.1 pode usar GA4 somente apos consentimento; paginas health/clinical nao sao enviadas ao GA4."
+  "note": "O coletor proprio permanece desativado ate existir endpoint privado, gratuito e sem cobranca automatica. Em paginas classificadas como public, o RIC Analytics 1.1.3 usa GA4 somente apos consentimento; paginas health/clinical nao sao enviadas ao GA4."
 }
